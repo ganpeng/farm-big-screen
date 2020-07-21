@@ -1,0 +1,77 @@
+<template>
+  <div id="rose-chart">
+    <dv-charts :option="option"/>
+  </div>
+</template>
+<script>
+export default {
+  name: "RoseChart",
+  data() {
+    return {
+      option: {}
+    };
+  },
+  methods: {
+    createData() {
+      const { randomExtend } = this;
+      this.option = {
+        series: [
+          {
+            type: "pie",
+            radius: "70%",
+            roseSort: false,
+            data: [
+              { name: "水稻", value: randomExtend(40, 70) },
+              { name: "大豆", value: randomExtend(20, 30) },
+              { name: "玉米", value: randomExtend(10, 50) },
+              { name: "高粱", value: randomExtend(5, 20) },
+              { name: "其他", value: randomExtend(40, 50) }
+            ],
+            insideLabel: {
+              show: false
+            },
+            outsideLabel: {
+              formatter: "{name} {percent}%",
+              labelLineEndLength: 20,
+              style: {
+                fill: "#fff"
+              },
+              labelLineStyle: {
+                stroke: "#fff"
+              }
+            },
+            roseType: true
+          }
+        ],
+        color: [
+          "#801b00",
+          "#a02200",
+          "#5d1400",
+          "#b72700"
+        ]
+      };
+    },
+    randomExtend(minNum, maxNum) {
+      if (arguments.length === 1) {
+        return parseInt(Math.random() * minNum + 1, 10);
+      } else {
+        return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+      }
+    }
+  },
+  mounted() {
+    const { createData } = this;
+    createData();
+    setInterval(createData, 30000);
+  }
+};
+</script>
+<style lang="scss" scoped>
+#rose-chart {
+  width: 100%;
+  height: 160px;
+  .dv-charts-container {
+    height: 160px;
+  }
+}
+</style>
