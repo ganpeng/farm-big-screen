@@ -1,3 +1,4 @@
+import _ from 'lodash';
 // 环形图数据
 const ringChartData1 = [
   {
@@ -106,9 +107,47 @@ const alertList = [
   }
 ]
 
+const warningList = [
+  {
+    title: '总数',
+    count: 22
+  },
+  {
+    title: '模型预警',
+    count: 10
+  },
+  {
+    title: '设备状态异常',
+    count: 5
+  },
+  {
+    title: '已处理',
+    count: 4
+  },
+  {
+    title: '未处理',
+    count: 1
+  }
+];
+
+const warningTableList = _.times(30, () => {
+  let obj = {
+    id: 'YJ-2020070122334400001',
+    deviceId: 'V134124124',
+    farm: 'V134124124',
+    type: '设备异常状态',
+    description: '空气温度: 43℃, 上升3度，最高阈值: 40℃ 土壤温度: 5℃,下降5，最低阈值: 10℃',
+    date: '2-25 12:00:32',
+    status: '未处理'
+  };
+  return Object.assign({}, obj);
+});
+
 export default {
   ringChartData1,
   ringChartData2,
   barChartData1,
-  alertList
+  alertList,
+  warningList,
+  warningTableList
 };

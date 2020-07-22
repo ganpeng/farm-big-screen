@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     goPage(nav) {
-      if (nav.path !== this.activeMenu) {
+      if (this.$route.path !== nav.path) {
         this.$router.push({name: nav.name});
       }
     }
@@ -82,12 +82,13 @@ export default {
       .nav-item {
         height: 40px;
         line-height: 40px;
-        color: #fff;
-        font-size: 14px;
         margin-left: 20px;
         cursor: pointer;
+        color: #417FC8;
+        font-size: 16px;
+        font-weight: 500;
         &.active {
-          color: greenyellow;
+          color: #70CAEE;
         }
       }
     }

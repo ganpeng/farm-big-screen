@@ -11,7 +11,7 @@
             <div class="charts-container">
               <div class="charts-header">
                 总耕地面积
-                <i>1200</i>公顷
+                <i>1200</i> <span>公顷</span>
               </div>
               <div class="charts-wrapper">
                 <dv-active-ring-chart :config="config" style="width:160px;height:160px"/>
@@ -31,7 +31,7 @@
                 <div class="charts-container">
                   <div class="charts-header">
                     总播种面积
-                    <i>1200</i>公顷
+                    <i>1200</i> <span>公顷</span>
                   </div>
                   <div class="charts-wrapper">
                     <rose-chart></rose-chart>
@@ -197,10 +197,11 @@ export default {
 // title
 .title-one {
   h5 {
-    color: aqua;
-    font-size: 14px;
+    color: #70CAEE;
     line-height: 14px;
     margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 500;
   }
 }
 
@@ -211,10 +212,14 @@ export default {
     line-height: 30px;
     margin: 8px 0;
     text-align: center;
-    color: #fff;
+    color: #417FC8;
     i {
+      color: #2EABFF;
       font-size: 22px;
       margin-left: 10px;
+    }
+    span {
+      color: #2EABFF;
     }
   }
   .charts-wrapper {

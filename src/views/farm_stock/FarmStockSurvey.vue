@@ -1,16 +1,23 @@
 <template>
   <div class="container">
-    FarmStockSurvey
+    <farm-aside-nav></farm-aside-nav>
+    <div class="content"></div>
   </div>
 </template>
 <script>
+import FarmAsideNav from './components/FarmAsideNav';
 export default {
-  name: 'FarmStockSurvey'
+  name: 'FarmStockSurvey',
+  components: {FarmAsideNav}
 }
 </script>
 <style lang="scss" scoped>
 .container {
-  color: #fff;
+  display: flex;
+  height: 100%;
+  .content {
+    flex: 1;
+  }
 }
 </style>
 

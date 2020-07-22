@@ -21,5 +21,18 @@ export default {
       _list.push(item.status);
       return _list;
     });
+  },
+  serializeWarningData(list) {
+    return list.map((item) => {
+      let _list = [];
+      _list.push(item.id);
+      _list.push(item.deviceId);
+      _list.push(item.farm);
+      _list.push(item.type);
+      _list.push(item.description);
+      _list.push(item.date);
+      _list.push(item.status);
+      return _list;
+    });
   }
 };

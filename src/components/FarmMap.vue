@@ -274,15 +274,15 @@ export default {
         template,
         methods: {
           farmDetail: () => {
-            this.gotoFarmDetail();
+            this.gotoFarmDetail(1);
           }
         }
       });
       let component = new MyComponent().$mount();
       return component.$el;
     },
-    gotoFarmDetail() {
-      console.log('farmDetail');
+    gotoFarmDetail(id) {
+      this.$router.push({name: 'FarmStockSurvey', params: {id}});
     }
   }
 };

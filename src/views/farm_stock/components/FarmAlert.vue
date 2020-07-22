@@ -13,8 +13,11 @@ export default {
         header: ['预警类型', '预警详情', '发出时间', '处理状态'],
         data: this.$util.serializeAlertData(constants.alertList),
         index: true,
-        headerHeight: 50,
-        columnWidth: [30, 140, 780],
+        headerBGC: '#11294D',
+        oddRowBGC: '#0E1831', // 奇数行
+        evenRowBGC: '#0D1F3A', // 偶数行
+        headerHeight: 40,
+        columnWidth: [50, 140, 780],
         align: ['center']
       }
     };
