@@ -21,7 +21,8 @@ export default {
       DistrictCluster: null,
       PointSimplifier: null,
       districtCluster: null,
-      pointSimplifier: null
+      pointSimplifier: null,
+      myInfoWindow: null
     };
   },
   async mounted() {
@@ -49,6 +50,12 @@ export default {
         this.PointSimplifier = PointSimplifier;
         this.districtCluster = this.initDistrictCluster();
         this.pointSimplifier = this.initPointSimplifier();
+        this.myInfoWindow = this.initMyInfoWindow();
+
+        // 绑定事件
+        this.map.on("zoomend", this.mapZoomendHandler.bind(this));
+        this.map.on("moveend", this.mapMoveendHandler.bind(this));
+        this.districtCluster.on("clusterMarkerClick", this.clusterMarkerClickHandler);
 
         let dataItem = ["126.118338,45.11481", "125.254523,43.829852", "125.227551,43.904597", "125.265486,43.869571", "125.211959,43.809576", "125.345618,43.832965", "125.585406,42.443841", "125.613058,43.943362", "125.334143,43.917075", "125.279227,43.858107", "125.394616,43.86454", "125.290277,43.822228"];
         this.districtCluster.setData(dataItem);
@@ -126,12 +133,7 @@ export default {
           },
           featureEventSupport: true,
           clusterMarkerEventSupport: true,
-          clusterMarkerEventNames: [
-            "click",
-            "rightclick",
-            "mouseover",
-            "mouseout"
-          ],
+          clusterMarkerEventNames: ["click"],
           // 显示在所辖数据点的平均位置
           // getClusterMarkerPosition: this.DistrictCluster.ClusterMarkerPositionStrategy.AVERAGE_POINTS_POSITION,
           getClusterMarker: (feature, dataItems, recycledMarker) => {
@@ -174,8 +176,8 @@ export default {
         getPosition: item => {
           return item.position;
         },
-        getHoverTitle: () => {
-          return "";
+        getHoverTitle: (data) => {
+          this.addPointMarker(data);
         },
         renderOptions: {
           //点的样式
@@ -196,6 +198,92 @@ export default {
         }
       });
     },
+    initMyInfoWindow() {
+      return new window.AMap.InfoWindow({
+        isCustom: true, //使用自定义窗体
+        closeWhenClickMap: true, // 点击地图关闭信息窗口
+        autoMove: false,
+        content: "",
+        anchor: "top-right"
+      });
+    },
+    //  一些地图的事件
+    async clusterMarkerClickHandler(e, record) {
+      try {
+        const zoom = this.map.getZoom();
+        if (zoom < 8) {
+          // 如果层级太小直接返回
+          return false;
+        }
+
+        const result = await this.getClusterRecordByAdcode(record.adcode);
+        // currentAdcode已经更新，有新的点击
+        if (result.adcode !== record.adcode) {
+          return false;
+        }
+        // 设置数据
+        this.pointSimplifier.setData(result.dataItems);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    getClusterRecordByAdcode(adcode) {
+      return new Promise((resolve, reject) => {
+        //获取该节点的聚合信息
+        this.districtCluster.getClusterRecord(adcode, (error, result) => {
+          if (error) {
+            reject(new Error("获取节点聚合信息失败"));
+          } else {
+            resolve(result);
+          }
+        });
+      });
+    },
+    // 地图层级缩放时候的事件
+    async mapZoomendHandler() {
+      try {
+        const zoom = this.map.getZoom();
+        if (zoom < 10) {
+          // 显示隐藏的时候可以使用如下方法 this.pointSimplifier.hide(); this.pointSimplifier.show();
+          this.pointSimplifier.setData([]);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async mapMoveendHandler() {},
+    addPointMarker(data) {
+      let {position} = data;
+      this.myInfoWindow.setContent(this.getPointSimplifierContent(data));
+      this.myInfoWindow.open(this.map, position);
+    },
+    getPointSimplifierContent(data) {
+      let template = `<div class="mark-info-window-container point-simplifier">
+                        <div class="title">吉林市意禾田家庭生态农场</div>
+                        <ul class="mark-info-list">
+                            <li class="mark-info-item">面积：1,500亩</li>
+                            <li class="mark-info-item">位置：N44°0′43.56″E126°19′50.08″</li>
+                            <li class="mark-info-item">总产量：1,385吨</li>
+                            <li class="mark-info-item">总产值：709,600元</li>
+                            <li class="mark-info-item">总收入：750,160元</li>
+                            <li class="mark-info-item">地址：吉林市昌邑区孤店子镇孤家子村</li>
+                        </ul>
+                        <div class="enter-btn" v-on:click="farmDetail()">进入农场></div>
+                    </div>`;
+      let MyComponent = Vue.extend({
+        template,
+        methods: {
+          farmDetail: () => {
+            this.gotoFarmDetail();
+          }
+        }
+      });
+      let component = new MyComponent().$mount();
+      return component.$el;
+    },
+    gotoFarmDetail() {
+      console.log('farmDetail');
+    }
   }
 };
 </script>

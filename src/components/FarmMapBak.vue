@@ -18,7 +18,6 @@ export default {
   data() {
     return {
       map: null,
-      center: [116, 39],
       DistrictCluster: null,
       districtCluster: null,
       PointSimplifier: null,
@@ -55,9 +54,8 @@ export default {
         this.map = new window.AMap.Map("farm-map", {
           // 设置地图的显示样式
           mapStyle: "amap://styles/93f622ecbb8e8a4ed4f6b40967ef3857",
-          zoom: 4,
-          center: this.center,
-          zooms: [4, 21]
+          zoom: 7,
+          zooms: [7, 21]
         });
         const {
           DistrictCluster,
@@ -94,12 +92,9 @@ export default {
           this.pointSimplifierMouseoutHandler.bind(this)
         );
 
-        const res = await this.getData();
-        const data = res.data.split("\n");
-        const filterData = data.filter((_, index) => {
-          return index < 1000;
-        });
-        this.districtCluster.setData(filterData);
+        let dataItem = ["126.118338,45.11481", "125.254523,43.829852", "125.227551,43.904597", "125.265486,43.869571", "125.211959,43.809576", "125.345618,43.832965", "125.585406,42.443841", "125.613058,43.943362", "125.334143,43.917075", "125.279227,43.858107", "125.394616,43.86454", "125.290277,43.822228"];
+        this.districtCluster.setData(dataItem);
+        this.map.setCity('吉林省');
       } catch (e) {
         console.log(e);
       }
@@ -361,17 +356,10 @@ export default {
     async mapZoomendHandler() {
       try {
         const zoom = this.map.getZoom();
-        //获取 pointStyle
-        // const pointStyle = this.pointSimplifier.getRenderOptions().pointStyle;
-        //根据当前zoom调整点的尺寸
-        // pointStyle.width = pointStyle.height = 2 * Math.pow(1.2, this.map.getZoom() - 3);
         if (zoom < 8) {
           // 显示隐藏的时候可以使用如下方法 this.pointSimplifier.hide(); this.pointSimplifier.show();
           this.pointSimplifier.setData([]);
         }
-        this.myInfoWindow.close();
-        let mapCenter = await this.getCity();
-        this.setMapCenterHandler({ mapCenter, zoom });
       } catch (err) {
         console.log(err);
       }
