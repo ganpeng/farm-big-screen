@@ -143,11 +143,14 @@ const warningTableList = _.times(30, () => {
   return Object.assign({}, obj);
 });
 
+const borderColors = ['#0B142B', '#1C56A5'];
+
 export default {
   ringChartData1,
   ringChartData2,
   barChartData1,
   alertList,
   warningList,
-  warningTableList
+  warningTableList,
+  borderColors
 };

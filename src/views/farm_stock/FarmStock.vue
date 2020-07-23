@@ -194,16 +194,6 @@ export default {
     padding: 20px 18px 18px 18px;
   }
 }
-// title
-.title-one {
-  h5 {
-    color: #70CAEE;
-    line-height: 14px;
-    margin-bottom: 8px;
-    font-size: 16px;
-    font-weight: 500;
-  }
-}
 
 // 图表
 .charts-container {

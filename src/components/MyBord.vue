@@ -1,7 +1,7 @@
 <template>
   <div class="my-bord-status">
     <div v-for="(bord, index) in bordList" :key="index" class="status-item">
-      <dv-border-box-7 :color="['#0B142B', '#1C56A5']">
+      <dv-border-box-7 :color="[] | borderColor">
         <div class="status-item-inner">
           <div class="label">
             <div class="line"></div>
@@ -21,6 +21,9 @@ export default {
       type: Array,
       default: () => []
     }
+  },
+  data() {
+    return {};
   }
 };
 </script>
@@ -41,10 +44,9 @@ export default {
     .status-item-inner {
       display: flex;
       margin: 1px;
-      padding: 8px;
+      padding: 18px;
       height: 98%;
-      background: rgba(11,20,43, 0.6);
-      box-shadow: 0px 0px 20px 0px rgba(28,86,165,0.5);
+      box-shadow:rgba(28,86,165, 0.5) 0px 0px 15px;
     }
     .label {
       display: flex;

@@ -11,6 +11,12 @@ import '@/assets/scss/index.scss';
 // 工具方法
 import util from '@/util';
 
+// 全局filter
+import * as filters from './filter';
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+});
+
 // use
 Vue.use(dataV);
 
