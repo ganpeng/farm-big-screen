@@ -1,103 +1,211 @@
 <template>
   <div class="farm-stock-container">
     <div class="left-side">
-      <div class="left-side-top">
-        <dv-border-box-13>
-          <div class="left-side-top-content field-content">
-            <div class="title-one">
-              <h5>耕地类型</h5>
-              <dv-decoration-2 style="width:100%;height:5px;"/>
-            </div>
-            <div class="charts-container">
-              <div class="charts-header">
-                总耕地面积
-                <i>1200</i> <span>公顷</span>
-              </div>
-              <div class="charts-wrapper">
-                <dv-active-ring-chart :config="config" style="width:160px;height:160px"/>
-              </div>
-              <label-tag :config="config"></label-tag>
+      <div class="left-side-top border-icon1">
+        <div class="left-side-top-content field-content">
+          <div class="title-one">
+            <h5>
+              <svg-icon class="title-icon" icon-class="title_icon"></svg-icon>
+              耕地类型
+            </h5>
+            <div class="title-border">
+              <div class="left-gap gap"></div>
+              <div class="right-gap gap"></div>
             </div>
           </div>
-        </dv-border-box-13>
+          <div class="charts-container">
+            <div class="charts-header">
+              总耕地面积
+              <i>1200</i> <span>公顷</span>
+            </div>
+            <div class="charts-wrapper">
+              <dv-active-ring-chart :config="config" style="width:160px;height:160px;"/>
+            </div>
+            <label-tag :config="config"></label-tag>
+          </div>
+        </div>
       </div>
-      <div class="left-side-bottom">
-        <dv-border-box-13>
-          <div class="left-side-bottom-content field-content">
+      <div class="left-side-bottom border-icon2">
+        <div class="left-side-bottom-content field-content">
+          <div class="title-one">
+            <h5>
+              <svg-icon class="title-icon" icon-class="title_icon"></svg-icon>
+              经营情况统计
+            </h5>
+            <div class="title-border">
+              <div class="left-gap gap"></div>
+              <div class="right-gap gap"></div>
+            </div>
+          </div>
+          <div class="helf-field-container">
             <div class="helf-field">
               <div class="title-one">
-                <h5>本年度播种面积(公顷)</h5>
-                <dv-decoration-2 style="width:100%;height:5px;"/>
-                <div class="charts-container">
-                  <div class="charts-header">
-                    总播种面积
-                    <i>1200</i> <span>公顷</span>
-                  </div>
-                  <div class="charts-wrapper">
-                    <rose-chart></rose-chart>
-                  </div>
+                <h5><i class="point"></i> 本年度播种面积(公顷)</h5>
+              </div>
+              <div class="charts-container">
+                <div class="charts-header">
+                  总播种面积
+                  <i>1200</i> <span>公顷</span>
+                </div>
+                <div class="charts-wrapper">
+                  <rose-chart></rose-chart>
                 </div>
               </div>
             </div>
             <div class="helf-field">
               <div class="title-one">
-                <h5>本年度产量(万吨)</h5>
-                <dv-decoration-2 style="width:100%;height:5px;"/>
-                <div class="charts-container">
-                  <dv-capsule-chart :config="config3" style="width:100%;height:200px"/>
-                </div>
+                <h5><i class="point"></i> 本年度产量(万吨)</h5>
+              </div>
+              <div class="charts-container">
+                <dv-capsule-chart :config="config3" style="width:100%;height:200px"/>
               </div>
             </div>
           </div>
-        </dv-border-box-13>
+        </div>
       </div>
     </div>
     <div class="middle-content">
-      <div class="middle-top">
-        <dv-border-box-13>
-          <div class="middle-top-content field-content">
-            <farm-map></farm-map>
-          </div>
-        </dv-border-box-13>
+      <div class="middle-top border-icon4">
+        <div class="middle-top-content field-content">
+          <farm-map></farm-map>
+        </div>
       </div>
-      <div class="middle-bottom">
-        <dv-border-box-13>
-          <div class="middle-bottom-content field-content">
-            <farm-alert></farm-alert>
-          </div>
-        </dv-border-box-13>
+      <div class="middle-bottom border-icon3">
+        <div class="middle-bottom-content field-content">
+          <farm-alert></farm-alert>
+        </div>
       </div>
     </div>
     <div class="right-side">
-      <div class="right-side-top">
-        <dv-border-box-13>
-          <div class="right-side-top-content field-content">
-            <div class="title-one">
-              <h5>物环统计</h5>
-              <dv-decoration-2 style="width:100%;height:5px;"/>
-            </div>
-            <div class="charts-container">
-              <div class="charts-header">
-                物环总数
-                <i>120</i>个
-              </div>
-              <div class="charts-wrapper">
-                <dv-active-ring-chart :config="config2" style="width:160px;height:160px"/>
-              </div>
-              <label-tag :config="config2"></label-tag>
+      <div class="right-side-top border-icon1">
+        <div class="right-side-top-content field-content">
+          <div class="title-one">
+            <h5>
+              <svg-icon class="title-icon" icon-class="title_icon"></svg-icon>
+              物环统计
+            </h5>
+            <div class="title-border">
+              <div class="left-gap gap"></div>
+              <div class="right-gap gap"></div>
             </div>
           </div>
-        </dv-border-box-13>
+          <div class="charts-container">
+            <div class="charts-header">
+              物环总数
+              <i>120</i>个
+            </div>
+            <div class="charts-wrapper">
+              <dv-active-ring-chart :config="config2" style="width:160px;height:160px"/>
+            </div>
+            <label-tag :config="config2"></label-tag>
+          </div>
+        </div>
       </div>
-      <div class="right-side-bottom">
-        <dv-border-box-13>
-          <div class="right-side-bottom-content field-content">
-            <div class="title-one">
-              <h5>经营情况统计</h5>
-              <dv-decoration-2 style="width:100%;height:5px;"/>
+      <div class="right-side-bottom border-icon2">
+        <div class="right-side-bottom-content field-content">
+          <div class="title-one">
+            <h5>
+              <svg-icon class="title-icon" icon-class="title_icon"></svg-icon>
+              经营情况统计
+            </h5>
+            <div class="title-border">
+              <div class="left-gap gap"></div>
+              <div class="right-gap gap"></div>
             </div>
           </div>
-        </dv-border-box-13>
+          <div class="content-item-container">
+            <div class="field-content-item">
+              <div class="title-one">
+                <h5><i class="point"></i> 农业现代化</h5>
+              </div>
+              <div class="info-row">
+                <div class="info-item">
+                  <div class="title">农机具数量</div>
+                  <div class="value">
+                    1200<i>辆/台</i>
+                  </div>
+                </div>
+                <div class="info-item">
+                  <div class="title">农民累积培训</div>
+                  <div class="value">
+                    1200<i>天</i>
+                  </div>
+                </div>
+              </div>
+              <div class="info-row">
+                <div class="info-item">
+                  <div class="title">证书总量/从业人员</div>
+                  <div class="value">
+                    2<i>个</i>
+                  </div>
+                </div>
+                <div class="info-item"></div>
+              </div>
+            </div>
+            <div class="field-content-item">
+              <div class="title-one">
+                <h5><i class="point"></i> 政府扶持</h5>
+              </div>
+              <div class="info-row">
+                <div class="info-item">
+                  <div class="title">政府项目累计</div>
+                  <div class="value">
+                    89<i>个</i>
+                  </div>
+                </div>
+                <div class="info-item">
+                  <div class="title">累计金额</div>
+                  <div class="value">
+                    1200<i>万元</i>
+                  </div>
+                </div>
+              </div>
+              <div class="info-row">
+                <div class="info-item">
+                  <div class="title">农业补贴累计</div>
+                  <div class="value">
+                    101<i>次</i>
+                  </div>
+                </div>
+                <div class="info-item">
+                  <div class="title">累计金额</div>
+                  <div class="value">
+                    101<i>万元</i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="field-content-item">
+              <div class="title-one">
+                <h5><i class="point"></i> 农业社会化服务</h5>
+              </div>
+              <div class="info-row">
+                <div class="info-item">
+                  <div class="title">累计服务企业</div>
+                  <div class="value">
+                    89<i>次</i>
+                  </div>
+                </div>
+                <div class="info-item">
+                  <div class="title">累计服务农户</div>
+                  <div class="value">
+                    1200<i>次</i>
+                  </div>
+                </div>
+              </div>
+              <div class="info-row">
+                <div class="info-item">
+                  <div class="title">累计服务营收</div>
+                  <div class="value">
+                    101<i>万元</i>
+                  </div>
+                </div>
+                <div class="info-item">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -136,6 +244,7 @@ export default {
 .farm-stock-container {
   display: flex;
   flex: 1;
+  padding: 14px 20px 20px 20px;
   .left-side {
     display: flex;
     flex-direction: column;
@@ -149,10 +258,13 @@ export default {
       .left-side-bottom-content {
         display: flex;
         flex-direction: column;
-        .helf-field {
+        .helf-field-container {
+          display: flex;
+          flex-direction: column;
           flex: 1;
-          &:nth-of-type(1) {
-            margin-bottom: 32px;
+          .helf-field {
+            flex: 1;
+            margin-top: 22px;
           }
         }
       }
@@ -188,15 +300,79 @@ export default {
     }
     .right-side-bottom {
       flex: 2;
+      .content-item-container {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 100%;
+        .field-content-item {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          flex: 1;
+          margin-top: 12px;
+          .info-row {
+            display: flex;
+            margin-top: 6px;
+            padding-left: 15px;
+            .info-item {
+              flex: 1;
+              .title {
+                font-size: 14px;
+                color: #417FC8;
+              }
+              .value {
+                font-size: 30px;
+                font-weight: bold;
+                color: #2EABFF;
+                i {
+                  font-size:14px;
+                  color: #2EABFF;
+                }
+              }
+            }
+            .info-item + .info-item {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
     }
   }
   .field-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     padding: 20px 18px 18px 18px;
+  }
+  .border-icon1 {
+    background: url('../../assets/image/border_icon1.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+  .border-icon2 {
+    background: url('../../assets/image/border_icon2.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+  .border-icon3 {
+    background: url('../../assets/image/border_icon3.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+  .border-icon4 {
+    background: url('../../assets/image/border_icon4.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
   }
 }
 
 // 图表
 .charts-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   .charts-header {
     font-size: 14px;
     line-height: 30px;
@@ -214,6 +390,7 @@ export default {
   }
   .charts-wrapper {
     display: flex;
+    flex: 1;
     justify-content: center;
     align-items: center;
   }

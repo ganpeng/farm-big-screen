@@ -26,10 +26,10 @@ export default {
   align-items: center;
   .label-item {
     margin: 5px;
-    font-size: 15px;
+    font-size: 12px;
     display: flex;
     align-items: center;
-    color: #f2f2f2;
+    color: #9FA8B8;
     div {
       width: 12px;
       height: 12px;

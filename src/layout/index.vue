@@ -20,5 +20,6 @@ export default {
   flex-direction: column;
   height: 100%;
   padding-bottom: 80px;
+  background-color: #0A0C22;
 }
 </style>

@@ -1,15 +1,13 @@
 <template>
   <div class="sensor-data-container">
     <div v-for="(bord, index) in list" :key="index" class="sensor-item">
-      <dv-border-box-7 :color="[] | borderColor">
-        <div class="sensor-item-inner">
-          <div class="label">
-            <div class="line"></div>
-            <div class="title">{{bord.title}}</div>
-          </div>
-          <div class="value">{{bord.count}}</div>
+      <div class="sensor-item-inner">
+        <div class="text">
+          <div class="title">{{bord.title}}</div>
+          <div class="value">{{bord.value}}</div>
         </div>
-      </dv-border-box-7>
+        <div class="icon"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -72,6 +70,48 @@ export default {
 </script>
 <style lang="scss" scoped>
 .sensor-data-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .sensor-item {
+    position: relative;
+    flex: 1;
+    height: 80px;
+    background: url('../../../assets/image/border_icon.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    .border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .sensor-item-inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      .text {
+        .title {
+          color: #F0F0F0;
+        }
+        .value {
+          color: #68E0E3;
+        }
+      }
+      .icon {
 
+      }
+    }
+  }
+  .sensor-item + .sensor-item {
+    margin-left: 20px;
+  }
 }
 </style>

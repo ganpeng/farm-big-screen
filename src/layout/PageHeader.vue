@@ -1,7 +1,16 @@
 <template>
   <div class="header-container">
-    <dv-border-box-13>
+    <div class="header-warpper">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg-icon icon-class="logo"></svg-icon>
+        </div>
+        <h2>吉视农业物联网大数据平台</h2>
+      </div>
       <div class="nav-container">
+        <div class="nav-icon">
+          <svg-icon icon-class="nav_left_icon"></svg-icon>
+        </div>
         <ul class="nav-list">
           <li v-for="(nav, index) in navList" :key="index"
             @click="goPage(nav)"
@@ -9,8 +18,12 @@
             {{nav.title}}
           </li>
         </ul>
+        <div class="nav-icon">
+          <svg-icon icon-class="nav_left_icon"></svg-icon>
+        </div>
       </div>
-    </dv-border-box-13>
+      <div class="date"></div>
+    </div>
   </div>
 </template>
 <script>
@@ -68,29 +81,88 @@ export default {
 </script>
 <style lang="scss" scoped>
 .header-container {
-  height: 100px;
-  margin-bottom: 10px;
-  .nav-container {
+  height: 80px;
+  padding: 16px 20px 4px 20px;
+  background-color: #0B172D;
+  .header-warpper {
+    position: relative;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: space-between;
     width: 100%;
     height: 100%;
-    .nav-list {
+    background: url('../assets/image/header_border_icon.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    .logo {
       display: flex;
       align-items: center;
-      .nav-item {
-        height: 40px;
-        line-height: 40px;
-        margin-left: 20px;
-        cursor: pointer;
-        color: #417FC8;
-        font-size: 16px;
-        font-weight: 500;
-        &.active {
-          color: #70CAEE;
+      width: 400px;
+      height: 46px;
+      line-height: 46px;
+      margin-left: 10px;
+      background: url('../assets/image/logo_bg.png');
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      .logo-icon {
+        width: 32px;
+        height: 39px;
+        margin: 0 8px;
+        .svg-icon {
+          width: 32px;
+          height: 39px;
         }
       }
+      h2 {
+        color: #99D8FF;
+        font-size: 18px;
+        font-weight: 500;
+      }
+    }
+    .nav-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      .nav-icon {
+        .svg-icon {
+          width: 46px;
+          height: 14px;
+        }
+      }
+      .nav-list {
+        display: flex;
+        align-items: center;
+        .nav-item {
+          width: 128px;
+          height: 36px;
+          line-height: 36px;
+          cursor: pointer;
+          color: #417FC8;
+          font-size: 16px;
+          font-weight: 500;
+          text-align: center;
+          background: url('../assets/image/nav_bar_icon.png');
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+          &.active {
+            color: #70CAEE;
+            background: url('../assets/image/nav_bar_icon_active.png');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+          }
+        }
+        .nav-item + .nav-item {
+          margin-left: -14px;
+        }
+      }
+    }
+    .date {
     }
   }
 }
