@@ -62,10 +62,6 @@ export default {
 }
 </style>
 <style lang="scss">
-.table-title {
-  color: #70CAEE;
-  font-size: 14px;
-  font-weight: 500;
-}
+
 </style>
 

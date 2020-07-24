@@ -259,16 +259,17 @@ export default {
     },
     getPointSimplifierContent(data) {
       let template = `<div class="mark-info-window-container point-simplifier">
-                        <div class="title">吉林市意禾田家庭生态农场</div>
-                        <ul class="mark-info-list">
-                            <li class="mark-info-item">面积：1,500亩</li>
-                            <li class="mark-info-item">位置：N44°0′43.56″E126°19′50.08″</li>
-                            <li class="mark-info-item">总产量：1,385吨</li>
-                            <li class="mark-info-item">总产值：709,600元</li>
-                            <li class="mark-info-item">总收入：750,160元</li>
-                            <li class="mark-info-item">地址：吉林市昌邑区孤店子镇孤家子村</li>
-                        </ul>
-                        <div class="enter-btn" v-on:click="farmDetail()">进入农场></div>
+                        <div class="farm-info-wrapper">
+                          <div class="title">吉林市意禾田家庭生态农场</div>
+                          <ul class="mark-info-list">
+                              <li class="mark-info-item">面积：1,500亩</li>
+                              <li class="mark-info-item">联系人：李欣莲</li>
+                              <li class="mark-info-item">电话：13893221214</li>
+                              <li class="mark-info-item">地址：吉林市昌邑区孤店子镇孤家子村</li>
+                          </ul>
+                        </div>
+                        <div class="farm-image"></div>
+                        <div class="enter-btn" v-on:click="farmDetail()">进入农场</div>
                     </div>`;
       let MyComponent = Vue.extend({
         template,
@@ -353,37 +354,43 @@ export default {
   }
   .mark-info-window-container {
     position: relative;
-    width: 325px;
-    background: rgba(0, 0, 0, 0.9);
-    border: 1px solid rgba(59, 180, 255, 1);
-    border-radius: 4px;
-    padding: 10px 28px 40px 28px;
-    &.point-simplifier {
-      width: 400px;
-    }
-    .title {
-      line-height: 22px;
-      font-size: 20px;
-      font-weight: 600;
-      color: rgba(24, 251, 252, 1);
-      margin: 10px 0 20px 0;
-    }
-    .mark-info-list {
-      .mark-info-item {
-        height: 38px;
-        line-height: 38px;
-        font-size: 18px;
-        font-weight: 400;
-        color: rgba(255, 255, 255, 1);
+    width: 330px;
+    height: 388px;
+    background-color: rgba(30,91,135,0.8);
+    .farm-info-wrapper {
+      height: 148px;
+      padding: 10px 20px;
+      .title {
+        color: #f0f0f0;
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 6px;
       }
+      .mark-info-list {
+        .mark-info-item {
+          font-size: 12px;
+          line-height: 24px;
+          color: #DCDCDC;
+        }
+      }
+    }
+    .farm-image {
+      width: 100%;
+      height: 240px;
+      background-color: red;
     }
     .enter-btn {
       position: absolute;
-      font-size: 18px;
-      font-weight: 400;
-      color: rgba(24, 251, 252, 1);
-      bottom: 10px;
-      right: 28px;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%);
+      background-color: #38A1DA;
+      width: 160px;
+      height: 40px;
+      line-height: 40px;
+      font-size: 16px;
+      text-align: center;
+      color: #f0f0f0;
       cursor: pointer;
     }
   }
