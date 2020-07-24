@@ -12,20 +12,50 @@
       <div v-if="activeIndex === 0" class="tab-content">
         <div class="data-chart-container">
           <div class="data-charts">
-            <div class="data-chart-item">
+            <div class="data-chart-item border-icon4">
               <div class="title">
                 <span>地块数据</span>
                 <svg-icon icon-class="chart_title_icon"></svg-icon>
               </div>
               <dv-charts :option="option"/>
             </div>
-            <div class="data-chart-item"></div>
-            <div class="data-chart-item"></div>
+            <div class="data-chart-item border-icon4">
+              <div class="title">
+                <span>从业人员</span>
+                <svg-icon icon-class="chart_title_icon"></svg-icon>
+              </div>
+              <dv-charts :option="option"/>
+            </div>
+            <div class="data-chart-item border-icon4">
+              <div class="title">
+                <span>农机具</span>
+                <svg-icon icon-class="chart_title_icon"></svg-icon>
+              </div>
+              <dv-charts :option="option"/>
+            </div>
           </div>
           <div class="data-charts">
-            <div class="data-chart-item"></div>
-            <div class="data-chart-item"></div>
-            <div class="data-chart-item"></div>
+            <div class="data-chart-item border-icon4">
+              <div class="title">
+                <span>种植人员</span>
+                <svg-icon icon-class="chart_title_icon"></svg-icon>
+              </div>
+              <dv-charts :option="option"/>
+            </div>
+            <div class="data-chart-item border-icon4">
+              <div class="title">
+                <span>投入品</span>
+                <svg-icon icon-class="chart_title_icon"></svg-icon>
+              </div>
+              <dv-charts :option="option"/>
+            </div>
+            <div class="data-chart-item border-icon4">
+              <div class="title">
+                <span>经营数据</span>
+                <svg-icon icon-class="chart_title_icon"></svg-icon>
+              </div>
+              <dv-charts :option="option"/>
+            </div>
           </div>
         </div>
       </div>
@@ -114,7 +144,9 @@ export default {
         line-height: 40px;
         text-align: center;
         color: #417fc8;
-        background-color: #10254b;
+        background: url('../../assets/image/tab_bg_icon.png');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
         cursor: pointer;
         &.active {
           color: #fff;
@@ -138,9 +170,6 @@ export default {
           position: relative;
           flex: 1;
           background-color: #0b142b;
-          background: url('../../assets/image/border_icon.png');
-          background-repeat: no-repeat;
-          background-size: 100% 100%;
           .title {
             position: absolute;
             top: -9px;

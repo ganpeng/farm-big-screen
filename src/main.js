@@ -10,6 +10,7 @@ import './icons';
 import '@/assets/scss/index.scss';
 // 工具方法
 import util from '@/util';
+require('./util/rem');
 
 // 全局filter
 import * as filters from './filter';

@@ -1,5 +1,5 @@
 <template>
-  <dv-full-screen-container class="layout-container">
+  <dv-full-screen-container :style="paddingBottomStyle" class="layout-container">
     <page-header></page-header>
     <router-view></router-view>
   </dv-full-screen-container>
@@ -10,7 +10,18 @@ export default {
   name: "Layout",
   components: {PageHeader},
   data() {
-    return {};
+    return {
+      height: 80
+    };
+  },
+  computed: {
+    paddingBottomStyle() {
+      return `padding-bottom: ${this.height}px`;
+    }
+  },
+  created() {
+    let height = window.outerHeight - window.innerHeight;
+    this.height = height;
   }
 };
 </script>
@@ -19,7 +30,6 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding-bottom: 80px;
   background-color: #0A0C22;
 }
 </style>

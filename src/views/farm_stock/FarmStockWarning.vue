@@ -6,7 +6,7 @@
         <div class="farm-title">聚成现代农业发展专业合作社</div>
       </div>
       <my-bord :bordList="bordList"></my-bord>
-      <div class="warning-table-container">
+      <div class="warning-table-container border-icon4">
         <dv-scroll-board class="my-scroll-board" :config="config"/>
       </div>
     </div>
@@ -49,9 +49,6 @@ export default {
     justify-content: center;
     align-items: center;
     margin-top: 20px;
-    background: url('../../assets/image/border_icon.png');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
     .my-scroll-board {
       position: absolute;
       width: 99%;

@@ -32,7 +32,7 @@ export default {
             },
             outsideLabel: {
               formatter: "{name} {percent}%",
-              labelLineEndLength: 20,
+              labelLineEndLength: 10,
               style: {
                 fill: "#fff"
               },
@@ -68,10 +68,13 @@ export default {
 </script>
 <style lang="scss" scoped>
 #rose-chart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  height: 160px;
+  height: 100%;
   .dv-charts-container {
-    height: 160px;
+    height: calc(100% - 10px);
   }
 }
 </style>

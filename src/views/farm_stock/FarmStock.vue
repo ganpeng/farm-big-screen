@@ -19,7 +19,7 @@
               <i>1200</i> <span>公顷</span>
             </div>
             <div class="charts-wrapper">
-              <dv-active-ring-chart :config="config" style="width:160px;height:160px;"/>
+              <dv-active-ring-chart class="ring-chart" :config="config"/>
             </div>
             <label-tag :config="config"></label-tag>
           </div>
@@ -57,7 +57,7 @@
                 <h5><i class="point"></i> 本年度产量(万吨)</h5>
               </div>
               <div class="charts-container">
-                <dv-capsule-chart :config="config3" style="width:100%;height:200px"/>
+                <dv-capsule-chart :config="config3" style="width:100%;height:2rem"/>
               </div>
             </div>
           </div>
@@ -66,8 +66,29 @@
     </div>
     <div class="middle-content">
       <div class="middle-top border-icon4">
-        <div class="middle-top-content field-content">
+        <div class="middle-top-content farm-map-container field-content">
           <farm-map></farm-map>
+          <div class="map-title">
+            农场分布
+          </div>
+          <div class="farm-count">
+            <div class="farm-machine-icon">
+              <svg-icon icon-class="farm_machine_icon"></svg-icon>
+            </div>
+            <div class="farm-count-info">
+              <div class="label">农场</div>
+              <div class="value">8<i>个</i></div>
+            </div>
+          </div>
+          <div class="people-count">
+            <div class="farm-member-icon">
+              <svg-icon icon-class="farm_member_icon"></svg-icon>
+            </div>
+            <div class="people-count-info">
+              <div class="label">从业人员</div>
+              <div class="value">876<i>个</i></div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="middle-bottom border-icon3">
@@ -95,7 +116,7 @@
               <i>120</i>个
             </div>
             <div class="charts-wrapper">
-              <dv-active-ring-chart :config="config2" style="width:160px;height:160px"/>
+              <dv-active-ring-chart class="ring-chart" :config="config2"/>
             </div>
             <label-tag :config="config2"></label-tag>
           </div>
@@ -263,6 +284,8 @@ export default {
           flex-direction: column;
           flex: 1;
           .helf-field {
+            display: flex;
+            flex-direction: column;
             flex: 1;
             margin-top: 22px;
           }
@@ -276,15 +299,108 @@ export default {
     flex: 4;
     margin: 0 10px;
     .middle-top {
-      flex: 2;
+      height: 70%;
       margin-bottom: 10px;
       .middle-top-content {
+        position: relative;
         height: 100%;
         overflow: hidden;
+        &.farm-map-container {
+          padding: 4px;
+        }
+        .map-title {
+          position: absolute;
+          top: 20px;
+          left: 20px;
+          width: 130px;
+          height: 50px;
+          line-height: 50px;
+          font-size: 16px;
+          font-weight: 500;
+          color: #70CAEE;
+          text-align: center;
+          background: url('../../assets/image/tab_bg_icon.png');
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+        }
+        .farm-count {
+          position: absolute;
+          top: 20px;
+          right: 190px;
+          width: 150px;
+          height: 60px;
+          display: flex;
+          align-items: center;
+          background: url('../../assets/image/farm_map_right_icon1.png');
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+          .farm-machine-icon {
+            width: 50%;
+            text-align: center;
+            .svg-icon {
+              width: 24px;
+              height: 20px;
+            }
+          }
+          .farm-count-info {
+            width: 50%;
+            .label {
+              font-size: 12px;
+              color: #417FC8;
+            }
+            .value {
+              font-size: 30px;
+              font-weight: 500;
+              color: #68E0E3;
+              i {
+                font-size: 14px;
+              }
+            }
+          }
+        }
+        .people-count {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          width: 150px;
+          height: 60px;
+          display: flex;
+          align-items: center;
+          background: url('../../assets/image/farm_map_right_icon2.png');
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+          .farm-member-icon {
+            width: 50%;
+            text-align: center;
+            .svg-icon {
+              width: 50%;
+              text-align: center;
+              .svg-icon {
+                width: 24px;
+                height: 20px;
+              }
+            }
+          }
+          .people-count-info {
+            width: 50%;
+            .label {
+              font-size: 12px;
+              color: #417FC8;
+            }
+            .value {
+              font-size: 30px;
+              font-weight: 500;
+              color: #ECC94C;
+              i {
+                font-size: 14px;
+              }
+            }
+          }
+        }
       }
     }
     .middle-bottom {
-      flex: 1;
+      height: 30%;
       .middle-bottom-content {
         padding: 22px;
       }
@@ -346,32 +462,15 @@ export default {
     height: 100%;
     padding: 20px 18px 18px 18px;
   }
-  .border-icon1 {
-    background: url('../../assets/image/border_icon1.png');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-  }
-  .border-icon2 {
-    background: url('../../assets/image/border_icon2.png');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-  }
-  .border-icon3 {
-    background: url('../../assets/image/border_icon3.png');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-  }
-  .border-icon4 {
-    background: url('../../assets/image/border_icon4.png');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-  }
+
 }
 
 // 图表
 .charts-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   flex: 1;
   .charts-header {
     font-size: 14px;
@@ -393,6 +492,11 @@ export default {
     flex: 1;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    .ring-chart {
+      width: 100%;
+      height: calc(100% - 10px);
+    }
   }
 }
 </style>

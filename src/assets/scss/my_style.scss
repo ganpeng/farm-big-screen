@@ -93,3 +93,36 @@ html, body {
 /****
   选项卡切换样式
 ****/
+
+/****
+  所有的边框样式
+****/
+.border-icon1 {
+  background: url('../image/border_icon1.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.border-icon2 {
+  background: url('../image/border_icon2.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.border-icon3 {
+  background: url('../image/border_icon3.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.border-icon4 {
+  background: url('../image/border_icon4.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+/****
+  滚动列表的相关样式
+****/
+.table-title {
+  color: #70CAEE;
+  font-size: 14px;
+  font-weight: 500;
+}
