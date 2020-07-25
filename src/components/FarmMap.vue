@@ -99,9 +99,9 @@ export default {
             // 填充色，比如 red, rgb(255,0,0), rgba(0,0,0,1)等
             fillStyle: "rgba(15, 43, 183, 0.5)",
             // 描边宽度
-            lineWidth: 1,
+            lineWidth: 2,
             // 描边颜色
-            strokeStyle: "rgb(129, 167, 255)",
+            strokeStyle: "#1C73D3",
             // 鼠标Hover时的样式, 可以为null
             hoverOptions: null
           },
@@ -120,16 +120,16 @@ export default {
           getFeatureStyle: (feature, dataItems) => {
             if (dataItems.length > 0) {
               return {
-                fillStyle: "rgb(30,85,255)"
+                fillStyle: "#10559B"
               };
             } else {
               return {
-                fillStyle: "rgb(15, 43, 183)"
+                fillStyle: "#031D42"
               };
             }
 
             return {
-              fillStyle: "rgb(15, 43, 183)"
+              fillStyle: "#031D42"
             };
           },
           featureEventSupport: true,

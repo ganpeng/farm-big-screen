@@ -61,7 +61,7 @@
       </div>
       <div v-if="activeIndex === 1" class="tab-content">
         <div class="title-one">
-          <h5>传感器数据</h5>
+          <h5>实时数据</h5>
         </div>
         <sensor-data></sensor-data>
       </div>
