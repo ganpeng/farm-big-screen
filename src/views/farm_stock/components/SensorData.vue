@@ -101,7 +101,7 @@ export default {
   .sensor-item {
     position: relative;
     flex: 1;
-    height: 80px;
+    height: 60px;
     background: url('../../../assets/image/border_icon.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;

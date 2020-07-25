@@ -28,6 +28,12 @@ html, body {
       margin-right: 10px;
     }
   }
+  &.small {
+    h5 {
+      font-size: 14px;
+      font-weight: 400;
+    }
+  }
   .title-border {
     position: relative;
     width: 100%;
@@ -50,6 +56,9 @@ html, body {
     }
   }
 }
+
+
+
 
 /****
   container样式
@@ -139,6 +148,17 @@ html, body {
 }
 .border-icon8 {
   background: url('../image/border_icon8.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.border-icon9 {
+  background: url('../image/tab_bg_icon.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+// 农场简介边框
+.border-icon10 {
+  background: url('../image/border-icon10.png');
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }

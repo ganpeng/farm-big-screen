@@ -59,7 +59,7 @@ export default {
       .line {
         width: 2px;
         height: 20px;
-        background: #f86549;
+        background: #17B3EA;
         margin-right: 8px;
       }
       .title {

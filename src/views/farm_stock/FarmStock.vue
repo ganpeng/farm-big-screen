@@ -68,7 +68,7 @@
       <div class="middle-top border-icon4">
         <div class="middle-top-content farm-map-container field-content">
           <farm-map></farm-map>
-          <div class="map-title">
+          <div class="map-title border-icon9">
             农场分布
           </div>
           <div class="farm-count">
@@ -319,9 +319,6 @@ export default {
           font-weight: 500;
           color: #70CAEE;
           text-align: center;
-          background: url('../../assets/image/tab_bg_icon.png');
-          background-repeat: no-repeat;
-          background-size: 100% 100%;
         }
         .farm-count {
           position: absolute;
