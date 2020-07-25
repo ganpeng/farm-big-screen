@@ -3,7 +3,13 @@
     <div class="aside-list">
       <li @click="gotoPage(aside)" v-for="(aside, index) in asideList" :key="index"
         :class="['aside-item', aside.name === activeName && 'active']">
-        {{aside.title}}
+        <span class="icon">
+          <svg-icon v-if="aside.name === activeName" :icon-class="`${aside.icon}_active`"></svg-icon>
+          <svg-icon v-else :icon-class="aside.icon"></svg-icon>
+        </span> 
+        <span class="title">
+          {{aside.title}}
+        </span>
       </li>
     </div>
   </div>
@@ -17,21 +23,25 @@ export default {
         {
           title: '概况',
           name: 'FarmStockSurvey',
+          icon: 'left_side_tab_icon1',
           path: '/farmstock/id/survey'
         },
         {
           title: '数据',
           name: 'FarmStockData',
+          icon: 'left_side_tab_icon2',
           path: '/farmstock/id/data'
         },
         {
           title: '监控',
           name: 'FarmStockMonitor',
+          icon: 'left_side_tab_icon3',
           path: '/farmstock/id/monitor'
         },
         {
           title: '预警',
           name: 'FarmStockWarning',
+          icon: 'left_side_tab_icon4',
           path: '/farmstock/id/warning'
         }
       ]
@@ -67,6 +77,7 @@ export default {
   .aside-list {
     .aside-item {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       width: 100%;
@@ -76,7 +87,7 @@ export default {
       cursor: pointer;
       &.active {
         color: #fff;
-        background-color: #2A3A5B;
+        background:linear-gradient(207deg,rgba(66,100,140,1) 0%,rgba(31,52,83,1) 100%);
       }
     }
   }

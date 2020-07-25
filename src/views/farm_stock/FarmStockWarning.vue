@@ -6,7 +6,7 @@
         <div class="farm-title">聚成现代农业发展专业合作社</div>
       </div>
       <my-bord :bordList="bordList"></my-bord>
-      <div class="warning-table-container border-icon4">
+      <div class="warning-table-container border-icon8">
         <dv-scroll-board class="my-scroll-board" :config="config"/>
       </div>
     </div>

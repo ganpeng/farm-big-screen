@@ -17,6 +17,7 @@ export default {
   },
   data() {
     return {
+      farmImage: require('../assets/image/farm.jpg'),
       map: null,
       DistrictCluster: null,
       PointSimplifier: null,
@@ -258,7 +259,8 @@ export default {
       this.myInfoWindow.open(this.map, position);
     },
     getPointSimplifierContent(data) {
-      let template = `<div class="mark-info-window-container point-simplifier">
+      let farmBgStyle = `background-image: url(${this.farmImage});`;
+      let template = `<div class="mark-info-window-container point-simplifier border-icon5">
                         <div class="farm-info-wrapper">
                           <div class="title">吉林市意禾田家庭生态农场</div>
                           <ul class="mark-info-list">
@@ -268,7 +270,7 @@ export default {
                               <li class="mark-info-item">地址：吉林市昌邑区孤店子镇孤家子村</li>
                           </ul>
                         </div>
-                        <div class="farm-image"></div>
+                        <div style="${farmBgStyle}" class="farm-image"></div>
                         <div class="enter-btn" v-on:click="farmDetail()">进入农场</div>
                     </div>`;
       let MyComponent = Vue.extend({
@@ -377,7 +379,10 @@ export default {
     .farm-image {
       width: 100%;
       height: 240px;
-      background-color: red;
+      background-color: transparent;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
     }
     .enter-btn {
       position: absolute;

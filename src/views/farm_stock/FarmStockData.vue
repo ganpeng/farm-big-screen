@@ -12,21 +12,21 @@
       <div v-if="activeIndex === 0" class="tab-content">
         <div class="data-chart-container">
           <div class="data-charts">
-            <div class="data-chart-item border-icon4">
+            <div class="data-chart-item border-icon6">
               <div class="title">
                 <span>地块数据</span>
                 <svg-icon icon-class="chart_title_icon"></svg-icon>
               </div>
               <dv-charts :option="option"/>
             </div>
-            <div class="data-chart-item border-icon4">
+            <div class="data-chart-item border-icon6">
               <div class="title">
                 <span>从业人员</span>
                 <svg-icon icon-class="chart_title_icon"></svg-icon>
               </div>
               <dv-charts :option="option"/>
             </div>
-            <div class="data-chart-item border-icon4">
+            <div class="data-chart-item border-icon6">
               <div class="title">
                 <span>农机具</span>
                 <svg-icon icon-class="chart_title_icon"></svg-icon>
@@ -35,21 +35,21 @@
             </div>
           </div>
           <div class="data-charts">
-            <div class="data-chart-item border-icon4">
+            <div class="data-chart-item border-icon6">
               <div class="title">
                 <span>种植人员</span>
                 <svg-icon icon-class="chart_title_icon"></svg-icon>
               </div>
               <dv-charts :option="option"/>
             </div>
-            <div class="data-chart-item border-icon4">
+            <div class="data-chart-item border-icon6">
               <div class="title">
                 <span>投入品</span>
                 <svg-icon icon-class="chart_title_icon"></svg-icon>
               </div>
               <dv-charts :option="option"/>
             </div>
-            <div class="data-chart-item border-icon4">
+            <div class="data-chart-item border-icon6">
               <div class="title">
                 <span>经营数据</span>
                 <svg-icon icon-class="chart_title_icon"></svg-icon>
