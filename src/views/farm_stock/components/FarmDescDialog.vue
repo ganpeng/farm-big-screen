@@ -36,6 +36,7 @@
           </h5>
         </div>
         <div class="map-container">
+          <div id="mini-map"></div>
         </div>
       </div>
     </div>  
@@ -47,6 +48,8 @@ export default {
   data() {
     return {
       visible: false,
+      map: null,
+      lnglat: [116.39, 39.9],
       farm: {
         tagList: ['美式农场', '人工除草', '绿色农场'],
         desc: ' 聚成现代农业发展专业合作社，位于吉林省伊通满族自治县伊通镇，是集农产品种植、加工、销售，家庭农场旅游度假、特色农产品采摘于一体的现代农业品牌。聚成现代农业发展专业合作社位于有“中国粳稻贡米之乡”之称的吉林市，这里属长白山水系松花江流域，水质清澈、土质肥沃，出产的农产品食品备受广大消费者青睐。聚成现代农业发展专业合作社依托于得天独厚的自然条件，耕种自有土地1000余亩，采用美式农场管理方式，自种植至收割均采取科学的方法进行管理和监控，适时收割、储运，限量生产、出售，种植管理全程可追溯，打造出纯正的生态农业产业链。保证产品的鲜度、口感和营养峰值。'
@@ -54,11 +57,38 @@ export default {
     }
   },
   methods: {
-    show() {
-      this.visible = true;
+    async show() {
+      try {
+        this.visible = true;
+        await this.$nextTick();
+        this.mapInit();
+      } catch (err) {
+        console.log(err);
+      }
     },
     hide() {
       this.visible = false;
+    },
+    async mapInit() {
+      try {
+        this.map = new window.AMap.Map("mini-map", {
+          // 设置地图的显示样式
+          mapStyle: "amap://styles/93f622ecbb8e8a4ed4f6b40967ef3857",
+          zoom: 7,
+          zooms: [7, 21]
+        });
+        let marker = new window.AMap.Marker({
+            icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+            position: new window.AMap.LngLat(116.39, 39.9)
+        });
+        this.map.add(marker);
+        if (this.lnglat.length === 2) {
+          this.map.setCenter(this.lnglat);
+          marker.setPosition(this.lnglat);
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 };
@@ -129,7 +159,9 @@ export default {
       width: 100%;
       height: 30%;
       margin-top: 20px;
-      background-color: red;
+      #mini-map {
+        height: 100%;
+      }
     }
   }
   .close-btn {
@@ -143,14 +175,15 @@ export default {
     }
   }
 }
-.visible-enter {
-  transform: translateX(100%);
+// 动画
+.visible-enter-active {
+    transition: all .3s ease;
 }
-.visible-leave-to {
-  transform: translateX(0%);
-}
-.visible-enter-active,
 .visible-leave-active {
-  transition: all 0.5s ease;
+    transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.visible-enter, .visible-leave-to {
+    transform: translateX(280px);
+    opacity: 0;
 }
 </style>
