@@ -4,6 +4,8 @@ import dataV from '@jiaminghi/data-view';
 import App from './App.vue';
 // 路由
 import router from '@/router';
+// 服务
+import service from '@/service';
 // 初始化svg组件
 import './icons';
 // 样式
@@ -23,6 +25,7 @@ Vue.use(dataV);
 
 Vue.config.productionTip = false;
 Vue.prototype.$util = util;
+Vue.prototype.$service = service;
 
 new Vue({
   router,

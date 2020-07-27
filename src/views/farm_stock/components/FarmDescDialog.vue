@@ -5,55 +5,94 @@
         <svg-icon icon-class="close_btn"></svg-icon>
       </div>
       <div class="title">
-        聚成现代农业发展专业合作社 
+        {{farm.name}}
       </div>
       <div class="info-content">
-        <div class="title-one small">
-          <h5>
-            <svg-icon class="title-icon" icon-class="basic_info_icon"></svg-icon>
-            基本信息
-          </h5>
+        <div class="basic-info-wrapper">
+          <div class="title-one small">
+            <h5>
+              <svg-icon class="title-icon" icon-class="basic_info_icon"></svg-icon>
+              基本信息
+            </h5>
+          </div>
+          <ul class="info-list">
+              <li class="info-item">
+                <div class="label">
+                  面积：
+                </div>
+                <div class="value">
+                  {{farm.area}}亩
+                </div>
+              </li>
+              <li class="info-item">
+                <div class="label">
+                  联系人：
+                </div>
+                <div class="value">
+                  {{farm.contactName}}
+                </div>
+              </li>
+              <li class="info-item">
+                <div class="label">
+                  电话：
+                </div>
+                <div class="value">
+                  {{farm.contactTel}}
+                </div>
+              </li>
+              <li class="info-item">
+                <div class="label">
+                  地址：
+                </div>
+                <div class="value">
+                  {{farm.contactAddr}}
+                </div>
+              </li>
+          </ul>
+          <ul class="farm-tag-list">
+            <li v-for="(tag, index) in farm.tagList" :key="index"
+              class="farm-tag-item">
+              {{tag}}
+            </li>
+          </ul>
         </div>
-        <ul class="info-list">
-            <li class="info-item">面积：1,500亩</li>
-            <li class="info-item">联系人：李欣莲</li>
-            <li class="info-item">电话：13893221214</li>
-            <li class="info-item">地址：吉林市昌邑区孤店子镇孤家子村</li>
-        </ul>
-        <ul class="farm-tag-list">
-          <li v-for="(tag, index) in farm.tagList" :key="index" 
-            class="farm-tag-item">
-            {{tag}}
-          </li>
-        </ul>
         <div class="desc border-icon10">
-          {{farm.desc}}
-        </div>
-        <div class="title-one small">
-          <h5>
-            <svg-icon class="title-icon" icon-class="farm_position_icon"></svg-icon>
-            农场位置
-          </h5>
+          {{farm.description}}
         </div>
         <div class="map-container">
+          <div class="title-one small">
+            <h5>
+              <svg-icon class="title-icon" icon-class="farm_position_icon"></svg-icon>
+              农场位置
+            </h5>
+          </div>
           <div id="mini-map"></div>
         </div>
       </div>
-    </div>  
+    </div>
   </transition>
 </template>
 <script>
 export default {
   name: 'FarmDescDialog',
+  props: {
+    farm: {
+      type: Object,
+      default: () => {}
+    }
+  },
   data() {
     return {
       visible: false,
-      map: null,
-      lnglat: [116.39, 39.9],
-      farm: {
-        tagList: ['美式农场', '人工除草', '绿色农场'],
-        desc: ' 聚成现代农业发展专业合作社，位于吉林省伊通满族自治县伊通镇，是集农产品种植、加工、销售，家庭农场旅游度假、特色农产品采摘于一体的现代农业品牌。聚成现代农业发展专业合作社位于有“中国粳稻贡米之乡”之称的吉林市，这里属长白山水系松花江流域，水质清澈、土质肥沃，出产的农产品食品备受广大消费者青睐。聚成现代农业发展专业合作社依托于得天独厚的自然条件，耕种自有土地1000余亩，采用美式农场管理方式，自种植至收割均采取科学的方法进行管理和监控，适时收割、储运，限量生产、出售，种植管理全程可追溯，打造出纯正的生态农业产业链。保证产品的鲜度、口感和营养峰值。'
-      }
+      map: null
+    }
+  },
+  computed: {
+    tagList() {
+      return this.farm.farmMarks || [];
+    },
+    lnglat() {
+      return this.farm.longitude && this.farm.latitude ? [this.farm.longitude, this.farm.latitude] : [];
     }
   },
   methods: {
@@ -115,52 +154,63 @@ export default {
     text-align: center;
   }
   .info-content {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     padding: 10px 20px;
-    .info-list {
-      .info-item {
-        font-size: 12px;
-        line-height: 24px;
-        color: #9FA8B8; 
+    .basic-info-wrapper {
+      height: 22%;
+      .info-list {
+        .info-item {
+          display: flex;
+          align-items: flex-start;
+          font-size: 12px;
+          line-height: 20px;
+          color: #9FA8B8;
+          margin-top: 8px;
+          .label {
+            white-space:nowrap;
+          }
+        }
+      }
+      .farm-tag-list {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
         margin-top: 10px;
-      }
-    }
-    .farm-tag-list {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-top: 10px;
-      margin-bottom: 20px;
-      .farm-tag-item {
-        font-size: 12px;
-        color: #9FA8B8;
-        height:26px;
-        line-height: 26px;
-        text-align: center;
-        padding: 0 10px;
-        background: rgba(16,37,75, 0.8);
-        border-radius: 4px;
-        border: 1px solid rgba(65,127,200,1);
-      }
-      .farm-tag-item + .farm-tag-item {
-        margin-left: 10px;
+        margin-bottom: 20px;
+        .farm-tag-item {
+          font-size: 12px;
+          color: #9FA8B8;
+          height:26px;
+          line-height: 26px;
+          text-align: center;
+          padding: 0 10px;
+          background: rgba(16,37,75, 0.8);
+          border-radius: 4px;
+          border: 1px solid rgba(65,127,200,1);
+        }
+        .farm-tag-item + .farm-tag-item {
+          margin-left: 10px;
+        }
       }
     }
     .desc {
       width: 100%;
-      height: 32%;
-      font-size: 12px;
+      height: 36%;
+      font-size: 14px;
       line-height: 16px;
       color: #9FA8B8;
       padding: 20px;
-      margin-bottom: 20px;
     }
     .map-container {
       width: 100%;
-      height: 30%;
-      margin-top: 20px;
+      height: 42%;
+      .title-one {
+        margin: 5% 0;
+      }
       #mini-map {
-        height: 100%;
+        height: 80%;
       }
     }
   }
@@ -171,7 +221,7 @@ export default {
     cursor: pointer;
     .svg-icon {
       width: 16px;
-      height: 16px;  
+      height: 16px;
     }
   }
 }

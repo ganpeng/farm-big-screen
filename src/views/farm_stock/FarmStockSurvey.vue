@@ -7,7 +7,7 @@
       </div>
       <div class="farm-container">
         <div @click="displayDescDialog" class="farm-desc-btn border-icon9">农场简介</div>
-        <farm-desc-dialog ref="farmDescDialog"></farm-desc-dialog>
+        <farm-desc-dialog ref="farmDescDialog" :farm="farm"></farm-desc-dialog>
       </div>
     </div>
   </div>
@@ -19,6 +19,25 @@ import FarmDescDialog from './components//FarmDescDialog';
 export default {
   name: 'FarmStockSurvey',
   components: {FarmAsideNav, SensorData, FarmDescDialog},
+  data() {
+    return {
+      farm: {
+        farmMarks: []
+      }
+    };
+  },
+  async created() {
+    try {
+      let {id} = this.$route.params;
+      let res = await this.$service.getFarmById(id);
+      if (res && res.code === 0) {
+        console.log(res.data);
+        this.farm = res.data;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
   methods: {
     displayDescDialog() {
       this.$refs.farmDescDialog.show();

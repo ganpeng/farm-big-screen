@@ -183,6 +183,11 @@ html, body {
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
+.border-icon15 {
+  background: url('../image/border-icon15.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
 /****
   滚动列表的相关样式
 ****/
@@ -190,4 +195,14 @@ html, body {
   color: #70CAEE;
   font-size: 14px;
   font-weight: 500;
+}
+
+/****
+  视频播放器样式
+****/
+video {
+  object-fit: fill;
+  &:focus {
+    outline: none;
+  }
 }

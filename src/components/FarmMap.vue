@@ -5,7 +5,6 @@
 </template>
 <script>
 /* eslint-disable */
-import axios from "axios";
 import Vue from "vue/dist/vue.esm.js";
 export default {
   name: "FarmMap",
@@ -58,15 +57,22 @@ export default {
         this.map.on("moveend", this.mapMoveendHandler.bind(this));
         this.districtCluster.on("clusterMarkerClick", this.clusterMarkerClickHandler);
 
-        let dataItem = ["126.118338,45.11481", "125.254523,43.829852", "125.227551,43.904597", "125.265486,43.869571", "125.211959,43.809576", "125.345618,43.832965", "125.585406,42.443841", "125.613058,43.943362", "125.334143,43.917075", "125.279227,43.858107", "125.394616,43.86454", "125.290277,43.822228"];
-        this.districtCluster.setData(dataItem);
-        this.map.setCity('吉林省');
+        let res = await this.$service.getFarmList();
+        if (res && res.code === 0) {
+          let data = res.data.list.map((item) => {
+            return {
+              position: [item.longitude, item.latitude],
+              farm: item
+            }
+          });
+          // let dataItem = ["126.118338,45.11481", "125.254523,43.829852", "125.227551,43.904597", "125.265486,43.869571", "125.211959,43.809576", "125.345618,43.832965", "125.585406,42.443841", "125.613058,43.943362", "125.334143,43.917075", "125.279227,43.858107", "125.394616,43.86454", "125.290277,43.822228"];
+          // this.districtCluster.setData(dataItem);
+          this.districtCluster.setData(data);
+        }
+        // this.map.setCity('吉林省');
       } catch (e) {
         console.log(e);
       }
-    },
-    getData() {
-      return axios.get("https://a.amap.com/amap-ui/static/data/10w.txt");
     },
     loadUiComponents() {
       return new Promise((resolve) => {
@@ -89,9 +95,7 @@ export default {
           if (!item) {
             return null;
           }
-          var parts = item.split(",");
-          // 返回经纬度
-          return [parseFloat(parts[0]), parseFloat(parts[1])];
+          return item.position;
         },
         renderOptions: {
           // 区划面的基本样式。该参数优先级最低。
@@ -259,15 +263,28 @@ export default {
       this.myInfoWindow.open(this.map, position);
     },
     getPointSimplifierContent(data) {
-      let farmBgStyle = `background-image: url(${this.farmImage});`;
+      let {id, name, area, contactName, contactTel, contactAddr, farmIndexUrl} = data.dataItem.farm;
+      let farmBgStyle = `background-image: url(${farmIndexUrl});`;
       let template = `<div class="mark-info-window-container point-simplifier border-icon5">
                         <div class="farm-info-wrapper">
-                          <div class="title">吉林市意禾田家庭生态农场</div>
+                          <div class="title">${name}</div>
                           <ul class="mark-info-list">
-                              <li class="mark-info-item">面积：1,500亩</li>
-                              <li class="mark-info-item">联系人：李欣莲</li>
-                              <li class="mark-info-item">电话：13893221214</li>
-                              <li class="mark-info-item">地址：吉林市昌邑区孤店子镇孤家子村</li>
+                              <li class="mark-info-item">
+                                <div class="label">面积：</div>
+                                <div class="value">${area}亩</div>
+                              </li>
+                              <li class="mark-info-item">
+                                <div class="label">联系人：</div>
+                                <div class="value">${contactName}</div>
+                              </li>
+                              <li class="mark-info-item">
+                                <div class="label">电话：</div>
+                                <div class="value">${contactTel}</div>
+                              </li>
+                              <li class="mark-info-item">
+                                <div class="label">地址：</div>
+                                <div class="value">${contactAddr}</div>
+                              </li>
                           </ul>
                         </div>
                         <div style="${farmBgStyle}" class="farm-image"></div>
@@ -277,7 +294,7 @@ export default {
         template,
         methods: {
           farmDetail: () => {
-            this.gotoFarmDetail(1);
+            this.gotoFarmDetail(id);
           }
         }
       });
@@ -370,9 +387,15 @@ export default {
       }
       .mark-info-list {
         .mark-info-item {
+          display: flex;
+          align-items: flex-start;
           font-size: 12px;
-          line-height: 24px;
+          line-height: 16px;
+          margin-bottom: 8px;
           color: #DCDCDC;
+          .label {
+            white-space:nowrap;
+          }
         }
       }
     }
