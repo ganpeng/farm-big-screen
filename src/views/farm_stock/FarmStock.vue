@@ -57,7 +57,9 @@
                 <h5><i class="point"></i> 本年度产量(万吨)</h5>
               </div>
               <div class="charts-container">
-                <dv-capsule-chart :config="config3" style="width:100%;height:2rem"/>
+                <div class="charts-wrapper">
+                  <dv-charts class="ring-chart" :option="option"/>
+                </div>
               </div>
             </div>
           </div>
@@ -253,6 +255,67 @@ export default {
         colors: ["#e062ae", "#fb7293", "#e690d1", "#32c5e9", "#96bfff"],
         unit: "万吨",
         showValue: true
+      },
+      option: {
+        color: ['red', 'green', 'yellow', 'pink'],
+        grid: {
+          left: 60,
+          right: 10,
+          top: '5%',
+          bottom: '5%'
+        },
+        xAxis: {
+          data: 'value',
+          axisTick: {
+            show: false
+          },
+          axisLine: {
+            show: false
+          },
+          axisLabel: {
+            show: false
+          }
+        },
+        yAxis: {
+          axisTick: {
+            show: false
+          },
+          axisLine: {
+            show: false
+          },
+          axisLabel: {
+            style: {
+              fill: '#9FA8B8',
+              fontSize: 12
+            }
+          },
+          splitLine: {
+            show: false
+          },
+          data: ['水稻', '大豆', '玉米', '其他粮食']
+        },
+        series: [
+          {
+            data: [1200, 2230, 1900, 2100],
+            type: 'bar',
+            label: {
+              show: true,
+              position: 'top',
+              offset: [12, 0],
+              style: {
+                fill: '#fff'
+              }
+            },
+            independentColor: true,
+            backgroundBar: {
+              show: true,
+              style: {
+                fill: '#11233C'
+              }
+            },
+            animationCurve: 'easeOutBack'
+          }
+        ]
       }
     };
   },

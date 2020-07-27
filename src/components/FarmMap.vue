@@ -375,6 +375,7 @@ export default {
     position: relative;
     width: 330px;
     height: 388px;
+    padding: 4px;
     background-color: rgba(30,91,135,0.8);
     .farm-info-wrapper {
       height: 148px;
@@ -401,7 +402,7 @@ export default {
     }
     .farm-image {
       width: 100%;
-      height: 240px;
+      height: 234px;
       background-color: transparent;
       background-position: center center;
       background-repeat: no-repeat;
