@@ -327,18 +327,19 @@ export default {
 <style lang="scss" scoped>
 .farm-stock-container {
   display: flex;
+  justify-content: space-between;
   flex: 1;
   padding: 14px 20px 20px 20px;
   .left-side {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    justify-content: space-between;
+    width: 17.02%;
     .left-side-top {
-      flex: 1;
-      margin-bottom: 10px;
+      height: 32.9896%;
     }
     .left-side-bottom {
-      flex: 2;
+      height: 64.9484%;
       .left-side-bottom-content {
         display: flex;
         flex-direction: column;
@@ -359,11 +360,10 @@ export default {
   .middle-content {
     display: flex;
     flex-direction: column;
-    flex: 4;
-    margin: 0 10px;
+    justify-content: space-between;
+    width: 63.8297%;
     .middle-top {
-      height: 70%;
-      margin-bottom: 10px;
+      height: 69.5876%;
       .middle-top-content {
         position: relative;
         height: 100%;
@@ -460,7 +460,7 @@ export default {
       }
     }
     .middle-bottom {
-      height: 30%;
+      height: 28.3505%;
       .middle-bottom-content {
         padding: 22px;
       }
@@ -469,13 +469,13 @@ export default {
   .right-side {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    justify-content: space-between;
+    width: 17.02%;
     .right-side-top {
-      flex: 1;
-      margin-bottom: 10px;
+      height: 32.9896%;
     }
     .right-side-bottom {
-      flex: 2;
+      height: 64.9484%;
       .content-item-container {
         display: flex;
         flex: 1;

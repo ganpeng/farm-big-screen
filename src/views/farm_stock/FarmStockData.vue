@@ -136,6 +136,8 @@ export default {
   .title-wrapper {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    height: 8.1632%;
     .tab-list {
       display: flex;
       .tab-item {
@@ -158,7 +160,7 @@ export default {
     }
   }
   .tab-content {
-    flex: 1;
+    height: 90.8367%;
     .data-chart-container {
       display: flex;
       flex-direction: column;

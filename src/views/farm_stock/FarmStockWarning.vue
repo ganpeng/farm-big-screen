@@ -42,13 +42,18 @@ export default {
 </script>
 <style lang="scss" scoped>
 .farm-stock-warning-container {
+  .title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 8.1632%;
+  }
   .warning-table-container {
     position: relative;
     display: flex;
-    flex: 1;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    height: 79.5918%;
     .my-scroll-board {
       position: absolute;
       width: 99%;

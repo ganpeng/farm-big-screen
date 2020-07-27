@@ -1,7 +1,6 @@
 <template>
   <div class="my-bord-status">
     <div v-for="(bord, index) in bordList" :key="index" class="status-item">
-      <!-- <dv-border-box-7 :color="[] | borderColor"> -->
         <div class="status-item-inner">
           <div class="label">
             <div class="line"></div>
@@ -9,7 +8,6 @@
           </div>
           <div class="value">{{bord.count}}</div>
         </div>
-      <!-- </dv-border-box-7> -->
     </div>
   </div>
 </template>
@@ -31,6 +29,7 @@ export default {
 .my-bord-status {
   display: flex;
   width: 100%;
+  height: 10.2040%;
   font-weight: lighter;
   .status-item + .status-item {
     margin-left: 10px;
@@ -38,7 +37,7 @@ export default {
   .status-item {
     display: flex;
     flex: 1;
-    height: 100px;
+    // height: 100px;
     overflow: hidden;
     color: #bdbec2;
     background: url('../assets/image/border_icon.png');
