@@ -1,5 +1,5 @@
 <template>
-  <video ref="videoPlayer" class="video-js"></video>
+  <video id="video-player" ref="videoPlayer" class="video-js"></video>
 </template>
 <script>
 import videojs from "video.js";
@@ -30,3 +30,6 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+#video-player {}
+</style>

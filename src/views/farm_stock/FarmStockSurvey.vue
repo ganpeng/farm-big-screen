@@ -5,7 +5,7 @@
       <div class="sensor-data-wrapper">
         <sensor-data></sensor-data>
       </div>
-      <div class="farm-container">
+      <div :style="farmContainerBgStyle" class="farm-container">
         <div @click="displayDescDialog" class="farm-desc-btn border-icon9">农场简介</div>
         <farm-desc-dialog ref="farmDescDialog" :farm="farm"></farm-desc-dialog>
       </div>
@@ -25,6 +25,11 @@ export default {
         farmMarks: []
       }
     };
+  },
+  computed: {
+    farmContainerBgStyle() {
+      return `background-image:url(${this.farm.farmIndexUrl})`;
+    }
   },
   async created() {
     try {
@@ -57,7 +62,7 @@ export default {
         position: relative;
         flex: 1;
         margin-top: 10px;
-        background-image: url('../../assets/image/farm.jpg');
+        // background-image: url('../../assets/image/farm.jpg');
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;

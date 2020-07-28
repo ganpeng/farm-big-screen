@@ -11,9 +11,11 @@
     "@jiaminghi/data-view": "^2.9.4",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
+    "jquery": "^3.5.1",
     "svg-sprite-loader": "^5.0.0",
     "vue": "^2.6.11",
-    "vue-router": "^3.3.4"
+    "vue-router": "^3.3.4",
+    "vuex": "^3.5.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.4.0",

@@ -267,8 +267,7 @@ export default {
         .camera-list {
           display: flex;
           flex-wrap: wrap;
-          flex: 1;
-          padding: 4px 0;
+          height: calc(100% - 50px);
           .camera-item {
             display: flex;
             flex-direction: column;
@@ -276,17 +275,16 @@ export default {
             height: 50%;
             margin: 0;
             .title-one {
-              h5 {
-                height: 34px;
-                line-height: 34px;
-              }
+              display: flex;
+              align-items: center;
+              height: 44px;
             }
             .media-content {
               display: flex;
               justify-content: center;
               align-items: center;
-              flex: 1;
               width: 100%;
+              flex: 1;
               padding: 4px;
             }
           }

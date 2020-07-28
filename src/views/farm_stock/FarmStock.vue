@@ -95,7 +95,7 @@
       </div>
       <div class="middle-bottom border-icon3">
         <div class="middle-bottom-content field-content">
-          <farm-alert></farm-alert>
+          <farm-alert :warningList="warningList"></farm-alert>
         </div>
       </div>
     </div>
@@ -244,6 +244,7 @@ export default {
   components: { LabelTag, RoseChart, FarmAlert, FarmMap },
   data() {
     return {
+      warningList: [],
       config: Object.assign({}, this.$util.ringChartDefaultConfig, {
         data: constants.ringChartData1
       }),
@@ -319,7 +320,15 @@ export default {
       }
     };
   },
-  created() {
+  async created() {
+    try {
+      let res = await this.$service.getWarningList({pageSize: 10000});
+      if (res && res.code === 0) {
+        this.warningList = res.data.list;
+      }
+    } catch (err) {
+      console.log(err);
+    }
     console.log(this.$util);
   }
 };
@@ -340,6 +349,7 @@ export default {
     }
     .left-side-bottom {
       height: 64.9484%;
+      overflow-y: scroll;
       .left-side-bottom-content {
         display: flex;
         flex-direction: column;
@@ -476,6 +486,7 @@ export default {
     }
     .right-side-bottom {
       height: 64.9484%;
+      overflow-y: scroll;
       .content-item-container {
         display: flex;
         flex: 1;

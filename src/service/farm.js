@@ -268,3 +268,11 @@ export const getAllDictList = () => {
 export const postDict = (reqBody) => {
   return service.post(`/v1/dict/add`, reqBody);
 };
+
+// 警告
+export const getWarningList = (params) => {
+  let paramsStr = qs.stringify(_.pickBy(params, (item) => {
+    return item !== '' && item !== undefined;
+  }));
+  return service.get(`/v1/warn/page?${paramsStr}`);
+};

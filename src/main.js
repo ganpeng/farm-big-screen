@@ -6,6 +6,8 @@ import App from './App.vue';
 import router from '@/router';
 // 服务
 import service from '@/service';
+// vuex
+import store from '@/store';
 // 初始化svg组件
 import './icons';
 // 样式
@@ -29,5 +31,6 @@ Vue.prototype.$service = service;
 
 new Vue({
   router,
+  store,
   render: (h) => h(App),
 }).$mount('#app');

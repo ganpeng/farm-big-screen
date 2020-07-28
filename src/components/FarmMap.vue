@@ -56,20 +56,21 @@ export default {
         this.map.on("zoomend", this.mapZoomendHandler.bind(this));
         this.map.on("moveend", this.mapMoveendHandler.bind(this));
         this.districtCluster.on("clusterMarkerClick", this.clusterMarkerClickHandler);
+        this.districtCluster.on("featureClick", this.clusterMarkerClickHandler);
 
         let res = await this.$service.getFarmList();
         if (res && res.code === 0) {
           let data = res.data.list.map((item) => {
             return {
-              position: [item.longitude, item.latitude],
+              position: [parseFloat(item.longitude), parseFloat(item.latitude)],
               farm: item
             }
           });
-          // let dataItem = ["126.118338,45.11481", "125.254523,43.829852", "125.227551,43.904597", "125.265486,43.869571", "125.211959,43.809576", "125.345618,43.832965", "125.585406,42.443841", "125.613058,43.943362", "125.334143,43.917075", "125.279227,43.858107", "125.394616,43.86454", "125.290277,43.822228"];
-          // this.districtCluster.setData(dataItem);
+          console.log(data);
           this.districtCluster.setData(data);
+          this.pointSimplifier.setData(data);
         }
-        // this.map.setCity('吉林省');
+        this.map.setCity('吉林省');
       } catch (e) {
         console.log(e);
       }
@@ -140,7 +141,7 @@ export default {
           clusterMarkerEventSupport: true,
           clusterMarkerEventNames: ["click"],
           // 显示在所辖数据点的平均位置
-          // getClusterMarkerPosition: this.DistrictCluster.ClusterMarkerPositionStrategy.AVERAGE_POINTS_POSITION,
+          getClusterMarkerPosition: this.DistrictCluster.ClusterMarkerPositionStrategy.AVERAGE_POINTS_POSITION,
           getClusterMarker: (feature, dataItems, recycledMarker) => {
             // label内容
             var content = `<div class="device-custom-marker">
@@ -150,7 +151,7 @@ export default {
                               <div class="mark-icon"></div>
                           </div>`;
             var label = {
-              offset: new window.AMap.Pixel(0, 0), // 修改label相对于marker的位置
+              offset: new window.AMap.Pixel(16, -16), // 修改label相对于marker的位置
               // ----------要改等级---------
               // content: this.map.getZoom() > 13 ? content : null
               content: content
