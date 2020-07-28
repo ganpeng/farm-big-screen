@@ -32,7 +32,7 @@ export default {
         oddRowBGC: '#0E1831', // 奇数行
         evenRowBGC: '#0D1F3A', // 偶数行
         headerHeight: 40,
-        columnWidth: [140, 660],
+        columnWidth: [100, 540],
         align: ['center']
       };
     }
@@ -54,42 +54,46 @@ export default {
     serializeAlertData(warningList) {
       return warningList.map((item) => {
         let res = [];
+        let description = '';
         // &uarr;上升 &darr;下降
-        let description = item.description.reduce((prev, curr) => {
-          let {metric, up, value, low, min, max} = curr;
-          let obj = this.metricList.find((item) => item.value === metric.toUpperCase());
-          let name = _.get(obj, 'name') || '';
-          let unit = _.get(obj, 'unit') || '';
-          prev += `${name}: ${value}${unit},`;
-          if (up && max && value) {
-            if (parseFloat(value) > parseFloat(max)) {
-              prev += `<span class="up-danger">&uarr;${up}${unit}</span>,`;
-            } else {
-              prev += `<span>&uarr;${up}</span>,`;
+        if (_.isArray(item.description)) {
+          description = item.description.reduce((prev, curr) => {
+            let {metric, up, value, low, min, max} = curr;
+            let obj = this.metricList.find((item) => item.value === metric.toUpperCase());
+            let name = _.get(obj, 'name') || '';
+            let unit = _.get(obj, 'unit') || '';
+            prev += `${name}: ${value}${unit},`;
+            if (up && max && value) {
+              if (parseFloat(value) > parseFloat(max)) {
+                prev += `<span class="up-danger">&uarr;${up}${unit}</span>,`;
+              } else {
+                prev += `<span>&uarr;${up}</span>,`;
+              }
             }
-          }
-          prev += ' ';
-          if (max) {
-            prev += `最高阈值: ${max}${unit}`;
-          }
-          prev += ' ';
-          if (low && min && value) {
-            if (parseFloat(value) < parseFloat(min)) {
-              prev += `<span class="low-danger">&darr;${low}</span>,`;
-            } else {
-              prev += `<span>&darr;${low}</span>, `;
+            prev += ' ';
+            if (max) {
+              prev += `最高阈值: ${max}${unit}`;
             }
-          }
+            prev += ' ';
+            if (low && min && value) {
+              if (parseFloat(value) < parseFloat(min)) {
+                prev += `<span class="low-danger">&darr;${low}</span>,`;
+              } else {
+                prev += `<span>&darr;${low}</span>, `;
+              }
+            }
 
-          if (min) {
-            prev += `最低阈值: ${min}`;
-          }
-          return prev;
-        }, '');
+            if (min) {
+              prev += `最低阈值: ${min}`;
+            }
+            return prev;
+          }, '');
+        } else {
+          description = item.description.description;
+        }
         res.push(this.warnTypeOption[item.warnType]);
         res.push(description);
         res.push(this.$util.dateFormat('mm-dd HH:MM:SS', new Date(item.warnTime)));
-
         let status = '';
         switch (item.status) {
           case 'HANDLED':

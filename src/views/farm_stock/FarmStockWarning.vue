@@ -105,37 +105,41 @@ export default {
       return this.warningList.map((item) => {
         let res = [];
         // &uarr;上升 &darr;下降
-        let description = item.description.reduce((prev, curr) => {
-          let {metric, up, value, low, min, max} = curr;
-          let obj = this.metricList.find((item) => item.value === metric.toUpperCase());
-          let name = _.get(obj, 'name') || '';
-          let unit = _.get(obj, 'unit') || '';
-          prev += `${name}: ${value}${unit},`;
-          if (up && max && value) {
-            if (parseFloat(value) > parseFloat(max)) {
-              prev += `<span class="up-danger">&uarr;${up}${unit}</span>,`;
-            } else {
-              prev += `<span>&uarr;${up}</span>,`;
+        let description = '';
+        if (_.isArray(item.description)) {
+          description = item.description.reduce((prev, curr) => {
+            let {metric, up, value, low, min, max} = curr;
+            let obj = this.metricList.find((item) => item.value === metric.toUpperCase());
+            let name = _.get(obj, 'name') || '';
+            let unit = _.get(obj, 'unit') || '';
+            prev += `${name}: ${value}${unit},`;
+            if (up && max && value) {
+              if (parseFloat(value) > parseFloat(max)) {
+                prev += `<span class="up-danger">&uarr;${up}${unit}</span>,`;
+              } else {
+                prev += `<span>&uarr;${up}</span>,`;
+              }
             }
-          }
-          prev += ' ';
-          if (max) {
-            prev += `最高阈值: ${max}${unit}`;
-          }
-          prev += ' ';
-          if (low && min && value) {
-            if (parseFloat(value) < parseFloat(min)) {
-              prev += `<span class="low-danger">&darr;${low}</span>,`;
-            } else {
-              prev += `<span>&darr;${low}</span>, `;
+            prev += ' ';
+            if (max) {
+              prev += `最高阈值: ${max}${unit}`;
             }
-          }
-
-          if (min) {
-            prev += `最低阈值: ${min}`;
-          }
-          return prev;
-        }, '');
+            prev += ' ';
+            if (low && min && value) {
+              if (parseFloat(value) < parseFloat(min)) {
+                prev += `<span class="low-danger">&darr;${low}</span>,`;
+              } else {
+                prev += `<span>&darr;${low}</span>, `;
+              }
+            }
+            if (min) {
+              prev += `最低阈值: ${min}`;
+            }
+            return prev;
+          }, '');
+        } else {
+          description = item.description.description;
+        }
         res.push(item.warnCode);
         res.push(item.deviceName);
         res.push(item.farmName);

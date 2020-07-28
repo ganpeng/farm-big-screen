@@ -341,7 +341,7 @@ export default {
 .farm-stock-container {
   display: flex;
   justify-content: space-between;
-  flex: 1;
+  height: calc(100% - 80px);
   padding: 14px 20px 20px 20px;
   .left-side {
     display: flex;

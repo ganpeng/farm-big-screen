@@ -1,14 +1,14 @@
 <template>
   <!-- 方案1 -->
-  <div class="layout-container">
+  <!-- <div class="layout-container">
     <page-header></page-header>
     <router-view></router-view>
-  </div>
+  </div> -->
   <!-- 方案2 -->
-  <!-- <dv-full-screen-container :style="paddingBottomStyle" class="layout-container">
+  <dv-full-screen-container :style="paddingBottomStyle" class="layout-container">
     <page-header></page-header>
     <router-view></router-view>
-  </dv-full-screen-container> -->
+  </dv-full-screen-container>
 </template>
 <script>
 import {mapActions} from 'vuex';
@@ -30,15 +30,15 @@ export default {
   async created() {
     try {
       // 方案2
-      // let height = window.outerHeight - window.innerHeight;
-      // this.height = height;
+      let height = window.outerHeight - window.innerHeight;
+      this.height = height;
 
       // 方案1
       await this.$nextTick();
       await this.getAllDictList();
-      this.init();
-      this.resizeFull();
-      $(window).on('resize', this.resizeFull);
+      // this.init();
+      // this.resizeFull();
+      // $(window).on('resize', this.resizeFull);
     } catch (err) {
       console.log(err);
     }
