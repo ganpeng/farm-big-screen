@@ -276,3 +276,8 @@ export const getWarningList = (params) => {
   }));
   return service.get(`/v1/warn/page?${paramsStr}`);
 };
+
+// 预警统计
+export const getWarnStatisticsByFarmId = (id) => {
+  return service.get(`/v1/warn/warnStatistics?farmId=${id}`);
+}

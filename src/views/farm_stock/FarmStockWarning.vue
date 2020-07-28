@@ -17,14 +17,13 @@ import _ from 'lodash';
 import {mapGetters} from 'vuex';
 import MyBord from '@/components/MyBord';
 import FarmAsideNav from "./components/FarmAsideNav";
-import constants from '@/util/constants';
 export default {
   name: "FarmStockWarning",
   components: { FarmAsideNav, MyBord },
   data() {
     return {
       warningList: [],
-      bordList: constants.warningList,
+      bordList: [],
       warnTypeOption: {
         'DEVICE_ERROR': '设备异常',
         'MODEL_WARN': '模型预警'
@@ -38,9 +37,41 @@ export default {
   },
   async created() {
     try {
+      let {id} = this.$route.params;
       let res = await this.$service.getWarningList({pageSize: 10000});
+      let res2 = await this.$service.getWarnStatisticsByFarmId(id);
       if (res && res.code === 0) {
         this.warningList = res.data.list;
+      }
+      if (res2 && res2.code === 0) {
+        let bordList = [];
+        let total = _.get(res2.data, 'total');
+        let modelWarnTotal = _.get(res2.data, 'modelWarnTotal');
+        let deviceErrorTotal = _.get(res2.data, 'deviceErrorTotal');
+        let handledTotal = _.get(res2.data, 'handledTotal');
+        let unHandledTotal = _.get(res2.data, 'unHandledTotal');
+        bordList.push({
+          title: '总数',
+          count: total
+        });
+        bordList.push({
+          title: '模型预警',
+          count: modelWarnTotal
+        });
+        bordList.push({
+          title: '设备状态异常',
+          count: deviceErrorTotal
+        });
+        bordList.push({
+          title: '已处理',
+          count: handledTotal
+        });
+        bordList.push({
+          title: '未处理',
+          count: unHandledTotal
+        });
+        console.log(bordList);
+        this.bordList = bordList;
       }
     } catch (err) {
       console.log(err);
