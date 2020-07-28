@@ -281,3 +281,12 @@ export const getWarningList = (params) => {
 export const getWarnStatisticsByFarmId = (id) => {
   return service.get(`/v1/warn/warnStatistics?farmId=${id}`);
 }
+
+// 统计
+export const getStatisticsAll = (params) => {
+  let paramsStr = qs.stringify(_.pickBy(params, (item) => {
+    return item !== '' && item !== undefined;
+  }));
+  return service.get(`/v1/statistics/all?${paramsStr}`);
+};
+

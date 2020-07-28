@@ -70,7 +70,6 @@ export default {
           title: '未处理',
           count: unHandledTotal
         });
-        console.log(bordList);
         this.bordList = bordList;
       }
     } catch (err) {

@@ -10,15 +10,17 @@
         <farm-desc-dialog ref="farmDescDialog" :farm="farm"></farm-desc-dialog>
       </div>
     </div>
+    <video-player-dialog ref="videoPlayerDialog"></video-player-dialog>
   </div>
 </template>
 <script>
 import FarmAsideNav from './components/FarmAsideNav';
 import SensorData from './components/SensorData';
 import FarmDescDialog from './components//FarmDescDialog';
+import VideoPlayerDialog from '@/components/VideoPlayerDialog';
 export default {
   name: 'FarmStockSurvey',
-  components: {FarmAsideNav, SensorData, FarmDescDialog},
+  components: {FarmAsideNav, SensorData, FarmDescDialog, VideoPlayerDialog},
   data() {
     return {
       farm: {
@@ -36,9 +38,10 @@ export default {
       let {id} = this.$route.params;
       let res = await this.$service.getFarmById(id);
       if (res && res.code === 0) {
-        console.log(res.data);
         this.farm = res.data;
       }
+
+      this.$refs.videoPlayerDialog.show();
     } catch (err) {
       console.log(err);
     }
@@ -62,7 +65,6 @@ export default {
         position: relative;
         flex: 1;
         margin-top: 10px;
-        // background-image: url('../../assets/image/farm.jpg');
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;

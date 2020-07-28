@@ -323,8 +323,12 @@ export default {
   async created() {
     try {
       let res = await this.$service.getWarningList({pageSize: 10000});
+      let res2 = await this.$service.getStatisticsAll({farmId: 0});
       if (res && res.code === 0) {
         this.warningList = res.data.list;
+      }
+      if (res2 && res2.code === 0) {
+        console.log(res2.data);
       }
     } catch (err) {
       console.log(err);
