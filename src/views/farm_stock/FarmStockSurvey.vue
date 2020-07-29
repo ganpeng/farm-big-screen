@@ -23,6 +23,8 @@
                 :key="index"
                 class="camera-item">
               </div>
+              <div v-if="form === '粮食农田'" class="camera2-item"></div>
+              <div v-if="form === '粮食农田'" class="camera3-item"></div>
             </div>
           </div>
         </div>
@@ -91,6 +93,9 @@ export default {
           return `background-image:url(${bgImage})`;
         }
       }
+    },
+    form() {
+      return _.get(this.landList, `${this.activeIndex - 1}.form`);
     },
     farmContainerBgStyle() {
       return `background-image:url(${this.farm.farmIndexUrl})`;
@@ -229,6 +234,18 @@ export default {
                   font-size: 14px;
                   text-align: center;
                 }
+              }
+              .camera3-item {
+                position: absolute;
+                width: 2rem;
+                height: 3rem;
+                bottom: 10%;
+                right: 10%;
+                cursor: pointer;
+                background-image: url('../../assets/image/sensor_icon.png');
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+                background-position: center center;
               }
             }
           }

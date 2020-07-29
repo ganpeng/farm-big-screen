@@ -284,11 +284,11 @@ const cameraData = {
     ],
     position: {
       left: {
-        max: 94,
+        max: 84,
         min: 5
       },
       top: {
-        max: 84,
+        max: 80,
         min: 20
       }
     }
@@ -305,7 +305,7 @@ const cameraData = {
         min: 5
       },
       top: {
-        max: 84,
+        max: 80,
         min: 20
       }
     }
