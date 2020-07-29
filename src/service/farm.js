@@ -290,3 +290,10 @@ export const getStatisticsAll = (params) => {
   return service.get(`/v1/statistics/all?${paramsStr}`);
 };
 
+// 获取农场摄像头的列表
+export const getCameraListByFarmId = (params) => {
+  let paramsStr = qs.stringify(_.pickBy(params, (item) => {
+    return item !== '' && item !== undefined;
+  }));
+  return service.get(`/v1/camera/datamange/page?${paramsStr}`);
+};

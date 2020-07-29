@@ -32,7 +32,7 @@ export default {
         oddRowBGC: '#0E1831', // 奇数行
         evenRowBGC: '#0D1F3A', // 偶数行
         headerHeight: 40,
-        columnWidth: [100, 540],
+        // columnWidth: [100, 540],
         align: ['center']
       };
     }

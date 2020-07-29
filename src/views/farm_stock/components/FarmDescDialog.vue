@@ -149,7 +149,7 @@ export default {
           display: flex;
           align-items: flex-start;
           font-size: 12px;
-          line-height: 20px;
+          line-height: 14px;
           color: #9fa8b8;
           margin-top: 8px;
           .label {

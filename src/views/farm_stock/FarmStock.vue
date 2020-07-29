@@ -21,7 +21,7 @@
             <div class="charts-wrapper">
               <dv-active-ring-chart class="ring-chart" :config="config"/>
             </div>
-            <label-tag :config="config"></label-tag>
+            <label-tag :labelList="labelList1"></label-tag>
           </div>
         </div>
       </div>
@@ -244,6 +244,8 @@ export default {
   components: { LabelTag, RoseChart, FarmAlert, FarmMap },
   data() {
     return {
+      labelList1: [{name: '旱田', color: '#ECC94C'}, {name: '水浇地', color: '#68E0E3'}, {name: '水田', color: '#38A1DA'}],
+      labelList2: [{name: '传感器', color: '#ECC94C'}, {name: '球机摄像头', color: '#68E0E3'}, {name: '枪机摄像头', color: '#38A1DA'}],
       warningList: [],
       config: Object.assign({}, this.$util.ringChartDefaultConfig, {
         data: constants.ringChartData1
@@ -251,12 +253,6 @@ export default {
       config2: Object.assign({}, this.$util.ringChartDefaultConfig, {
         data: constants.ringChartData2
       }),
-      config3: {
-        data: constants.barChartData1,
-        colors: ["#e062ae", "#fb7293", "#e690d1", "#32c5e9", "#96bfff"],
-        unit: "万吨",
-        showValue: true
-      },
       option: {
         color: ['red', 'green', 'yellow', 'pink'],
         grid: {
@@ -282,7 +278,7 @@ export default {
             show: false
           },
           axisLine: {
-            show: false
+            show: false,
           },
           axisLabel: {
             style: {

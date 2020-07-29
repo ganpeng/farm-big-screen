@@ -1,8 +1,8 @@
 <template>
   <div class="label-tag">
-    <template v-if="config">
-      <div class="label-item" v-for="(item, index) in config.data" :key="index">
-        <div :style="`background-color: ${config.color[index % config.color.length]};`"/>
+    <template v-if="labelList">
+      <div class="label-item" v-for="(item, index) in labelList" :key="index">
+        <div :style="`background-color: ${item.color};`"/>
         {{item.name}}
       </div>
     </template>
@@ -12,8 +12,8 @@
 export default {
   name: "LabelTag",
   props: {
-    config: {
-      type: Object,
+    labelList: {
+      type: Array,
       default: () => []
     }
   }

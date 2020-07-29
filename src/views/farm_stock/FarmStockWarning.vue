@@ -95,7 +95,7 @@ export default {
         evenRowBGC: '#0D1F3A', // 偶数行
         headerHeight: 50,
         rowNum: 10,
-        columnWidth: [340, 200, 120, 120, 680],
+        // columnWidth: [340, 200, 120, 120, 680],
         align: ['center']
       };
     }

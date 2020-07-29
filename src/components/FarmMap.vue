@@ -16,7 +16,6 @@ export default {
   },
   data() {
     return {
-      farmImage: require('../assets/image/farm.jpg'),
       map: null,
       DistrictCluster: null,
       PointSimplifier: null,
@@ -56,7 +55,6 @@ export default {
         this.map.on("zoomend", this.mapZoomendHandler.bind(this));
         this.map.on("moveend", this.mapMoveendHandler.bind(this));
         this.districtCluster.on("clusterMarkerClick", this.clusterMarkerClickHandler);
-        this.districtCluster.on("featureClick", this.clusterMarkerClickHandler);
 
         let res = await this.$service.getFarmList();
         if (res && res.code === 0) {
@@ -66,9 +64,7 @@ export default {
               farm: item
             }
           });
-          console.log(data);
           this.districtCluster.setData(data);
-          this.pointSimplifier.setData(data);
         }
         this.map.setCity('吉林省');
       } catch (e) {
@@ -375,11 +371,11 @@ export default {
   .mark-info-window-container {
     position: relative;
     width: 330px;
-    height: 388px;
+    height: 300px;
     padding: 4px;
     background-color: rgba(30,91,135,0.8);
     .farm-info-wrapper {
-      height: 148px;
+      height: 130px;
       padding: 10px 20px;
       .title {
         color: #f0f0f0;
@@ -393,7 +389,6 @@ export default {
           align-items: flex-start;
           font-size: 12px;
           line-height: 16px;
-          margin-bottom: 8px;
           color: #DCDCDC;
           .label {
             white-space:nowrap;
@@ -403,7 +398,7 @@ export default {
     }
     .farm-image {
       width: 100%;
-      height: 234px;
+      height: 162px;
       background-color: transparent;
       background-position: center center;
       background-repeat: no-repeat;

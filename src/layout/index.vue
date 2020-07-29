@@ -4,11 +4,15 @@
     <page-header></page-header>
     <router-view></router-view>
   </div> -->
-  <!-- 方案2 -->
-  <dv-full-screen-container :style="paddingBottomStyle" class="layout-container">
+  <div class="layout-container">
     <page-header></page-header>
     <router-view></router-view>
-  </dv-full-screen-container>
+  </div>
+  <!-- 方案2 -->
+  <!-- <dv-full-screen-container :style="paddingBottomStyle" class="layout-container">
+    <page-header></page-header>
+    <router-view></router-view>
+  </dv-full-screen-container> -->
 </template>
 <script>
 import {mapActions} from 'vuex';
