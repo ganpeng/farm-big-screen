@@ -303,6 +303,7 @@ export default {
                 fill: '#fff'
               }
             },
+            barWidth: 20,
             independentColor: true,
             backgroundBar: {
               show: true,
@@ -361,7 +362,8 @@ export default {
             display: flex;
             flex-direction: column;
             flex: 1;
-            margin-top: 22px;
+            // margin-top: 22px;
+            margin-top: 0.22rem;
           }
         }
       }
@@ -383,22 +385,32 @@ export default {
         }
         .map-title {
           position: absolute;
-          top: 20px;
-          left: 20px;
-          width: 130px;
-          height: 50px;
-          line-height: 50px;
-          font-size: 16px;
+          // top: 20px;
+          // left: 20px;
+          // width: 130px;
+          // height: 50px;
+          // line-height: 50px;
+          // font-size: 16px;
+          top: 0.20rem;
+          left: 0.20rem;
+          width: 1.30rem;
+          height: 0.5rem;
+          line-height: 0.5rem;
+          font-size: 0.16rem;
           font-weight: 500;
           color: #70CAEE;
           text-align: center;
         }
         .farm-count {
           position: absolute;
-          top: 20px;
-          right: 190px;
-          width: 150px;
-          height: 60px;
+          // top: 20px;
+          // right: 190px;
+          // width: 150px;
+          // height: 60px;
+          top: 0.2rem;
+          right: 1.90rem;
+          width: 1.5rem;
+          height: 0.6rem;
           display: flex;
           align-items: center;
           background: url('../../assets/image/farm_map_right_icon1.png');
@@ -408,32 +420,41 @@ export default {
             width: 50%;
             text-align: center;
             .svg-icon {
-              width: 24px;
-              height: 20px;
+              // width: 24px;
+              // height: 20px;
+              width: 0.24rem;
+              height: 0.20rem;
             }
           }
           .farm-count-info {
             width: 50%;
             .label {
-              font-size: 12px;
+              // font-size: 12px;
+              font-size: 0.12rem;
               color: #417FC8;
             }
             .value {
-              font-size: 30px;
+              // font-size: 30px;
+              font-size: 0.3rem;
               font-weight: 500;
               color: #68E0E3;
               i {
-                font-size: 14px;
+                // font-size: 14px;
+                font-size: 0.14rem;
               }
             }
           }
         }
         .people-count {
           position: absolute;
-          top: 20px;
-          right: 20px;
-          width: 150px;
-          height: 60px;
+          // top: 20px;
+          // right: 20px;
+          // width: 150px;
+          // height: 60px;
+          top: 0.2rem;
+          right: 0.2rem;
+          width: 1.5rem;
+          height: 0.6rem;
           display: flex;
           align-items: center;
           background: url('../../assets/image/farm_map_right_icon2.png');
@@ -446,23 +467,28 @@ export default {
               width: 50%;
               text-align: center;
               .svg-icon {
-                width: 24px;
-                height: 20px;
+                // width: 24px;
+                // height: 20px;
+                width: 0.24rem;
+                height: 0.2rem;
               }
             }
           }
           .people-count-info {
             width: 50%;
             .label {
-              font-size: 12px;
+              // font-size: 12px;
+              font-size: 0.12rem;
               color: #417FC8;
             }
             .value {
-              font-size: 30px;
+              // font-size: 30px;
+              font-size: 0.3rem;
               font-weight: 500;
               color: #ECC94C;
               i {
-                font-size: 14px;
+                // font-size: 14px;
+                font-size: 0.14rem;
               }
             }
           }
@@ -498,29 +524,36 @@ export default {
           flex-direction: column;
           justify-content: space-around;
           flex: 1;
-          margin-top: 12px;
+          margin-top: 0.12rem;
+          // margin-top: 12px;
           .info-row {
             display: flex;
-            margin-top: 6px;
-            padding-left: 15px;
+            margin-top: 0.06rem;
+            padding-left: 0.15rem;
+            // margin-top: 6px;
+            // padding-left: 15px;
             .info-item {
               flex: 1;
               .title {
-                font-size: 14px;
+                // font-size: 14px;
+                font-size: 0.14rem;
                 color: #417FC8;
               }
               .value {
-                font-size: 30px;
+                // font-size: 30px;
+                font-size: 0.3rem;
                 font-weight: bold;
                 color: #2EABFF;
                 i {
-                  font-size:14px;
+                  // font-size:14px;
+                  font-size: 0.14rem;
                   color: #2EABFF;
                 }
               }
             }
             .info-item + .info-item {
-              margin-left: 10px;
+              // margin-left: 10px;
+              margin-left: 0.1rem;
             }
           }
         }
@@ -531,7 +564,8 @@ export default {
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: 20px 18px 18px 18px;
+    // padding: 20px 18px 18px 18px;
+    padding: 0.2rem 0.18rem 0.18rem 0.18rem;
   }
 
 }
@@ -544,15 +578,22 @@ export default {
   justify-content: center;
   flex: 1;
   .charts-header {
-    font-size: 14px;
-    line-height: 30px;
-    margin: 8px 0;
+    // font-size: 14px;
+    // font-size: 14px;
+    // line-height: 30px;
+    // margin: 8px 0;
+    font-size: 0.14rem;
+    font-size: 0.14rem;
+    line-height: 0.30rem;
+    margin: 0.08rem 0;
     text-align: center;
     color: #417FC8;
     i {
       color: #2EABFF;
-      font-size: 22px;
-      margin-left: 10px;
+      // font-size: 22px;
+      // margin-left: 10px;
+      font-size: 0.22rem;
+      margin-left: 0.1rem;
     }
     span {
       color: #2EABFF;
@@ -566,7 +607,8 @@ export default {
     width: 100%;
     .ring-chart {
       width: 100%;
-      height: calc(100% - 10px);
+      // height: calc(100% - 10px);
+      height: calc(100% - 0.1rem);
     }
   }
 }

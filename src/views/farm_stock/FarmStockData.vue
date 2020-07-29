@@ -118,7 +118,7 @@ export default {
       option: {
         grid: {
           top: '2%',
-          bottom: '8%'
+          bottom: '10%'
         },
         xAxis: {
           axisLabel: {
@@ -279,10 +279,10 @@ export default {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 20%;
+            height: 28%;
           }
           .charts-wrapper {
-            height: 70%;
+            height: 62%;
           }
         }
         .data-chart-item + .data-chart-item {
