@@ -16,10 +16,10 @@
           <div class="charts-container">
             <div class="charts-header">
               总耕地面积
-              <i>1200</i> <span>公顷</span>
+              <i>{{landData.totalArea}}</i> <span>公顷</span>
             </div>
             <div class="charts-wrapper">
-              <dv-active-ring-chart class="ring-chart" :config="config"/>
+              <dv-active-ring-chart class="ring-chart" :config="landConfig"/>
             </div>
             <label-tag :labelList="labelList1"></label-tag>
           </div>
@@ -234,6 +234,7 @@
   </div>
 </template>
 <script>
+import _ from 'lodash';
 import LabelTag from "@/components/LabelTag";
 import FarmMap from "@/components/FarmMap";
 import constants from "@/util/constants";
@@ -244,8 +245,10 @@ export default {
   components: { LabelTag, RoseChart, FarmAlert, FarmMap },
   data() {
     return {
-      labelList1: [{name: '旱田', color: '#ECC94C'}, {name: '水浇地', color: '#68E0E3'}, {name: '水田', color: '#38A1DA'}],
+      labelList1: [{name: '旱田', color: '#38A1DA'}, {name: '水浇地', color: '#ECC94C'}, {name: '水田', color: '#68E0E3'}],
       labelList2: [{name: '传感器', color: '#ECC94C'}, {name: '球机摄像头', color: '#68E0E3'}, {name: '枪机摄像头', color: '#38A1DA'}],
+      landData: {},
+      landConfig: {},
       warningList: [],
       config: Object.assign({}, this.$util.ringChartDefaultConfig, {
         data: constants.ringChartData1
@@ -319,18 +322,30 @@ export default {
   },
   async created() {
     try {
+      let year = new Date().getFullYear();
       let res = await this.$service.getWarningList({pageSize: 10000});
-      let res2 = await this.$service.getStatisticsAll({farmId: 0});
+      let res2 = await this.$service.getLandStatistics({farmId: 0, year});
       if (res && res.code === 0) {
         this.warningList = res.data.list;
       }
       if (res2 && res2.code === 0) {
-        console.log(res2.data);
+        this.landData = _.get(res2.data, '0');
+        this.landConfig = this.getLandConfig(res2.data);
       }
     } catch (err) {
       console.log(err);
     }
     console.log(this.$util);
+  },
+  methods: {
+    getLandConfig(inputData) {
+      let data= [
+        {name: '旱田', value: _.get(inputData, `0.dryLandArea`)},
+        {name: '水浇地', value: _.get(inputData, `0.irrigationLandArea`)},
+        {name: '水田', value: _.get(inputData, `0.paddyFieldArea`)}
+      ];
+      return Object.assign({}, this.$util.ringChartDefaultConfig, {data});
+    }
   }
 };
 </script>

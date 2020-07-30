@@ -7,7 +7,7 @@
           <div @click="changeTab(0)" :class="['tab-item', activeIndex === 0 && 'active']">农田农情</div>
           <div @click="changeTab(1)" :class="['tab-item', activeIndex === 1 && 'active']">育苗大棚</div>
         </div>
-        <div class="farm-title">聚成现代农业发展专业合作社</div>
+        <div class="farm-title">{{farm.name}}</div>
       </div>
       <div class="tab-content">
         <div class="tab-content-wrapper">
@@ -109,6 +109,7 @@
   </div>
 </template>
 <script>
+import {mapGetters, mapActions} from 'vuex';
 import FarmAsideNav from "./components/FarmAsideNav";
 import VideoPlayer from '@/components/VideoPlayer';
 export default {
@@ -120,7 +121,18 @@ export default {
       subActiveIndex: 0
     };
   },
+  async created() {
+    try {
+      let {id} = this.$route.params;
+      await this.getFarmById(id);
+    } catch (err) {
+      console.log(err);
+    }
+  },
   computed: {
+    ...mapGetters({
+      farm: 'farm/currentFarm'
+    }),
     videoOptions() {
       return {
         autoplay: true,
@@ -149,6 +161,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      getFarmById: 'farm/getFarmById'
+    }),
     changeTab(index) {
       this.activeIndex = index;
     },
@@ -273,7 +288,7 @@ export default {
             flex-direction: column;
             width: 49.23%;
             height: 50%;
-            margin: 0;
+            padding: 0 10px;
             .title-one {
               display: flex;
               align-items: center;
@@ -286,6 +301,7 @@ export default {
               width: 100%;
               flex: 1;
               padding: 4px;
+              // padding: 4px 20px;
             }
           }
           .camera-item:nth-of-type(2n) {

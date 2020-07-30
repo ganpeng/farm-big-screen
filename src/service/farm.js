@@ -287,7 +287,22 @@ export const getStatisticsAll = (params) => {
   let paramsStr = qs.stringify(_.pickBy(params, (item) => {
     return item !== '' && item !== undefined;
   }));
-  return service.get(`/v1/statistics/all?${paramsStr}`);
+  return service.get(`/v1/statistics/farm?${paramsStr}`);
+};
+
+export const getStatisticsPlant = (params) => {
+  let paramsStr = qs.stringify(_.pickBy(params, (item) => {
+    return item !== '' && item !== undefined;
+  }));
+  return service.get(`/v1/statistics/planting?${paramsStr}`);
+};
+
+// 首页耕地类型统计
+export const getLandStatistics = (params) => {
+  let paramsStr = qs.stringify(_.pickBy(params, (item) => {
+    return item !== '' && item !== undefined;
+  }));
+  return service.get(`/v1/statistics/land?${paramsStr}`);
 };
 
 // 获取农场摄像头的列表

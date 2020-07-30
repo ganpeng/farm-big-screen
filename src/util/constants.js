@@ -1,4 +1,18 @@
 import _ from 'lodash';
+const colors = [
+  '#297CEB',
+  '#7C82FB',
+  '#71CACF',
+  '#23A6F5',
+  '#98BD72',
+  '#E2CA7F',
+  '#5FD2DB',
+  '#E9C366',
+  '#D9647E',
+  '#DF7C57',
+  '#884CDE',
+  '#4796FF'
+];
 
 /**
  *  产生指定范围不重复的随机数(对数组随机排序思路)
@@ -150,57 +164,93 @@ const warningList = [{
 
 const labelList1 = [{
     name: '总面积',
-    color: '#297CEB'
-  },
-  {
-    name: '耕地',
-    color: '#7C82FB'
-  },
-  {
-    name: '宅基地',
-    color: '#71CACF'
-  },
-  {
-    name: '水田',
-    color: '#23A6F5'
-  },
-  {
-    name: '旱田',
-    color: '#98BD72'
+    color: colors[0]
   },
   {
     name: '水浇地',
-    color: '#E2CA7F'
-  }
+    color: colors[1]
+  },
+  {
+    name: '水田',
+    color: colors[2]
+  },
+  {
+    name: '旱田',
+    color: colors[3]
+  },
+  {
+    name: '耕地',
+    color: colors[4]
+  },
+  {
+    name: '宅基地',
+    color: colors[5]
+  },
 ];
 
 // 从业人员
 const labelList2 = [{
-    name: '总人员',
-    color: '#297CEB'
+    name: '总人数',
+    color: colors[0]
   },
   {
     name: '经营人员',
-    color: '#7C82FB'
+    color: colors[1]
   },
   {
     name: '种植人员',
-    color: '#71CACF'
+    color: colors[2]
   }
 ];
 
 // 农机具类型
 const labelList3 = [{
-    name: '总人员',
-    color: '#297CEB'
+    name: '总数',
+    color: colors[0]
   },
   {
-    name: '经营人员',
-    color: '#7C82FB'
+    name: '风力',
+    color: colors[1]
   },
   {
-    name: '种植人员',
-    color: '#71CACF'
+    name: '太阳能',
+    color: colors[2]
+  },
+  {
+    name: '汽油',
+    color: colors[3]
+  },
+  {
+    name: '柴油',
+    color: colors[4]
+  },
+  {
+    name: '电力',
+    color: colors[5]
+  },
+  {
+    name: '煤炭',
+    color: colors[6]
+  },
+  {
+    name: '其他动力类型',
+    color: colors[7]
+  },
+  {
+    name: '运输',
+    color: colors[8]
+  },
+  {
+    name: '加工',
+    color: colors[9]
+  },
+  {
+    name: '种植',
+    color: colors[10]
+  },
+  {
+    name: '其他',
+    color: colors[11]
   }
 ];
 
@@ -234,42 +284,42 @@ const labelList4 = [{
 // 投入品
 const labelList5 = [{
     name: '总量',
-    color: '#297CEB'
+    color: colors[0]
   },
   {
     name: '无机肥',
-    color: '#7C82FB'
+    color: colors[1]
   },
   {
     name: '有机肥',
-    color: '#71CACF'
+    color: colors[2]
   },
   {
     name: '农药',
-    color: '#23A6F5'
+    color: colors[3]
   },
   {
     name: '其他',
-    color: '#98BD72'
+    color: colors[4]
   }
 ];
 
 // 经营统计
 const labelList6 = [{
     name: '资金总额',
-    color: '#297CEB'
+    color: colors[0]
   },
   {
     name: '项目拨款',
-    color: '#7C82FB'
+    color: colors[1]
   },
   {
     name: '补贴金额',
-    color: '#71CACF'
+    color: colors[2]
   },
   {
     name: '农业社会化服务',
-    color: '#23A6F5'
+    color: colors[3]
   }
 ];
 
@@ -383,6 +433,68 @@ const warningTableList = _.times(30, () => {
 
 const borderColors = ['#0B142B', '#1C56A5'];
 
+const trendChartLabelList = [{
+    name: '空气温度',
+    active: true,
+    color: colors[0]
+  },
+  {
+    name: '空气湿度',
+    active: true,
+    color: colors[1]
+  },
+  {
+    name: '光照度',
+    active: true,
+    color: colors[2]
+  },
+  {
+    name: '光照总辐射',
+    active: true,
+    color: colors[3]
+  },
+  {
+    name: '降雨量',
+    active: true,
+    color: colors[4]
+  },
+  {
+    name: '气压',
+    active: true,
+    color: colors[5]
+  },
+  {
+    name: '风速',
+    active: true,
+    color: colors[6]
+  },
+  {
+    name: '土壤温度',
+    active: false,
+    color: colors[7]
+  },
+  {
+    name: '土壤湿度',
+    active: false,
+    color: colors[8]
+  },
+  {
+    name: '捕虫量',
+    active: false,
+    color: colors[9]
+  },
+  {
+    name: '温度',
+    active: false,
+    color: colors[10]
+  },
+  {
+    name: 'PH值',
+    active: false,
+    color: colors[11]
+  }
+];
+
 export default {
   ringChartData1,
   ringChartData2,
@@ -400,5 +512,8 @@ export default {
   labelList6,
   // 农场摄像头
   cameraData,
-  getRandNumForRangen
+  getRandNumForRangen,
+  colors,
+  // 趋势图表
+  trendChartLabelList
 };

@@ -31,7 +31,7 @@
             </li>
           </ul>
           <ul class="farm-tag-list">
-            <li v-for="(tag, index) in farm.tagList" :key="index" class="farm-tag-item">{{tag}}</li>
+            <li v-for="(mark, index) in farm.farmMarks" :key="index" class="farm-tag-item">{{mark.name}}</li>
           </ul>
         </div>
         <div class="desc border-icon10">{{farm.description}}</div>

@@ -3,7 +3,7 @@
     <farm-aside-nav></farm-aside-nav>
     <div class="content">
       <div class="title-wrapper">
-        <div class="farm-title">聚成现代农业发展专业合作社</div>
+        <div class="farm-title">{{farm.name}}</div>
       </div>
       <my-bord :bordList="bordList"></my-bord>
       <div class="warning-table-container border-icon8">
@@ -14,7 +14,7 @@
 </template>
 <script>
 import _ from 'lodash';
-import {mapGetters} from 'vuex';
+import {mapGetters, mapActions} from 'vuex';
 import MyBord from '@/components/MyBord';
 import FarmAsideNav from "./components/FarmAsideNav";
 export default {
@@ -38,6 +38,7 @@ export default {
   async created() {
     try {
       let {id} = this.$route.params;
+      await this.getFarmById(id);
       let res = await this.$service.getWarningList({pageSize: 10000});
       let res2 = await this.$service.getWarnStatisticsByFarmId(id);
       if (res && res.code === 0) {
@@ -78,7 +79,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      dict: 'dict/dict'
+      dict: 'dict/dict',
+      farm: 'farm/currentFarm'
     }),
     metricList() {
       return this.dict.metric || [];
@@ -101,6 +103,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      getFarmById: 'farm/getFarmById'
+    }),
     serializeAlertData() {
       return this.warningList.map((item) => {
         let res = [];

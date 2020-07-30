@@ -7,9 +7,9 @@
           <div @click="changeTab(0)" :class="['tab-item', activeIndex === 0 && 'active']">农场数据</div>
           <div @click="changeTab(1)" :class="['tab-item', activeIndex === 1 && 'active']">设备数据</div>
         </div>
-        <div class="farm-title">聚成现代农业发展专业合作社</div>
+        <div class="farm-title">{{farm.name}}</div>
       </div>
-      <div v-if="activeIndex === 0" class="tab-content">
+      <div v-show="activeIndex === 0" class="tab-content">
         <div class="data-chart-container">
           <div class="data-charts">
             <div class="data-chart-item border-icon6">
@@ -21,7 +21,7 @@
                 <label-tag :labelList="labelList1"></label-tag>
               </div>
               <div class="charts-wrapper">
-                <dv-charts :option="option"/>
+                <dv-charts :option="landOption"/>
               </div>
             </div>
             <div class="data-chart-item border-icon6">
@@ -33,7 +33,7 @@
                 <label-tag :labelList="labelList2"></label-tag>
               </div>
               <div class="charts-wrapper">
-                <dv-charts :option="option"/>
+                <dv-charts :option="memberOption"/>
               </div>
             </div>
             <div class="data-chart-item border-icon6">
@@ -45,7 +45,7 @@
                 <label-tag :labelList="labelList3"></label-tag>
               </div>
               <div class="charts-wrapper">
-                <dv-charts :option="option"/>
+                <dv-charts :option="machineOption"/>
               </div>
             </div>
           </div>
@@ -59,7 +59,7 @@
                 <label-tag :labelList="labelList4"></label-tag>
               </div>
               <div class="charts-wrapper">
-                <dv-charts :option="option"/>
+                <dv-charts :option="plantOption"/>
               </div>
             </div>
             <div class="data-chart-item border-icon6">
@@ -71,7 +71,7 @@
                 <label-tag :labelList="labelList5"></label-tag>
               </div>
               <div class="charts-wrapper">
-                <dv-charts :option="option"/>
+                <dv-charts :option="inputOption"/>
               </div>
             </div>
             <div class="data-chart-item border-icon6">
@@ -83,29 +83,48 @@
                 <label-tag :labelList="labelList6"></label-tag>
               </div>
               <div class="charts-wrapper">
-                <dv-charts :option="option"/>
+                <dv-charts :option="businessOption"/>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div v-if="activeIndex === 1" class="tab-content">
+      <div v-show="activeIndex === 1" class="tab-content device-content">
         <div class="title-one">
-          <h5>实时数据</h5>
+          <div class="wrapper">
+            <h5>
+              <svg-icon class="title-icon" icon-class="title_icon"></svg-icon>实时数据
+            </h5>
+          </div>
         </div>
         <sensor-data></sensor-data>
+        <div class="title-one">
+          <div class="wrapper">
+            <h5>
+              <svg-icon class="title-icon" icon-class="title_icon"></svg-icon>趋势图
+            </h5>
+          </div>
+        </div>
+        <div class="trend-chart-container border-icon18">
+          <trend-chart ref="trendChart"></trend-chart>
+          <!-- <div id="trend-chart" style="width: 100%; height: 100%"></div> -->
+          <!-- <dv-charts :option="option"/> -->
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import LabelTag from '@/components/LabelTag';
+import { mapGetters, mapActions } from "vuex";
+import _ from "lodash";
+import LabelTag from "@/components/LabelTag";
 import FarmAsideNav from "./components/FarmAsideNav";
 import SensorData from "./components/SensorData";
-import constants from '@/util/constants';
+import TrendChart from './components/TrendChart';
+import constants from "@/util/constants";
 export default {
   name: "FarmStockData",
-  components: { FarmAsideNav, SensorData, LabelTag},
+  components: { FarmAsideNav, SensorData, LabelTag, TrendChart },
   data() {
     return {
       activeIndex: 0,
@@ -115,100 +134,612 @@ export default {
       labelList4: constants.labelList4,
       labelList5: constants.labelList5,
       labelList6: constants.labelList6,
+      landOption: {},
+      memberOption: {},
+      machineOption: {},
+      inputOption: {},
+      plantOption: {},
+      businessOption: {},
       option: {
         grid: {
-          top: '2%',
-          bottom: '10%'
+          left: "40%",
+          right: 10,
+          top: "20%",
+          bottom: 10
+        },
+        legend: {
+          data: ["降雨量", "降雪量"],
+          top: 20,
+          iconWidth: 10,
+          iconHeight: 10,
+          iconUnselectedStyle: {
+            fill: "#667799"
+          },
+          textUnselectedStyle: {
+            fill: "#667799"
+          },
+          textStyle: {
+            fontSize: 12,
+            fill: "#F0F0F0"
+          }
+        },
+        xAxis: {
+          data: [
+            "一月份",
+            "二月份",
+            "三月份",
+            "四月份",
+            "五月份",
+            "六月份",
+            "七月份",
+            "八月份",
+            "九月份",
+            "十月份",
+            "十一月份",
+            "十二月份"
+          ],
+          axisLabel: {
+            style: {
+              rotate: 20,
+              textAlign: "left",
+              textBaseline: "top"
+            }
+          },
+          axisTick: {
+            show: false
+          }
+        },
+        yAxis: [
+          {
+            name: "降雨量",
+            data: "value",
+            min: 0,
+            max: 300,
+            splitLine: {
+              style: {
+                lineDash: [3, 3]
+              }
+            },
+            axisLabel: {
+              formatter: "{value} ml"
+            },
+            axisTick: {
+              show: false
+            }
+          },
+          {
+            name: "降雪量",
+            data: "value",
+            min: 0,
+            max: 300,
+            position: "left",
+            offset: 130,
+            splitLine: {
+              show: false
+            },
+            axisLabel: {
+              formatter: "{value} °C"
+            },
+            axisTick: {
+              show: false
+            }
+          }
+        ],
+        series: [
+          {
+            name: "降雨量",
+            data: [175, 125, 90, 130, 45, 65, 65, 47, 50, 52, 45, 37],
+            type: "line",
+            gradient: {
+              color: ["#37a2da", "#67e0e3"]
+            },
+            animationCurve: "easeOutBounce"
+          },
+          {
+            name: "降雪量",
+            data: [125, 105, 190, 130, 145, 165, 65, 147, 120, 152, 145, 137],
+            type: "line",
+            // yAxisIndex: 1,
+            gradient: {
+              color: ["#37a2da", "#67e0e3"]
+            },
+            animationCurve: "easeOutBounce"
+          }
+        ]
+      }
+    };
+  },
+  async created() {
+    try {
+      let { id } = this.$route.params;
+      await this.getFarmById(id);
+      await this.$nextTick();
+      this.$refs.trendChart.initCharts();
+      let res = await this.$service.getStatisticsAll({ farmId: id });
+      let res2 = await this.$service.getStatisticsPlant({ farmId: id });
+      if (res && res.code === 0) {
+        this.landOption = this.getLandOption(
+          _.get(res.data, "landStatisticsList")
+        );
+        this.memberOption = this.getMemberOption(
+          _.get(res.data, "memberStatisticsList")
+        );
+        this.machineOption = this.getMachineOption(
+          _.get(res.data, "machineryStatisticsList")
+        );
+        this.inputOption = this.getInputOption(
+          _.get(res.data, "inputStatisticsList")
+        );
+        this.businessOption = this.getBusinessOption(
+          _.get(res.data, "landStatisticsList")
+        );
+      }
+      if (res2 && res2.code === 0) {
+        console.log(res2.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  computed: {
+    ...mapGetters({
+      farm: "farm/currentFarm"
+    })
+  },
+  methods: {
+    ...mapActions({
+      getFarmById: "farm/getFarmById"
+    }),
+    async changeTab(index) {
+      try {
+        this.activeIndex = index;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    mixOption(obj) {
+      return {
+        grid: {
+          left: "13%",
+          right: "5%",
+          top: "2%",
+          bottom: "10%"
         },
         xAxis: {
           axisLabel: {
             style: {
-              fill: '#9FA8B8',
-              fontSize: '12px'
+              fill: "#9FA8B8",
+              fontSize: "12px"
             }
           },
           axisLine: {
             style: {
-              stroke: '#3E495E',
+              stroke: "#3E495E",
               lineWidth: 2
             }
           },
-          data: ["2019", "2020"]
+          data: obj.year
         },
         yAxis: {
           data: "value",
-          max: '1%',
+          max: "1%",
+          min: 0,
           axisLabel: {
             style: {
-              fill: '#9FA8B8',
-              fontSize: '12px'
+              fill: "#9FA8B8",
+              fontSize: "12px"
             }
           },
           splitLine: {
             style: {
-              stroke: '#3D485D'
+              lineDash: [3, 3],
+              stroke: "#3D485D"
             }
           },
           axisLine: {
             show: false
           }
         },
-        series: [
-          {
-            data: [1200, 2230],
-            type: "bar",
-            stack: "b",
-            barStyle: {
-              fill: '#E2CA7F'
-            }
-          },
-          {
-            data: [1200, 2230],
-            type: "bar",
-            stack: "b",
-            barStyle: {
-              fill: '#98BD72'
-            }
-          },
-          {
-            data: [1200, 2230],
-            type: "bar",
-            stack: "b",
-            barStyle: {
-              fill: '#23A6F5'
-            }
-          },
-          {
-            data: [1200, 2230],
-            type: "bar",
-            stack: "a",
-            barStyle: {
-              fill: '#71CACF'
-            }
-          },
-          {
-            data: [1200, 2230],
-            type: "bar",
-            stack: "a",
-            barStyle: {
-              fill: '#7C82FB'
-            }
-          },
-          {
-            data: [1200, 2230],
-            type: "bar",
-            barWidth: '10%',
-            barStyle: {
-              fill: '#297CEB'
-            }
-          }
+        series: obj.series
+      };
+    },
+    getLandOption(data) {
+      let obj = _.groupBy(data, "year");
+      let years = Object.keys(obj);
+      let yearData = years.map(year => {
+        let item = _.get(obj, `${year}.0`);
+        return item;
+      });
+      // 水浇地
+      let item1 = {
+        data: yearData.map(item => item.irrigationLandArea),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[1]
+        }
+      };
+      // 旱地
+      let item2 = {
+        data: yearData.map(item => item.dryLandArea),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[2]
+        }
+      };
+      // 水田
+      let item3 = {
+        data: yearData.map(item => item.paddyFieldArea),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[3]
+        }
+      };
+      // 耕地
+      let item4 = {
+        data: yearData.map(item => item.homesteadArea),
+        type: "bar",
+        stack: "a",
+        barStyle: {
+          fill: constants.colors[4]
+        }
+      };
+      // 宅基地
+      let item5 = {
+        data: yearData.map(item => item.farmLandArea),
+        type: "bar",
+        stack: "a",
+        barStyle: {
+          fill: constants.colors[5]
+        }
+      };
+      let item6 = {
+        data: yearData.map(item => item.totalArea),
+        type: "bar",
+        barWidth: "10%",
+        barStyle: {
+          fill: constants.colors[0]
+        }
+      };
+      let series = _.concat([], [item1, item2, item3, item4, item5, item6]);
+      return this.mixOption({ year: years, series });
+    },
+    getMemberOption(data) {
+      let obj = _.groupBy(data, "year");
+      let years = Object.keys(obj);
+      let yearData = years.map(year => {
+        let item = _.get(obj, `${year}.0`);
+        return item;
+      });
+      // 经营人员
+      let item1 = {
+        data: yearData.map(item => item.manageMemberNumber),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[1]
+        }
+      };
+      // 种植人员
+      let item2 = {
+        data: yearData.map(item => item.plantMemberNumber),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[2]
+        }
+      };
+      // 总人数
+      let item3 = {
+        data: yearData.map(item => item.totalNumber),
+        type: "bar",
+        barWidth: "10%",
+        barStyle: {
+          fill: constants.colors[0]
+        }
+      };
+      let series = _.concat([], [item1, item2, item3]);
+      return this.mixOption({ year: years, series });
+    },
+    getMachineOption(data) {
+      let obj = _.groupBy(data, "year");
+      let years = Object.keys(obj);
+      let yearData = years.map(year => {
+        let item = _.get(obj, `${year}.0`);
+        return item;
+      });
+      // 动力类型
+      // 风力
+      let item1 = {
+        data: yearData.map(item => item.windMachineryNumber),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[1]
+        }
+      };
+      // 太阳能
+      let item2 = {
+        data: yearData.map(item => item.solarMachineryNumber),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[2]
+        }
+      };
+      // 汽油
+      let item3 = {
+        data: yearData.map(item => item.gasolineMachineryNumber),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[3]
+        }
+      };
+      // 柴油
+      let item4 = {
+        data: yearData.map(item => item.dieselMachineryNumber),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[4]
+        }
+      };
+      // 电力
+      let item5 = {
+        data: yearData.map(item => item.electricMachineryNumber),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[5]
+        }
+      };
+      // 煤炭
+      let item6 = {
+        data: yearData.map(item => item.coalMachineryNumber),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[6]
+        }
+      };
+      // 其他
+      let item7 = {
+        data: yearData.map(item => item.otherPowerMachineryNumber),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[7]
+        }
+      };
+      // 类型
+      // 运输
+      let item8 = {
+        data: yearData.map(item => item.transportMachineryNumber),
+        type: "bar",
+        stack: "a",
+        barStyle: {
+          fill: constants.colors[8]
+        }
+      };
+      // 加工
+      let item9 = {
+        data: yearData.map(item => item.processMachineryNumber),
+        type: "bar",
+        stack: "a",
+        barStyle: {
+          fill: constants.colors[9]
+        }
+      };
+      // 种植
+      let item10 = {
+        data: yearData.map(item => item.plantingMachineryNumber),
+        type: "bar",
+        stack: "a",
+        barStyle: {
+          fill: constants.colors[10]
+        }
+      };
+      // 其他
+      let item11 = {
+        data: yearData.map(item => item.otherUseMachineryNumber),
+        type: "bar",
+        stack: "a",
+        barStyle: {
+          fill: constants.colors[11]
+        }
+      };
+      // 总数
+      let item12 = {
+        data: yearData.map(item => item.totalNumber),
+        type: "bar",
+        barWidth: "10%",
+        barStyle: {
+          fill: constants.colors[0]
+        }
+      };
+      let series = _.concat(
+        [],
+        [
+          item1,
+          item2,
+          item3,
+          item4,
+          item5,
+          item6,
+          item7,
+          item8,
+          item9,
+          item10,
+          item11,
+          item12
         ]
-      }
-    };
-  },
-  methods: {
-    changeTab(index) {
-      this.activeIndex = index;
+      );
+      return this.mixOption({ year: years, series });
+    },
+    getInputOption(data) {
+      let obj = _.groupBy(data, "year");
+      let years = Object.keys(obj);
+      let yearData = years.map(year => {
+        let item = _.get(obj, `${year}.0`);
+        return item;
+      });
+      // 无机肥
+      let item1 = {
+        data: yearData.map(item => item.inorganicFertilizerAmount),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[1]
+        }
+      };
+      // 有机肥
+      let item2 = {
+        data: yearData.map(item => item.organicFertilizerAmount),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[2]
+        }
+      };
+      // 农药
+      let item3 = {
+        data: yearData.map(item => item.pesticideAmount),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[3]
+        }
+      };
+      // 其他
+      let item4 = {
+        data: yearData.map(item => item.otherAmount),
+        type: "bar",
+        stack: "a",
+        barStyle: {
+          fill: constants.colors[4]
+        }
+      };
+      // 总量
+      let item5 = {
+        data: yearData.map(item => item.totalAmount),
+        type: "bar",
+        barWidth: "10%",
+        barStyle: {
+          fill: constants.colors[0]
+        }
+      };
+      let series = _.concat([], [item1, item2, item3, item4, item5]);
+      return this.mixOption({ year: years, series });
+    },
+    getBusinessOption(data) {
+      let obj = _.groupBy(data, "year");
+      let years = Object.keys(obj);
+      let yearData = years.map(year => {
+        let item = _.get(obj, `${year}.0`);
+        return item;
+      });
+      // 项目拨款
+      let item1 = {
+        data: yearData.map(item => item.irrigationLandArea),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[1]
+        }
+      };
+      // 补贴金额
+      let item2 = {
+        data: yearData.map(item => item.dryLandArea),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[2]
+        }
+      };
+      // 农业社会化服务
+      let item3 = {
+        data: yearData.map(item => item.paddyFieldArea),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[3]
+        }
+      };
+      // 资金总额
+      let item4 = {
+        data: yearData.map(item => item.totalArea),
+        type: "bar",
+        barWidth: "10%",
+        barStyle: {
+          fill: constants.colors[0]
+        }
+      };
+      let series = _.concat([], [item1, item2, item3, item4]);
+      return this.mixOption({ year: years, series });
+    },
+    getPlantOption() {
+      // let years = Object.keys(data);
+      // let yearData = years.map((year) => {
+      //   let item = _.get(obj, `${year}.0`);
+      //   return item;
+      // });
+      // // shui dao
+      // let item1 = {
+      //   data: yearData.map((item) => item.irrigationLandArea),
+      //   type: "bar",
+      //   stack: "b",
+      //   barStyle: {
+      //     fill: '#E2CA7F'
+      //   }
+      // };
+      // let item2 = {
+      //   data: yearData.map((item) => item.dryLandArea),
+      //   type: "bar",
+      //   stack: "b",
+      //   barStyle: {
+      //     fill: '#98BD72'
+      //   }
+      // };
+      // let item3 = {
+      //   data: yearData.map((item) => item.paddyFieldArea),
+      //   type: "bar",
+      //   stack: "b",
+      //   barStyle: {
+      //     fill: '#23A6F5'
+      //   }
+      // };
+      // let item4 = {
+      //   data: yearData.map((item) => item.homesteadArea),
+      //   type: "bar",
+      //   stack: "a",
+      //   barStyle: {
+      //     fill: '#71CACF'
+      //   }
+      // };
+      // let item5 = {
+      //   data: yearData.map((item) => item.farmLandArea),
+      //   type: "bar",
+      //   stack: "a",
+      //   barStyle: {
+      //     fill: '#7C82FB'
+      //   }
+      // };
+      // let item6 = {
+      //   data: yearData.map((item) => item.totalArea),
+      //   type: "bar",
+      //   barWidth: '10%',
+      //   barStyle: {
+      //     fill: '#297CEB'
+      //   }
+      // }
+      // let series = _.concat([], [item1, item2, item3, item4, item5, item6]);
+      // return Object.assign({}, this.option, {
+      //   xAxis: {data: years},
+      //   series
+      // });
     }
   }
 };
@@ -228,7 +759,7 @@ export default {
         line-height: 40px;
         text-align: center;
         color: #417fc8;
-        background: url('../../assets/image/tab_bg_icon.png');
+        background: url("../../assets/image/tab_bg_icon.png");
         background-repeat: no-repeat;
         background-size: 100% 100%;
         cursor: pointer;
@@ -291,6 +822,15 @@ export default {
       }
       .data-charts:nth-of-type(1) {
         margin-bottom: 20px;
+      }
+    }
+    &.device-content {
+      .title-one {
+        margin: 10px 0;
+      }
+      .trend-chart-container {
+        width: 100%;
+        height: 3.53rem;
       }
     }
   }

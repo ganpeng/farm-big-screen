@@ -60,6 +60,7 @@
   </div>
 </template>
 <script>
+import {mapGetters, mapActions} from 'vuex';
 import _ from 'lodash';
 import FarmAsideNav from './components/FarmAsideNav';
 import SensorData from './components/SensorData';
@@ -73,13 +74,13 @@ export default {
     return {
       activeIndex: 0,
       landList: [],
-      cameraList: [],
-      farm: {
-        farmMarks: []
-      }
+      cameraList: []
     };
   },
   computed: {
+    ...mapGetters({
+      farm: 'farm/currentFarm'
+    }),
     contentBgStyle() {
       if (this.activeIndex === 0) {
         return '';
@@ -104,10 +105,7 @@ export default {
   async created() {
     try {
       let {id} = this.$route.params;
-      let res = await this.$service.getFarmById(id);
-      if (res && res.code === 0) {
-        this.farm = res.data;
-      }
+      await this.getFarmById(id);
       let res2 = await this.$service.getLandList({farmId: id, pageSize: 10000});
       if (res2 && res2.code === 0) {
         this.landList = res2.data.list;
@@ -117,6 +115,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      getFarmById: 'farm/getFarmById'
+    }),
     async chanFarmTabBar(index) {
       try {
         this.activeIndex = index;
