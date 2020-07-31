@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+import constants from '@/util/constants';
 export default {
   name: "RoseChart",
   data() {
@@ -43,12 +44,7 @@ export default {
             roseType: true
           }
         ],
-        color: [
-          "#801b00",
-          "#a02200",
-          "#5d1400",
-          "#b72700"
-        ]
+        color: constants.colors
       };
     },
     randomExtend(minNum, maxNum) {

@@ -1,5 +1,5 @@
 /* eslint-disable */
-const colors = ['#37a2da', '#32c5e9', '#67e0e3', '#9fe6b8', '#ffdb5c', '#ff9f7f', '#fb7293'];
+import constants from './constants';
 
 function dateFormat(fmt, date) {
   let ret;
@@ -21,10 +21,42 @@ function dateFormat(fmt, date) {
   return fmt;
 }
 
+export function strNumSize(tempNum) {
+  let stringNum = tempNum.toString();
+  let index = stringNum.indexOf(".");
+  let newNum = stringNum;
+  if (index != -1) {
+    newNum = stringNum.substring(0, index);
+  }
+  return newNum.length;
+}
+
+export function unitConvert(num) {
+  let moneyUnits = ["元", "万元", "亿元", "万亿"];
+  let dividend = 10000;
+  let curentNum = num;
+  //转换数字
+  let curentUnit = moneyUnits[0];
+  //转换单位
+  for (let i = 0; i < 4; i++) {
+    curentUnit = moneyUnits[i];
+    if (strNumSize(curentNum) < 5) {
+      break;
+    }
+    curentNum = curentNum / dividend;
+  }
+  let m = {
+    num: 0,
+    unit: ""
+  };
+  m.num = curentNum.toFixed(2);
+  m.unit = curentUnit;
+  return m;
+}
+
 export default {
-  colors: colors,
   ringChartDefaultConfig: {
-    color: colors,
+    color: constants.colors,
     digitalFlopStyle: {
       fontSize: 16
     },
@@ -33,6 +65,7 @@ export default {
     lineWidth: 16,
     data: []
   },
+  unitConvert,
   serializeAlertData(list) {
     return list.map((item) => {
       let _list = [];

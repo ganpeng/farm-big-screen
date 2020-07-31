@@ -107,8 +107,6 @@
         </div>
         <div class="trend-chart-container border-icon18">
           <trend-chart ref="trendChart"></trend-chart>
-          <!-- <div id="trend-chart" style="width: 100%; height: 100%"></div> -->
-          <!-- <dv-charts :option="option"/> -->
         </div>
       </div>
     </div>
@@ -139,122 +137,13 @@ export default {
       machineOption: {},
       inputOption: {},
       plantOption: {},
-      businessOption: {},
-      option: {
-        grid: {
-          left: "40%",
-          right: 10,
-          top: "20%",
-          bottom: 10
-        },
-        legend: {
-          data: ["降雨量", "降雪量"],
-          top: 20,
-          iconWidth: 10,
-          iconHeight: 10,
-          iconUnselectedStyle: {
-            fill: "#667799"
-          },
-          textUnselectedStyle: {
-            fill: "#667799"
-          },
-          textStyle: {
-            fontSize: 12,
-            fill: "#F0F0F0"
-          }
-        },
-        xAxis: {
-          data: [
-            "一月份",
-            "二月份",
-            "三月份",
-            "四月份",
-            "五月份",
-            "六月份",
-            "七月份",
-            "八月份",
-            "九月份",
-            "十月份",
-            "十一月份",
-            "十二月份"
-          ],
-          axisLabel: {
-            style: {
-              rotate: 20,
-              textAlign: "left",
-              textBaseline: "top"
-            }
-          },
-          axisTick: {
-            show: false
-          }
-        },
-        yAxis: [
-          {
-            name: "降雨量",
-            data: "value",
-            min: 0,
-            max: 300,
-            splitLine: {
-              style: {
-                lineDash: [3, 3]
-              }
-            },
-            axisLabel: {
-              formatter: "{value} ml"
-            },
-            axisTick: {
-              show: false
-            }
-          },
-          {
-            name: "降雪量",
-            data: "value",
-            min: 0,
-            max: 300,
-            position: "left",
-            offset: 130,
-            splitLine: {
-              show: false
-            },
-            axisLabel: {
-              formatter: "{value} °C"
-            },
-            axisTick: {
-              show: false
-            }
-          }
-        ],
-        series: [
-          {
-            name: "降雨量",
-            data: [175, 125, 90, 130, 45, 65, 65, 47, 50, 52, 45, 37],
-            type: "line",
-            gradient: {
-              color: ["#37a2da", "#67e0e3"]
-            },
-            animationCurve: "easeOutBounce"
-          },
-          {
-            name: "降雪量",
-            data: [125, 105, 190, 130, 145, 165, 65, 147, 120, 152, 145, 137],
-            type: "line",
-            // yAxisIndex: 1,
-            gradient: {
-              color: ["#37a2da", "#67e0e3"]
-            },
-            animationCurve: "easeOutBounce"
-          }
-        ]
-      }
+      businessOption: {}
     };
   },
   async created() {
     try {
       let { id } = this.$route.params;
       await this.getFarmById(id);
-      await this.$nextTick();
-      this.$refs.trendChart.initCharts();
       let res = await this.$service.getStatisticsAll({ farmId: id });
       let res2 = await this.$service.getStatisticsPlant({ farmId: id });
       if (res && res.code === 0) {
@@ -271,7 +160,7 @@ export default {
           _.get(res.data, "inputStatisticsList")
         );
         this.businessOption = this.getBusinessOption(
-          _.get(res.data, "landStatisticsList")
+          _.get(res.data, "operatingStatisticsList")
         );
       }
       if (res2 && res2.code === 0) {
@@ -643,7 +532,7 @@ export default {
       });
       // 项目拨款
       let item1 = {
-        data: yearData.map(item => item.irrigationLandArea),
+        data: yearData.map(item => item.appropriationAmount),
         type: "bar",
         stack: "b",
         barStyle: {
@@ -652,7 +541,7 @@ export default {
       };
       // 补贴金额
       let item2 = {
-        data: yearData.map(item => item.dryLandArea),
+        data: yearData.map(item => item.subsidyAmount),
         type: "bar",
         stack: "b",
         barStyle: {
@@ -661,7 +550,7 @@ export default {
       };
       // 农业社会化服务
       let item3 = {
-        data: yearData.map(item => item.paddyFieldArea),
+        data: yearData.map(item => item.revenueAmount),
         type: "bar",
         stack: "b",
         barStyle: {
@@ -670,7 +559,7 @@ export default {
       };
       // 资金总额
       let item4 = {
-        data: yearData.map(item => item.totalArea),
+        data: yearData.map(item => item.totalAmount),
         type: "bar",
         barWidth: "10%",
         barStyle: {

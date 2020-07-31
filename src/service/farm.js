@@ -304,6 +304,20 @@ export const getLandStatistics = (params) => {
   }));
   return service.get(`/v1/statistics/land?${paramsStr}`);
 };
+// 首页物环设备统计
+export const getDeviceStatistics = (params) => {
+  let paramsStr = qs.stringify(_.pickBy(params, (item) => {
+    return item !== '' && item !== undefined;
+  }));
+  return service.get(`/v1/statistics/device?${paramsStr}`);
+}
+// 首页经营情况统计
+export const getOperatingStatistics = (params) => {
+  let paramsStr = qs.stringify(_.pickBy(params, (item) => {
+    return item !== '' && item !== undefined;
+  }));
+  return service.get(`/v1/statistics/operating?${paramsStr}`);
+};
 
 // 获取农场摄像头的列表
 export const getCameraListByFarmId = (params) => {
@@ -311,4 +325,17 @@ export const getCameraListByFarmId = (params) => {
     return item !== '' && item !== undefined;
   }));
   return service.get(`/v1/camera/datamange/page?${paramsStr}`);
+};
+
+// 获取农场传感器的列表
+export const getSensorListByFarmId = (id) => {
+  return service.get(`/v1/sensor/farmPage?farmId=${id}`);
+};
+
+// 获取传感器设备的数据
+export const getSensor = (params) => {
+  let paramsStr = qs.stringify(_.pickBy(params, (item) => {
+    return item !== '' && item !== undefined;
+  }));
+  return service.get(`/v1/sensor?${paramsStr}`);
 };

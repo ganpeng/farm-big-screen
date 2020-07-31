@@ -24,13 +24,19 @@
                 class="camera-item">
               </div>
               <div v-if="form === '粮食农田'" class="camera2-item"></div>
-              <div v-if="form === '粮食农田'" class="camera3-item"></div>
+              <div @click="showTrendChartDialog" v-if="form === '粮食农田'" class="camera3-item"></div>
+              <div v-if="trendChartDialogVisible" class="trend-chart-dialog border-icon19">
+                <trend-chart></trend-chart>
+                <span @click="hideTrendChartDialog" class="close-btn">
+                  <svg-icon icon-class="video_dialog_close_btn"></svg-icon>
+                </span>
+              </div>
             </div>
           </div>
         </div>
         <div class="farm-tab-bar">
           <div
-            @click="chanFarmTabBar(0)"
+            @click="changeFarmTabBar(0)"
             :key="0"
             :class="['farm-tab-bar-item', activeIndex === 0 && 'active']">
             <span class="tab-bar-icon">
@@ -42,7 +48,7 @@
             </span>
           </div>
           <div
-            @click="chanFarmTabBar(index + 1)"
+            @click="changeFarmTabBar(index + 1)"
             v-for="(item, index) in landList" :key="index + 1"
             :class="['farm-tab-bar-item', activeIndex === (index + 1) && 'active']">
             <span class="tab-bar-icon">
@@ -65,14 +71,16 @@ import _ from 'lodash';
 import FarmAsideNav from './components/FarmAsideNav';
 import SensorData from './components/SensorData';
 import FarmDescDialog from './components/FarmDescDialog';
+import TrendChart from './components/TrendChart';
 import VideoPlayerDialog from '@/components/VideoPlayerDialog';
 import constants from '@/util/constants';
 export default {
   name: 'FarmStockSurvey',
-  components: {FarmAsideNav, SensorData, FarmDescDialog, VideoPlayerDialog},
+  components: {FarmAsideNav, SensorData, FarmDescDialog, VideoPlayerDialog, TrendChart},
   data() {
     return {
       activeIndex: 0,
+      trendChartDialogVisible: false,
       landList: [],
       cameraList: []
     };
@@ -109,7 +117,7 @@ export default {
       let res2 = await this.$service.getLandList({farmId: id, pageSize: 10000});
       if (res2 && res2.code === 0) {
         this.landList = res2.data.list;
-      }
+     }
     } catch (err) {
       console.log(err);
     }
@@ -118,7 +126,7 @@ export default {
     ...mapActions({
       getFarmById: 'farm/getFarmById'
     }),
-    async chanFarmTabBar(index) {
+    async changeFarmTabBar(index) {
       try {
         this.activeIndex = index;
         if (this.activeIndex !== 0) {
@@ -155,6 +163,12 @@ export default {
     },
     displayDescDialog() {
       this.$refs.farmDescDialog.show();
+    },
+    showTrendChartDialog() {
+      this.trendChartDialogVisible = true;
+    },
+    hideTrendChartDialog() {
+      this.trendChartDialogVisible = false;
     }
   }
 }
@@ -247,6 +261,22 @@ export default {
                 background-size: 100% 100%;
                 background-repeat: no-repeat;
                 background-position: center center;
+              }
+              .trend-chart-dialog {
+                position: absolute;
+                top: 40%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                .close-btn {
+                  position: absolute;
+                  top: -40px;
+                  right: 0;
+                  cursor: pointer;
+                  .svg-icon {
+                    width: 30px;
+                    height: 30px;
+                  }
+                }
               }
             }
           }

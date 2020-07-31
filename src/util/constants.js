@@ -436,63 +436,91 @@ const borderColors = ['#0B142B', '#1C56A5'];
 const trendChartLabelList = [{
     name: '空气温度',
     active: true,
+    metric: 'dqwd',
     color: colors[0]
   },
   {
     name: '空气湿度',
     active: true,
+    metric: 'dqsd',
+    min: 0.2,
     color: colors[1]
   },
   {
     name: '光照度',
     active: true,
+    metric: 'gzd',
     color: colors[2]
   },
   {
     name: '光照总辐射',
     active: true,
+    metric: 'gzzfs',
     color: colors[3]
   },
   {
     name: '降雨量',
     active: true,
+    metric: 'jyl',
     color: colors[4]
   },
   {
     name: '气压',
     active: true,
+    metric: 'qy',
+    min: 800,
     color: colors[5]
   },
   {
     name: '风速',
     active: true,
+    metric: 'fs',
     color: colors[6]
   },
   {
     name: '土壤温度',
     active: false,
+    metric: 'trwd',
+    min: 10,
     color: colors[7]
   },
   {
     name: '土壤湿度',
     active: false,
+    metric: 'trxdsd',
     color: colors[8]
   },
   {
     name: '捕虫量',
     active: false,
+    metric: 'sccs',
     color: colors[9]
   },
   {
     name: '温度',
     active: false,
+    metric: 'szwd',
     color: colors[10]
   },
   {
     name: 'PH值',
     active: false,
+    metric: 'sph',
     color: colors[11]
   }
+];
+
+// 首页图表label
+const landLabelList = [
+  {name: '旱田', color: colors[0]},
+  {name: '水浇地', color: colors[1]},
+  {name: '水田', color: colors[2]}
+];
+
+const deviceLabelList = [
+  {name: '传感器', color: colors[0]},
+  {name: '球机摄像头', color: colors[1]},
+  {name: '枪机摄像头', color: colors[2]}
 ];
 
 export default {
@@ -514,6 +542,9 @@ export default {
   cameraData,
   getRandNumForRangen,
   colors,
+  // 首页图表
+  landLabelList,
+  deviceLabelList,
   // 趋势图表
   trendChartLabelList
 };

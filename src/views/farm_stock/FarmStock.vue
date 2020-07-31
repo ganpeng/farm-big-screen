@@ -30,7 +30,7 @@
           <div class="title-one">
             <h5>
               <svg-icon class="title-icon" icon-class="title_icon"></svg-icon>
-              经营情况统计
+              农作物
             </h5>
             <div class="title-border">
               <div class="left-gap gap"></div>
@@ -115,12 +115,12 @@
           <div class="charts-container">
             <div class="charts-header">
               物环总数
-              <i>120</i>个
+              <i>{{deviceData.totalNumber}}</i>个
             </div>
             <div class="charts-wrapper">
-              <dv-active-ring-chart class="ring-chart" :config="config2"/>
+              <dv-active-ring-chart class="ring-chart" :config="deviceConfig"/>
             </div>
-            <label-tag :config="config2"></label-tag>
+            <label-tag :labelList="labelList2"></label-tag>
           </div>
         </div>
       </div>
@@ -173,13 +173,13 @@
                 <div class="info-item">
                   <div class="title">政府项目累计</div>
                   <div class="value">
-                    89<i>个</i>
+                    {{operatingData.governmentProjectNumber}}<i>个</i>
                   </div>
                 </div>
                 <div class="info-item">
                   <div class="title">累计金额</div>
                   <div class="value">
-                    1200<i>万元</i>
+                    {{operatingData.appropriationAmount}}<i>万元</i>
                   </div>
                 </div>
               </div>
@@ -187,13 +187,13 @@
                 <div class="info-item">
                   <div class="title">农业补贴累计</div>
                   <div class="value">
-                    101<i>次</i>
+                    {{operatingData.subsidyProjectNumber}}<i>次</i>
                   </div>
                 </div>
                 <div class="info-item">
                   <div class="title">累计金额</div>
                   <div class="value">
-                    101<i>万元</i>
+                    {{operatingData.subsidyAmount}}<i>万元</i>
                   </div>
                 </div>
               </div>
@@ -202,11 +202,12 @@
               <div class="title-one">
                 <h5><i class="point"></i> 农业社会化服务</h5>
               </div>
+              <!--
               <div class="info-row">
                 <div class="info-item">
-                  <div class="title">累计服务企业</div>
+                  <div class="title">累计服务</div>
                   <div class="value">
-                    89<i>次</i>
+                    10<i>次</i>
                   </div>
                 </div>
                 <div class="info-item">
@@ -216,11 +217,12 @@
                   </div>
                 </div>
               </div>
+              -->
               <div class="info-row">
                 <div class="info-item">
                   <div class="title">累计服务营收</div>
                   <div class="value">
-                    101<i>万元</i>
+                    {{operatingData.revenueAmount}}<i>万元</i>
                   </div>
                 </div>
                 <div class="info-item">
@@ -245,19 +247,16 @@ export default {
   components: { LabelTag, RoseChart, FarmAlert, FarmMap },
   data() {
     return {
-      labelList1: [{name: '旱田', color: '#38A1DA'}, {name: '水浇地', color: '#ECC94C'}, {name: '水田', color: '#68E0E3'}],
-      labelList2: [{name: '传感器', color: '#ECC94C'}, {name: '球机摄像头', color: '#68E0E3'}, {name: '枪机摄像头', color: '#38A1DA'}],
+      labelList1: constants.landLabelList,
+      labelList2: constants.deviceLabelList,
+      deviceData: {},
+      deviceConfig: {},
       landData: {},
       landConfig: {},
+      operatingData: {},
       warningList: [],
-      config: Object.assign({}, this.$util.ringChartDefaultConfig, {
-        data: constants.ringChartData1
-      }),
-      config2: Object.assign({}, this.$util.ringChartDefaultConfig, {
-        data: constants.ringChartData2
-      }),
       option: {
-        color: ['red', 'green', 'yellow', 'pink'],
+        color: constants.colors,
         grid: {
           left: 60,
           right: 10,
@@ -325,6 +324,8 @@ export default {
       let year = new Date().getFullYear();
       let res = await this.$service.getWarningList({pageSize: 10000});
       let res2 = await this.$service.getLandStatistics({farmId: 0, year});
+      let res3 = await this.$service.getDeviceStatistics({farmId: 0, year});
+      let res4 = await this.$service.getOperatingStatistics({farmId: 0, year});
       if (res && res.code === 0) {
         this.warningList = res.data.list;
       }
@@ -332,17 +333,32 @@ export default {
         this.landData = _.get(res2.data, '0');
         this.landConfig = this.getLandConfig(res2.data);
       }
+      if (res3 && res3.code === 0) {
+        this.deviceData = _.get(res3.data, `deviceStatisticsList.0`);
+        this.deviceConfig = this.getDeviceConfig(this.deviceData);
+      }
+      if (res4 && res4.code === 0) {
+        this.operatingData = _.get(res4.data, '0');
+        console.log(this.operatingData);
+      }
     } catch (err) {
       console.log(err);
     }
-    console.log(this.$util);
   },
   methods: {
     getLandConfig(inputData) {
-      let data= [
+      let data = [
         {name: '旱田', value: _.get(inputData, `0.dryLandArea`)},
         {name: '水浇地', value: _.get(inputData, `0.irrigationLandArea`)},
         {name: '水田', value: _.get(inputData, `0.paddyFieldArea`)}
+      ];
+      return Object.assign({}, this.$util.ringChartDefaultConfig, {data});
+    },
+    getDeviceConfig(inputData) {
+      let data = [
+        {name: '传感器', value: _.get(inputData, `sensorNumber`)},
+        {name: '球机摄像头', value: _.get(inputData, `domeCameraNumber`)},
+        {name: '枪机摄像头', value: _.get(inputData, `boxCameraNumber`)}
       ];
       return Object.assign({}, this.$util.ringChartDefaultConfig, {data});
     }
