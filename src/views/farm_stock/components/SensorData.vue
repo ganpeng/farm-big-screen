@@ -1,6 +1,6 @@
 <template>
   <div class="sensor-data-container">
-    <div v-for="(sensor, index) in list" :key="index" 
+    <div v-for="(sensor, index) in sensorRealList" :key="index"
       :class="['sensor-item', sensor.isWarning && 'is-warning', sensor.isDanger && 'is-danger']">
       <div class="sensor-item-inner">
         <div class="icon">
@@ -15,81 +15,22 @@
   </div>
 </template>
 <script>
+import constants from '@/util/constants';
 export default {
   name: 'SensorData',
   props: {
-    // list: {
-    //   type: Array,
-    //   default: () => []
-    // }
+    list: {
+      type: Array,
+      default: () => []
+    }
+  },
+  computed: {
+    sensorRealList() {
+      return this.list.length > 0 ? this.list : constants.sensorRealList;
+    }
   },
   data() {
-    return {
-      list: [
-        {
-          title: '温度',
-          value: '27℃',
-          icon: 'sensor_icon1'
-        },
-        {
-          title: '湿度',
-          value: '24.6%',
-          icon: 'sensor_icon2'
-        },
-        {
-          title: '风速',
-          value: '0m/s',
-          icon: 'sensor_icon3'
-        },
-        {
-          title: '风向',
-          value: '283°',
-          icon: 'sensor_icon4'
-        },
-        {
-          title: '雨量',
-          value: '450mm',
-          icon: 'sensor_icon5'
-        },
-        {
-          title: '光照度',
-          value: '332wlux',
-          icon: 'sensor_icon6'
-        },
-        {
-          title: '大气压',
-          value: '981hpa',
-          icon: 'sensor_icon7'
-        },
-        {
-          title: '土壤温度',
-          value: '27℃',
-          icon: 'sensor_icon8'
-        },
-        {
-          title: '土壤湿度',
-          value: '10.3%',
-          icon: 'sensor_icon9'
-        },
-        {
-          title: 'PH值',
-          value: '10.8',
-          isWarning: true,
-          icon: 'sensor_icon10'
-        },
-        {
-          title: '电导率',
-          value: '11us/cm',
-          icon: 'sensor_icon11'
-        },
-        {
-          title: '捕虫量',
-          value: '592个',
-          isDanger: true,
-          icon: 'sensor_icon12'
-        }
-      ]
-    };
+    return {};
   }
 }
 </script>

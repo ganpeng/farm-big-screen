@@ -29,10 +29,21 @@ export default {
     }
   },
   methods: {
-    async init() {
+    async init(playUrl) {
       try {
         await this.$nextTick();
-        let options = Object.assign({}, { fluid: true }, this.options);
+        let options = {
+          autoplay: true,
+          controls: true,
+          liveui: true,
+          fluid: true,
+          sources: [
+            {
+              src: playUrl,
+              type: "application/x-mpegURL"
+            }
+          ]
+        };
         this.player = videojs(this.$refs.videoPlayer, options, () => {
           console.log("onPlayerReady", this);
         });
@@ -40,9 +51,9 @@ export default {
         console.log(err);
       }
     },
-    show() {
+    show(playUrl) {
       this.visible = true;
-      this.init();
+      this.init(playUrl);
     },
     hide() {
       this.visible = false;

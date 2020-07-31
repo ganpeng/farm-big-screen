@@ -169,7 +169,7 @@ export default {
         };
       });
 
-      let gridLeft = `${(trendDataList.length * 2.2)}%`;
+      let gridLeft = `${(trendDataList.length * 2.4)}%`;
       return {
         color: colors,
         tooltip: {

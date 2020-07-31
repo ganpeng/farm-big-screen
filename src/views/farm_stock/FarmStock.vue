@@ -45,10 +45,12 @@
               <div class="charts-container">
                 <div class="charts-header">
                   总播种面积
-                  <i>1200</i> <span>公顷</span>
+                  <i>{{plantData.totalArea}}</i> <span>公顷</span>
                 </div>
                 <div class="charts-wrapper">
-                  <rose-chart></rose-chart>
+                  <div class="rose-chart">
+                    <dv-charts :option="plantConfig"/>
+                  </div>
                 </div>
               </div>
             </div>
@@ -58,7 +60,7 @@
               </div>
               <div class="charts-container">
                 <div class="charts-wrapper">
-                  <dv-charts class="ring-chart" :option="option"/>
+                  <dv-charts class="ring-chart" :option="plantConfig2"/>
                 </div>
               </div>
             </div>
@@ -240,11 +242,10 @@ import _ from 'lodash';
 import LabelTag from "@/components/LabelTag";
 import FarmMap from "@/components/FarmMap";
 import constants from "@/util/constants";
-import RoseChart from "./components/RoseChart";
 import FarmAlert from "./components/FarmAlert";
 export default {
   name: "FarmStock",
-  components: { LabelTag, RoseChart, FarmAlert, FarmMap },
+  components: { LabelTag, FarmAlert, FarmMap },
   data() {
     return {
       labelList1: constants.landLabelList,
@@ -255,10 +256,97 @@ export default {
       landConfig: {},
       operatingData: {},
       warningList: [],
-      option: {
+      plantData: {},
+      plantConfig: {},
+      plantConfig2: {}
+    };
+  },
+  async created() {
+    try {
+      let year = new Date().getFullYear();
+      let res = await this.$service.getWarningList({pageSize: 10000});
+      let res2 = await this.$service.getLandStatistics({farmId: 0, year});
+      let res3 = await this.$service.getDeviceStatistics({farmId: 0, year});
+      let res4 = await this.$service.getOperatingStatistics({farmId: 0, year});
+      let res5 = await this.$service.getStatisticsPlant({farmId: 0, year});
+      if (res && res.code === 0) {
+        this.warningList = res.data.list;
+      }
+      if (res2 && res2.code === 0) {
+        this.landData = _.get(res2.data, '0');
+        this.landConfig = this.getLandConfig(res2.data);
+      }
+      if (res3 && res3.code === 0) {
+        this.deviceData = _.get(res3.data, `deviceStatisticsList.0`);
+        this.deviceConfig = this.getDeviceConfig(this.deviceData);
+      }
+      if (res4 && res4.code === 0) {
+        this.operatingData = _.get(res4.data, '0');
+      }
+      if (res5 && res5.code === 0) {
+        this.plantData = _.get(res5.data, '0');
+        this.plantConfig = this.getPlantConfig(this.plantData);
+        this.plantConfig2 = this.getPlantConfig2(this.plantData);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  methods: {
+    getLandConfig(inputData) {
+      let data = [
+        {name: '旱田', value: _.get(inputData, `0.dryLandArea`)},
+        {name: '水浇地', value: _.get(inputData, `0.irrigationLandArea`)},
+        {name: '水田', value: _.get(inputData, `0.paddyFieldArea`)}
+      ];
+      return Object.assign({}, this.$util.ringChartDefaultConfig, {data});
+    },
+    getDeviceConfig(inputData) {
+      let data = [
+        {name: '传感器', value: _.get(inputData, `sensorNumber`)},
+        {name: '球机摄像头', value: _.get(inputData, `domeCameraNumber`)},
+        {name: '枪机摄像头', value: _.get(inputData, `boxCameraNumber`)}
+      ];
+      return Object.assign({}, this.$util.ringChartDefaultConfig, {data});
+    },
+    getPlantConfig(data) {
+      return {
+        series: [
+          {
+            type: "pie",
+            radius: "60%",
+            roseSort: false,
+            data: [
+              { name: "水稻", value: data.riceArea },
+              { name: "大豆", value: data.soyaArea },
+              { name: "玉米", value: data.cornArea },
+              { name: "其他粮食", value: data.otherGrainArea },
+              { name: "其他", value: data.otherCropArea }
+            ],
+            insideLabel: {
+              show: false
+            },
+            outsideLabel: {
+              formatter: "{name} {percent}%",
+              labelLineEndLength: 10,
+              style: {
+                fill: "#9FA8B8"
+              },
+              labelLineStyle: {
+                stroke: "#9FA8B8"
+              }
+            },
+            roseType: true
+          }
+        ],
+        color: constants.colors
+      };
+    },
+    getPlantConfig2(data) {
+      return {
         color: constants.colors,
         grid: {
-          left: 60,
+          left: 50,
           right: 10,
           top: '5%',
           bottom: '5%'
@@ -291,11 +379,11 @@ export default {
           splitLine: {
             show: false
           },
-          data: ['水稻', '大豆', '玉米', '其他粮食']
+          data: ['水稻', '大豆', '玉米', '其他粮食', '其他']
         },
         series: [
           {
-            data: [1200, 2230, 1900, 2100],
+            data: [data.riceArea, data.soyaArea, data.cornArea, data.otherGrainArea, data.otherCropArea],
             type: 'bar',
             label: {
               show: true,
@@ -316,51 +404,7 @@ export default {
             animationCurve: 'easeOutBack'
           }
         ]
-      }
-    };
-  },
-  async created() {
-    try {
-      let year = new Date().getFullYear();
-      let res = await this.$service.getWarningList({pageSize: 10000});
-      let res2 = await this.$service.getLandStatistics({farmId: 0, year});
-      let res3 = await this.$service.getDeviceStatistics({farmId: 0, year});
-      let res4 = await this.$service.getOperatingStatistics({farmId: 0, year});
-      if (res && res.code === 0) {
-        this.warningList = res.data.list;
-      }
-      if (res2 && res2.code === 0) {
-        this.landData = _.get(res2.data, '0');
-        this.landConfig = this.getLandConfig(res2.data);
-      }
-      if (res3 && res3.code === 0) {
-        this.deviceData = _.get(res3.data, `deviceStatisticsList.0`);
-        this.deviceConfig = this.getDeviceConfig(this.deviceData);
-      }
-      if (res4 && res4.code === 0) {
-        this.operatingData = _.get(res4.data, '0');
-        console.log(this.operatingData);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  methods: {
-    getLandConfig(inputData) {
-      let data = [
-        {name: '旱田', value: _.get(inputData, `0.dryLandArea`)},
-        {name: '水浇地', value: _.get(inputData, `0.irrigationLandArea`)},
-        {name: '水田', value: _.get(inputData, `0.paddyFieldArea`)}
-      ];
-      return Object.assign({}, this.$util.ringChartDefaultConfig, {data});
-    },
-    getDeviceConfig(inputData) {
-      let data = [
-        {name: '传感器', value: _.get(inputData, `sensorNumber`)},
-        {name: '球机摄像头', value: _.get(inputData, `domeCameraNumber`)},
-        {name: '枪机摄像头', value: _.get(inputData, `boxCameraNumber`)}
-      ];
-      return Object.assign({}, this.$util.ringChartDefaultConfig, {data});
+      };
     }
   }
 };
@@ -640,6 +684,13 @@ export default {
       width: 100%;
       // height: calc(100% - 10px);
       height: calc(100% - 0.1rem);
+    }
+    .rose-chart {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
     }
   }
 }

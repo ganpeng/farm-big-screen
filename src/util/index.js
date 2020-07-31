@@ -58,7 +58,7 @@ export default {
   ringChartDefaultConfig: {
     color: constants.colors,
     digitalFlopStyle: {
-      fontSize: 16
+      fontSize: 14
     },
     radius: '70%',
     activeRadius: '80%',

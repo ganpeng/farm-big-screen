@@ -323,6 +323,25 @@ const labelList6 = [{
   }
 ];
 
+// 设备统计
+const labelList7 = [{
+    name: '总数',
+    color: colors[0]
+  },
+  {
+    name: '枪机摄像头',
+    color: colors[1]
+  },
+  {
+    name: '球机摄像头',
+    color: colors[2]
+  },
+  {
+    name: '传感器',
+    color: colors[3]
+  }
+];
+
 // 农场摄像头分布数据
 const cameraData = {
   '粮食农田': {
@@ -523,6 +542,84 @@ const deviceLabelList = [
   {name: '枪机摄像头', color: colors[2]}
 ];
 
+// 传感器实时数据列表
+const sensorRealList = [
+  {
+    title: '温度',
+    value: '/',
+    unit: '℃',
+    icon: 'sensor_icon1'
+  },
+  {
+    title: '湿度',
+    value: '/',
+    unit: '%',
+    icon: 'sensor_icon2'
+  },
+  {
+    title: '风速',
+    value: '/',
+    unit: 'm/s',
+    icon: 'sensor_icon3'
+  },
+  {
+    title: '风向',
+    value: '/',
+    unit: '°',
+    icon: 'sensor_icon4'
+  },
+  {
+    title: '雨量',
+    value: '/',
+    unit: 'mm',
+    icon: 'sensor_icon5'
+  },
+  {
+    title: '光照度',
+    value: '/',
+    unit: 'wlux',
+    icon: 'sensor_icon6'
+  },
+  {
+    title: '大气压',
+    value: '/',
+    unit: 'hpa',
+    icon: 'sensor_icon7'
+  },
+  {
+    title: '土壤温度',
+    value: '/',
+    unit: '℃',
+    icon: 'sensor_icon8'
+  },
+  {
+    title: '土壤湿度',
+    value: '/',
+    unit: '%',
+    icon: 'sensor_icon9'
+  },
+  {
+    title: 'PH值',
+    value: '/',
+    unit: '',
+    isWarning: true,
+    icon: 'sensor_icon10'
+  },
+  {
+    title: '电导率',
+    value: '/',
+    unit: 'us/cm',
+    icon: 'sensor_icon11'
+  },
+  {
+    title: '捕虫量',
+    value: '/',
+    unit: '个',
+    isDanger: true,
+    icon: 'sensor_icon12'
+  }
+];
+
 export default {
   ringChartData1,
   ringChartData2,
@@ -538,6 +635,7 @@ export default {
   labelList4,
   labelList5,
   labelList6,
+  labelList7,
   // 农场摄像头
   cameraData,
   getRandNumForRangen,
@@ -546,5 +644,6 @@ export default {
   landLabelList,
   deviceLabelList,
   // 趋势图表
-  trendChartLabelList
+  trendChartLabelList,
+  sensorRealList
 };

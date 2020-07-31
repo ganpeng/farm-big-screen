@@ -294,8 +294,9 @@ export const getStatisticsPlant = (params) => {
   let paramsStr = qs.stringify(_.pickBy(params, (item) => {
     return item !== '' && item !== undefined;
   }));
-  return service.get(`/v1/statistics/planting?${paramsStr}`);
+  return service.get(`/v1/statistics/planting/overView?${paramsStr}`);
 };
+
 
 // 首页耕地类型统计
 export const getLandStatistics = (params) => {
@@ -324,7 +325,7 @@ export const getCameraListByFarmId = (params) => {
   let paramsStr = qs.stringify(_.pickBy(params, (item) => {
     return item !== '' && item !== undefined;
   }));
-  return service.get(`/v1/camera/datamange/page?${paramsStr}`);
+  return service.get(`/v1/camera/page?${paramsStr}`);
 };
 
 // 获取农场传感器的列表
@@ -338,4 +339,9 @@ export const getSensor = (params) => {
     return item !== '' && item !== undefined;
   }));
   return service.get(`/v1/sensor?${paramsStr}`);
+};
+
+// 获取传感器最后一条数据
+export const getSensorLastData = (deviceName) => {
+  return service.get(`/v1/sensor/lastData?deviceName=${deviceName}`);
 };

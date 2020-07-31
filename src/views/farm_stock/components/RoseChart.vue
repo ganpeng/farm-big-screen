@@ -12,7 +12,51 @@ export default {
       option: {}
     };
   },
+  async created() {
+    try {
+      let year = new Date().getFullYear();
+      let res = await this.$service.getStatisticsPlant({farmId: 0, year});
+      if (res && res.code === 0) {
+        this.plantConfig = this.getPlantConfig(res.data, '0');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
   methods: {
+    getPlantConfig(data) {
+      return {
+        series: [
+          {
+            type: "pie",
+            radius: "70%",
+            roseSort: false,
+            data: [
+              { name: "水稻", value: data.riceArea },
+              { name: "大豆", value: data.soyaArea },
+              { name: "玉米", value: data.cornArea },
+              { name: "其他粮食", value: data.otherGrainArea },
+              { name: "其他", value: data.otherCropArea }
+            ],
+            insideLabel: {
+              show: false
+            },
+            outsideLabel: {
+              formatter: "{name} {percent}%",
+              labelLineEndLength: 10,
+              style: {
+                fill: "#9FA8B8"
+              },
+              labelLineStyle: {
+                stroke: "#9FA8B8"
+              }
+            },
+            roseType: true
+          }
+        ],
+        color: constants.colors
+      };
+    },
     createData() {
       const { randomExtend } = this;
       this.option = {
@@ -25,7 +69,7 @@ export default {
               { name: "水稻", value: randomExtend(40, 70) },
               { name: "大豆", value: randomExtend(20, 30) },
               { name: "玉米", value: randomExtend(10, 50) },
-              { name: "高粱", value: randomExtend(5, 20) },
+              { name: "其他粮食", value: randomExtend(5, 20) },
               { name: "其他", value: randomExtend(40, 50) }
             ],
             insideLabel: {

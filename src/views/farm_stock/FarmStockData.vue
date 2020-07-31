@@ -9,7 +9,7 @@
         </div>
         <div class="farm-title">{{farm.name}}</div>
       </div>
-      <div v-show="activeIndex === 0" class="tab-content">
+      <div v-if="activeIndex === 0" class="tab-content">
         <div class="data-chart-container">
           <div class="data-charts">
             <div class="data-chart-item border-icon6">
@@ -89,7 +89,7 @@
           </div>
         </div>
       </div>
-      <div v-show="activeIndex === 1" class="tab-content device-content">
+      <div v-if="activeIndex === 1" class="tab-content device-content">
         <div class="title-one">
           <div class="wrapper">
             <h5>
@@ -107,6 +107,29 @@
         </div>
         <div class="trend-chart-container border-icon18">
           <trend-chart ref="trendChart"></trend-chart>
+        </div>
+        <div class="device-type-chart-wrapper">
+          <div class="title-one">
+            <div class="wrapper">
+              <h5>
+                <svg-icon class="title-icon" icon-class="title_icon"></svg-icon>数据统计
+              </h5>
+            </div>
+          </div>
+          <div class="device-type-chart-container">
+            <div class="data-chart-wrapper border-icon6">
+              <div class="title">
+                <span>设备种类</span>
+                <svg-icon icon-class="chart_title_icon"></svg-icon>
+              </div>
+              <div class="label-tag-wrapper">
+                <label-tag :labelList="labelList7"></label-tag>
+              </div>
+              <div class="charts-wrapper">
+                <dv-charts :option="deviceOption"/>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -132,12 +155,14 @@ export default {
       labelList4: constants.labelList4,
       labelList5: constants.labelList5,
       labelList6: constants.labelList6,
+      labelList7: constants.labelList7,
       landOption: {},
       memberOption: {},
       machineOption: {},
       inputOption: {},
       plantOption: {},
-      businessOption: {}
+      businessOption: {},
+      deviceOption: {}
     };
   },
   async created() {
@@ -146,6 +171,7 @@ export default {
       await this.getFarmById(id);
       let res = await this.$service.getStatisticsAll({ farmId: id });
       let res2 = await this.$service.getStatisticsPlant({ farmId: id });
+      let res3 = await this.$service.getDeviceStatistics({farmId: id});
       if (res && res.code === 0) {
         this.landOption = this.getLandOption(
           _.get(res.data, "landStatisticsList")
@@ -164,7 +190,13 @@ export default {
         );
       }
       if (res2 && res2.code === 0) {
-        console.log(res2.data);
+        let data = res2.data || [];
+        this.plantOption = this.getPlantOption(data);
+      }
+      if (res3 && res3.code === 0) {
+        let data = _.get(res3.data, 'deviceStatisticsList') || [];
+        console.log(data);
+        this.deviceOption = this.getDeviceOption(data);
       }
     } catch (err) {
       console.log(err);
@@ -182,6 +214,15 @@ export default {
     async changeTab(index) {
       try {
         this.activeIndex = index;
+        if (this.activeIndex === 1) {
+          let { id } = this.$route.params;
+          let res = await this.$service.getStatisticsAll({ farmId: id });
+          if (res && res.code === 0) {
+            this.landOption = this.getLandOption(
+              _.get(res.data, "landStatisticsList")
+            );
+          }
+        }
       } catch (err) {
         console.log(err);
       }
@@ -569,66 +610,114 @@ export default {
       let series = _.concat([], [item1, item2, item3, item4]);
       return this.mixOption({ year: years, series });
     },
-    getPlantOption() {
-      // let years = Object.keys(data);
-      // let yearData = years.map((year) => {
-      //   let item = _.get(obj, `${year}.0`);
-      //   return item;
-      // });
-      // // shui dao
-      // let item1 = {
-      //   data: yearData.map((item) => item.irrigationLandArea),
-      //   type: "bar",
-      //   stack: "b",
-      //   barStyle: {
-      //     fill: '#E2CA7F'
-      //   }
-      // };
-      // let item2 = {
-      //   data: yearData.map((item) => item.dryLandArea),
-      //   type: "bar",
-      //   stack: "b",
-      //   barStyle: {
-      //     fill: '#98BD72'
-      //   }
-      // };
-      // let item3 = {
-      //   data: yearData.map((item) => item.paddyFieldArea),
-      //   type: "bar",
-      //   stack: "b",
-      //   barStyle: {
-      //     fill: '#23A6F5'
-      //   }
-      // };
-      // let item4 = {
-      //   data: yearData.map((item) => item.homesteadArea),
-      //   type: "bar",
-      //   stack: "a",
-      //   barStyle: {
-      //     fill: '#71CACF'
-      //   }
-      // };
-      // let item5 = {
-      //   data: yearData.map((item) => item.farmLandArea),
-      //   type: "bar",
-      //   stack: "a",
-      //   barStyle: {
-      //     fill: '#7C82FB'
-      //   }
-      // };
-      // let item6 = {
-      //   data: yearData.map((item) => item.totalArea),
-      //   type: "bar",
-      //   barWidth: '10%',
-      //   barStyle: {
-      //     fill: '#297CEB'
-      //   }
-      // }
-      // let series = _.concat([], [item1, item2, item3, item4, item5, item6]);
-      // return Object.assign({}, this.option, {
-      //   xAxis: {data: years},
-      //   series
-      // });
+    getPlantOption(data) {
+      let obj = _.groupBy(data, "year");
+      let years = Object.keys(obj);
+      let yearData = years.map(year => {
+        let item = _.get(obj, `${year}.0`);
+        return item;
+      });
+      // 水稻
+      let item1 = {
+        data: yearData.map(item => item.riceYield),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[1]
+        }
+      };
+      // 大豆
+      let item2 = {
+        data: yearData.map(item => item.soyaYield),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[2]
+        }
+      };
+      // 玉米
+      let item3 = {
+        data: yearData.map(item => item.cornYield),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[3]
+        }
+      };
+      // 其他粮食
+      let item4 = {
+        data: yearData.map(item => item.otherGrainYield),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[4]
+        }
+      };
+      // 其他
+      let item5 = {
+        data: yearData.map(item => item.otherCropYield),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[5]
+        }
+      };
+      let item6 = {
+        data: yearData.map(item => item.totalYield),
+        type: "bar",
+        barWidth: "10%",
+        barStyle: {
+          fill: constants.colors[0]
+        }
+      };
+      let series = _.concat([], [item1, item2, item3, item4, item5, item6]);
+      return this.mixOption({ year: years, series });
+    },
+    getDeviceOption(data) {
+      let obj = _.groupBy(data, "year");
+      let years = Object.keys(obj);
+      let yearData = years.map(year => {
+        let item = _.get(obj, `${year}.0`);
+        return item;
+      });
+      // 枪机摄像头
+      let item1 = {
+        data: yearData.map(item => item.boxCameraNumber),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[1]
+        }
+      };
+      // 球机摄像头
+      let item2 = {
+        data: yearData.map(item => item.domeCameraNumber),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[2]
+        }
+      };
+      // 传感器
+      let item3 = {
+        data: yearData.map(item => item.sensorNumber),
+        type: "bar",
+        stack: "b",
+        barStyle: {
+          fill: constants.colors[3]
+        }
+      };
+      // 总共
+      let item6 = {
+        data: yearData.map(item => item.totalNumber),
+        type: "bar",
+        barWidth: "10%",
+        barStyle: {
+          fill: constants.colors[0]
+        }
+      };
+      let series = _.concat([], [item1, item2, item3, item6]);
+      return this.mixOption({ year: years, series });
     }
   }
 };
@@ -714,12 +803,64 @@ export default {
       }
     }
     &.device-content {
+      display: flex;
+      flex-direction: column;
       .title-one {
         margin: 10px 0;
       }
       .trend-chart-container {
         width: 100%;
         height: 3.53rem;
+      }
+      .device-type-chart-wrapper {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        .title-one {
+          margin-bottom: 20px;
+        }
+        .device-type-chart-container {
+          width: 100%;
+          flex: 1;
+          .data-chart-wrapper {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            width: 33.33%;
+            height: 100%;
+            padding-bottom: 30px;
+            .label-tag-wrapper {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 20%;
+            }
+            .charts-wrapper {
+              width: 100%;
+              height: 80%;
+            }
+            .title {
+              position: absolute;
+              top: -9px;
+              left: 0;
+              width: 110px;
+              height: 42px;
+              .svg-icon {
+                width: 110px;
+                height: 42px;
+              }
+              span {
+                position: absolute;
+                top: 40%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100%;
+                text-align: center;
+                color: #70caee;
+              }
+            }
+          }
+        }
       }
     }
   }

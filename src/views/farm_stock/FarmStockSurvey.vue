@@ -6,7 +6,7 @@
         <div class="farm-tab-content">
           <div v-if="activeIndex === 0" class="farm-tab-content-item">
             <div class="sensor-data-wrapper">
-              <sensor-data></sensor-data>
+              <sensor-data :list="sensorDataList"></sensor-data>
             </div>
             <div :style="farmContainerBgStyle" class="farm-tab-content-item-container">
               <div @click="displayDescDialog" class="farm-desc-btn border-icon9">农场简介</div>
@@ -81,6 +81,7 @@ export default {
     return {
       activeIndex: 0,
       trendChartDialogVisible: false,
+      sensorDataList: [],
       landList: [],
       cameraList: []
     };
@@ -117,7 +118,8 @@ export default {
       let res2 = await this.$service.getLandList({farmId: id, pageSize: 10000});
       if (res2 && res2.code === 0) {
         this.landList = res2.data.list;
-     }
+      }
+      await this.getTrendData();
     } catch (err) {
       console.log(err);
     }
@@ -126,13 +128,30 @@ export default {
     ...mapActions({
       getFarmById: 'farm/getFarmById'
     }),
+    async getTrendData() {
+      try {
+        let { id } = this.$route.params;
+        let res = await this.$service.getSensorListByFarmId(id);
+        if (res && res.code === 0 && res.data.length > 0) {
+          let deviceName = _.get(res.data, `0.deviceName`);
+          if (deviceName) {
+            let res2 = await this.$service.getSensorLastData(deviceName);
+            if (res2 && res2.code === 0) {
+              console.log(res2.data);
+            }
+          }
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
     async changeFarmTabBar(index) {
       try {
         this.activeIndex = index;
         if (this.activeIndex !== 0) {
           let {id} = this.$route.params;
-          let landId = _.get(this.landList, `${this.activeIndex - 1}.id`);
-          let res = await this.$service.getCameraListByFarmId({farmId: id, landId});
+          let landCode = _.get(this.landList, `${this.activeIndex - 1}.code`);
+          let res = await this.$service.getCameraListByFarmId({farmId: id, landCode});
           if (res && res.code === 0) {
             let cameraList = this.getCameraList(res.data.list);
             this.cameraList = cameraList;
@@ -144,7 +163,7 @@ export default {
     },
     getCameraList(cameras) {
       let form = _.get(this.landList, `${this.activeIndex - 1}.form`);
-      let count = cameras.length === 0 ? 8 : cameras.length;
+      let count = cameras.length;
       let {position: {left, top}} = _.get(constants.cameraData, `${form}`);
       let tops = constants.getRandNumForRangen(top.min, top.max, count);
       let lefts = constants.getRandNumForRangen(left.min, left.max, count);
@@ -158,8 +177,11 @@ export default {
       }
       return cameraList;
     },
-    displayCameraVideoDialog() {
-      this.$refs.videoPlayerDialog.show();
+    displayCameraVideoDialog(item) {
+      let playUrl = _.get(item, 'camera.playUrl');
+      if (playUrl) {
+        this.$refs.videoPlayerDialog.show(playUrl);
+      }
     },
     displayDescDialog() {
       this.$refs.farmDescDialog.show();
