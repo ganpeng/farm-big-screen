@@ -71,7 +71,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .farm-aside-nav-container {
-  width: 100px;
+  width: 1rem;
   height: 100%;
   background-color: #0F1C34;
   .aside-list {
@@ -81,8 +81,8 @@ export default {
       justify-content: center;
       align-items: center;
       width: 100%;
-      height: 80px;
-      font-size: 16px;
+      height: 0.8rem;
+      font-size: 0.16rem;
       color: #9FA8B8;
       cursor: pointer;
       &.active {

@@ -195,7 +195,6 @@ export default {
       }
       if (res3 && res3.code === 0) {
         let data = _.get(res3.data, 'deviceStatisticsList') || [];
-        console.log(data);
         this.deviceOption = this.getDeviceOption(data);
       }
     } catch (err) {
@@ -233,7 +232,7 @@ export default {
           left: "13%",
           right: "5%",
           top: "2%",
-          bottom: "10%"
+          bottom: "14%"
         },
         xAxis: {
           axisLabel: {
@@ -732,9 +731,9 @@ export default {
     .tab-list {
       display: flex;
       .tab-item {
-        width: 110px;
-        height: 40px;
-        line-height: 40px;
+        width: 1.1rem;
+        height: 0.4rem;
+        line-height: 0.4rem;
         text-align: center;
         color: #417fc8;
         background: url("../../assets/image/tab_bg_icon.png");
@@ -746,7 +745,7 @@ export default {
         }
       }
       .tab-item + .tab-item {
-        margin-left: 10px;
+        margin-left: 0.1rem;
       }
     }
   }
@@ -766,13 +765,13 @@ export default {
           background-color: #0b142b;
           .title {
             position: absolute;
-            top: -9px;
+            top: -0.09rem;
             left: 0;
-            width: 110px;
-            height: 42px;
+            width: 1.1rem;
+            height: 0.42rem;
             .svg-icon {
-              width: 110px;
-              height: 42px;
+              width: 1.1rem;
+              height: 0.42rem;
             }
             span {
               position: absolute;
@@ -791,22 +790,23 @@ export default {
             height: 28%;
           }
           .charts-wrapper {
-            height: 62%;
+            // height: 62%;
+            height: 72%;
           }
         }
         .data-chart-item + .data-chart-item {
-          margin-left: 20px;
+          margin-left: 0.2rem;
         }
       }
       .data-charts:nth-of-type(1) {
-        margin-bottom: 20px;
+        margin-bottom: 0.2rem;
       }
     }
     &.device-content {
       display: flex;
       flex-direction: column;
       .title-one {
-        margin: 10px 0;
+        margin: 0.1rem 0;
       }
       .trend-chart-container {
         width: 100%;
@@ -817,7 +817,7 @@ export default {
         flex-direction: column;
         flex: 1;
         .title-one {
-          margin-bottom: 20px;
+          margin-bottom: 0.2rem;
         }
         .device-type-chart-container {
           width: 100%;
@@ -828,7 +828,7 @@ export default {
             position: relative;
             width: 33.33%;
             height: 100%;
-            padding-bottom: 30px;
+            padding-bottom: 0.3rem;
             .label-tag-wrapper {
               display: flex;
               align-items: center;
@@ -838,16 +838,17 @@ export default {
             .charts-wrapper {
               width: 100%;
               height: 80%;
+              padding: 10px 0;
             }
             .title {
               position: absolute;
-              top: -9px;
+              top: -0.09rem;
               left: 0;
-              width: 110px;
-              height: 42px;
+              width: 1.1rem;
+              height: 0.42rem;
               .svg-icon {
-                width: 110px;
-                height: 42px;
+                width: 1.1rem;
+                height: 0.42rem;
               }
               span {
                 position: absolute;

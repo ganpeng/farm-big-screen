@@ -42,7 +42,8 @@ export default {
   .sensor-item {
     position: relative;
     flex: 1;
-    height: 60px;
+    // height: 60px;
+    height: 0.6rem;
     background: url('../../../assets/image/border_icon.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -72,9 +73,9 @@ export default {
       align-items: center;
       width: 100%;
       height: 100%;
-      padding: 20px;
+      padding: 0.1.4rem;
       .text {
-        font-size: 12px;
+        font-size: 0.12rem;
         .title {
           color: #417FC8;
         }
@@ -84,14 +85,14 @@ export default {
       }
       .icon {
         .svg-icon {
-          width: 20px;
-          height: 20px;
+          width: 0.2rem;
+          height: 0.2rem;
         }
       }
     }
   }
   .sensor-item + .sensor-item {
-    margin-left: 20px;
+    margin-left: 0.2rem;
   }
 }
 </style>

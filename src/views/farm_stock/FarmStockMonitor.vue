@@ -17,6 +17,13 @@
                 <h5>
                   <i class="point"></i> 截图
                 </h5>
+                <!-- <my-select></my-select> -->
+                  <v-select
+                    placeholder="请选择"
+                    class="my-vue-select"
+                    label="title"
+                    :options="[{title: 1}, {title: 2}]"
+                  />
               </div>
               <div class="left-media-content border-icon11"></div>
             </div>
@@ -232,6 +239,7 @@ export default {
         .title-one {
           display: flex;
           align-items: center;
+          justify-content: space-between;
           height: 48px;
         }
         .left-media-content {
@@ -308,6 +316,57 @@ export default {
             margin-left: 1.529%;
           }
         }
+      }
+    }
+  }
+}
+</style>
+<style lang="scss">
+.my-vue-select {
+  &.v-select {
+    width: 120px;
+    height: 32px;
+    .vs__dropdown-toggle {
+      height: 32px;
+      padding: 0;
+      background-color: #182F68;
+      border-radius: 2px;
+      .vs__selected {
+        color: #F0F0F0;
+        font-size: 12px;
+        height: 32px;
+        line-height: 32px;
+        margin: 0;
+        padding: 0;
+        padding-left: 6px;
+      }
+      input {
+        margin: 0;
+        padding: 0;
+        padding-left: 6px;
+        color: #F0F0F0;
+        font-size: 12px;
+      }
+      .vs__actions {
+        .vs__clear {
+          svg {
+            fill: #F0F0F0;
+            font-weight: lighter;
+          }
+        }
+        .vs__open-indicator {
+            fill: #F0F0F0;
+            font-weight: lighter;
+        }
+      }
+    }
+    ul {
+      min-width: 120px;
+      top: calc(100%  + 4px);
+      background-color: #182F68;
+      li {
+        width: 120px;
+        color: #f0f0f0;
       }
     }
   }

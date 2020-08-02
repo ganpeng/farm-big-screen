@@ -122,8 +122,8 @@ export default {
   border: 2px solid rgba(31, 64, 113, 1);
   .title {
     width: 100%;
-    height: 40px;
-    line-height: 40px;
+    height: 0.4rem;
+    line-height: 0.4rem;
     background: linear-gradient(
       270deg,
       rgba(16, 37, 75, 0.1) 0%,
@@ -132,7 +132,7 @@ export default {
       rgba(36, 75, 129, 0.24) 93%,
       rgba(37, 76, 130, 0.1) 100%
     );
-    font-size: 16px;
+    font-size: 0.16rem;
     color: #f0f0f0;
     font-weight: 500;
     text-align: center;
@@ -141,17 +141,17 @@ export default {
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding: 10px 20px;
+    padding: 0.1rem 0.2rem;
     .basic-info-wrapper {
       height: 22%;
       .info-list {
         .info-item {
           display: flex;
           align-items: flex-start;
-          font-size: 12px;
-          line-height: 14px;
+          font-size: 0.12rem;
+          line-height: 0.14rem;
           color: #9fa8b8;
-          margin-top: 8px;
+          margin-top: 0.08rem;
           .label {
             white-space: nowrap;
           }
@@ -161,31 +161,31 @@ export default {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        margin-top: 10px;
-        margin-bottom: 20px;
+        margin-top: 0.1rem;
+        margin-bottom: 0.2rem;
         .farm-tag-item {
-          font-size: 12px;
+          font-size: 0.12rem;
           color: #9fa8b8;
-          height: 26px;
-          line-height: 26px;
+          height: 0.26rem;
+          line-height: 0.26rem;
           text-align: center;
-          padding: 0 10px;
+          padding: 0 0.1rem;
           background: rgba(16, 37, 75, 0.8);
           border-radius: 4px;
           border: 1px solid rgba(65, 127, 200, 1);
         }
         .farm-tag-item + .farm-tag-item {
-          margin-left: 10px;
+          margin-left: 0.1rem;
         }
       }
     }
     .desc {
       width: 100%;
       height: 36%;
-      font-size: 14px;
-      line-height: 16px;
+      font-size: 0.14rem;
+      line-height: 0.16rem;
       color: #9fa8b8;
-      padding: 20px;
+      padding: 0.2rem;
     }
     .map-container {
       width: 100%;
@@ -200,12 +200,14 @@ export default {
   }
   .close-btn {
     position: absolute;
-    right: 20px;
-    top: 10px;
+    right: 0.2rem;
+    top: 0.1rem;
+    width: 0.16rem;
+    height: 0.16rem;
     cursor: pointer;
     .svg-icon {
-      width: 16px;
-      height: 16px;
+      width: 0.16rem;
+      height: 0.16rem;
     }
   }
 }

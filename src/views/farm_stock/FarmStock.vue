@@ -311,6 +311,9 @@ export default {
     },
     getPlantConfig(data) {
       return {
+        xAxis: {
+          min: 0
+        },
         series: [
           {
             type: "pie",
@@ -346,13 +349,14 @@ export default {
       return {
         color: constants.colors,
         grid: {
-          left: 50,
+          left: 60,
           right: 10,
           top: '5%',
           bottom: '5%'
         },
         xAxis: {
-          data: 'value',
+          data: 'value' ,
+          min: 0,
           axisTick: {
             show: false
           },
@@ -364,6 +368,7 @@ export default {
           }
         },
         yAxis: {
+          min: 0,
           axisTick: {
             show: false
           },
@@ -413,8 +418,8 @@ export default {
 .farm-stock-container {
   display: flex;
   justify-content: space-between;
-  height: calc(100% - 80px);
-  padding: 14px 20px 20px 20px;
+  height: calc(100% - 0.8rem);
+  padding: 0.14rem 0.2rem 0.2rem 0.2rem;
   .left-side {
     display: flex;
     flex-direction: column;
@@ -437,7 +442,6 @@ export default {
             display: flex;
             flex-direction: column;
             flex: 1;
-            // margin-top: 22px;
             margin-top: 0.22rem;
           }
         }
@@ -460,12 +464,6 @@ export default {
         }
         .map-title {
           position: absolute;
-          // top: 20px;
-          // left: 20px;
-          // width: 130px;
-          // height: 50px;
-          // line-height: 50px;
-          // font-size: 16px;
           top: 0.20rem;
           left: 0.20rem;
           width: 1.30rem;
@@ -478,10 +476,6 @@ export default {
         }
         .farm-count {
           position: absolute;
-          // top: 20px;
-          // right: 190px;
-          // width: 150px;
-          // height: 60px;
           top: 0.2rem;
           right: 1.90rem;
           width: 1.5rem;
@@ -495,8 +489,6 @@ export default {
             width: 50%;
             text-align: center;
             .svg-icon {
-              // width: 24px;
-              // height: 20px;
               width: 0.24rem;
               height: 0.20rem;
             }
@@ -504,17 +496,14 @@ export default {
           .farm-count-info {
             width: 50%;
             .label {
-              // font-size: 12px;
               font-size: 0.12rem;
               color: #417FC8;
             }
             .value {
-              // font-size: 30px;
               font-size: 0.3rem;
               font-weight: 500;
               color: #68E0E3;
               i {
-                // font-size: 14px;
                 font-size: 0.14rem;
               }
             }
@@ -522,10 +511,6 @@ export default {
         }
         .people-count {
           position: absolute;
-          // top: 20px;
-          // right: 20px;
-          // width: 150px;
-          // height: 60px;
           top: 0.2rem;
           right: 0.2rem;
           width: 1.5rem;
@@ -542,8 +527,6 @@ export default {
               width: 50%;
               text-align: center;
               .svg-icon {
-                // width: 24px;
-                // height: 20px;
                 width: 0.24rem;
                 height: 0.2rem;
               }
@@ -552,17 +535,14 @@ export default {
           .people-count-info {
             width: 50%;
             .label {
-              // font-size: 12px;
               font-size: 0.12rem;
               color: #417FC8;
             }
             .value {
-              // font-size: 30px;
               font-size: 0.3rem;
               font-weight: 500;
               color: #ECC94C;
               i {
-                // font-size: 14px;
                 font-size: 0.14rem;
               }
             }
@@ -600,34 +580,27 @@ export default {
           justify-content: space-around;
           flex: 1;
           margin-top: 0.12rem;
-          // margin-top: 12px;
           .info-row {
             display: flex;
             margin-top: 0.06rem;
             padding-left: 0.15rem;
-            // margin-top: 6px;
-            // padding-left: 15px;
             .info-item {
               flex: 1;
               .title {
-                // font-size: 14px;
                 font-size: 0.14rem;
                 color: #417FC8;
               }
               .value {
-                // font-size: 30px;
                 font-size: 0.3rem;
                 font-weight: bold;
                 color: #2EABFF;
                 i {
-                  // font-size:14px;
                   font-size: 0.14rem;
                   color: #2EABFF;
                 }
               }
             }
             .info-item + .info-item {
-              // margin-left: 10px;
               margin-left: 0.1rem;
             }
           }
@@ -639,7 +612,6 @@ export default {
     display: flex;
     flex-direction: column;
     height: 100%;
-    // padding: 20px 18px 18px 18px;
     padding: 0.2rem 0.18rem 0.18rem 0.18rem;
   }
 
@@ -653,10 +625,6 @@ export default {
   justify-content: center;
   flex: 1;
   .charts-header {
-    // font-size: 14px;
-    // font-size: 14px;
-    // line-height: 30px;
-    // margin: 8px 0;
     font-size: 0.14rem;
     font-size: 0.14rem;
     line-height: 0.30rem;
@@ -665,8 +633,6 @@ export default {
     color: #417FC8;
     i {
       color: #2EABFF;
-      // font-size: 22px;
-      // margin-left: 10px;
       font-size: 0.22rem;
       margin-left: 0.1rem;
     }
@@ -682,7 +648,6 @@ export default {
     width: 100%;
     .ring-chart {
       width: 100%;
-      // height: calc(100% - 10px);
       height: calc(100% - 0.1rem);
     }
     .rose-chart {

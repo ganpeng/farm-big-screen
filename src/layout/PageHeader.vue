@@ -81,8 +81,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .header-container {
-  height: 80px;
-  padding: 16px 20px 4px 20px;
+  height: 0.8rem;
+  padding: 0.16rem 0.2rem 0.04rem 0.2rem;
   background-color: #0B172D;
   .header-warpper {
     position: relative;
@@ -97,25 +97,25 @@ export default {
     .logo {
       display: flex;
       align-items: center;
-      width: 400px;
-      height: 46px;
-      line-height: 46px;
-      margin-left: 10px;
+      width: 4rem;
+      height: 0.46rem;
+      line-height: 0.46rem;
+      margin-left: 0.1rem;
       background: url('../assets/image/logo_bg.png');
       background-repeat: no-repeat;
       background-size: 100% 100%;
       .logo-icon {
-        width: 32px;
-        height: 39px;
-        margin: 0 8px;
+        width: 0.32rem;
+        height: 0.39rem;
+        margin: 0 0.08rem;
         .svg-icon {
-          width: 32px;
-          height: 39px;
+          width: 0.32rem;
+          height: 0.39rem;
         }
       }
       h2 {
         color: #99D8FF;
-        font-size: 18px;
+        font-size: 0.18rem;
         font-weight: 500;
       }
     }
@@ -131,20 +131,20 @@ export default {
       height: 100%;
       .nav-icon {
         .svg-icon {
-          width: 46px;
-          height: 14px;
+          width: 0.46rem;
+          height: 0.14rem;
         }
       }
       .nav-list {
         display: flex;
         align-items: center;
         .nav-item {
-          width: 128px;
-          height: 36px;
-          line-height: 36px;
+          width: 1.28rem;
+          height: 0.36rem;
+          line-height: 0.36rem;
           cursor: pointer;
           color: #417FC8;
-          font-size: 16px;
+          font-size: 0.16rem;
           font-weight: 500;
           text-align: center;
           background: url('../assets/image/nav_bar_icon.png');
@@ -158,7 +158,7 @@ export default {
           }
         }
         .nav-item + .nav-item {
-          margin-left: -14px;
+          margin-left: -0.14rem;
         }
       }
     }

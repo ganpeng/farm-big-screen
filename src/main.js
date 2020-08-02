@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import dataV from '@jiaminghi/data-view';
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
 
 import App from './App.vue';
 // 路由
@@ -24,6 +26,7 @@ Object.keys(filters).forEach(key => {
 
 // use
 Vue.use(dataV);
+Vue.component("v-select", vSelect);
 
 Vue.config.productionTip = false;
 Vue.prototype.$util = util;

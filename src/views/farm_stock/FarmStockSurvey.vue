@@ -11,6 +11,7 @@
             <div :style="farmContainerBgStyle" class="farm-tab-content-item-container">
               <div @click="displayDescDialog" class="farm-desc-btn border-icon9">农场简介</div>
               <farm-desc-dialog ref="farmDescDialog" :farm="farm"></farm-desc-dialog>
+              <div class="masker"></div>
             </div>
           </div>
           <div v-else class="farm-tab-content-item">
@@ -31,6 +32,7 @@
                   <svg-icon icon-class="video_dialog_close_btn"></svg-icon>
                 </span>
               </div>
+              <div class="masker"></div>
             </div>
           </div>
         </div>
@@ -213,12 +215,12 @@ export default {
             }
             .farm-desc-btn {
               position: absolute;
-              top: 20px;
-              right: 20px;
-              width: 130px;
-              height: 50px;
-              line-height: 50px;
-              font-size: 16px;
+              top: 0.2rem;
+              right: 0.2rem;
+              width: 1.3rem;
+              height: 0.5rem;
+              line-height: 0.5rem;
+              font-size: 0.16rem;
               font-weight: 500;
               color: #70CAEE;
               text-align: center;
@@ -231,6 +233,14 @@ export default {
               background-size: 100% 100%;
               background-repeat: no-repeat;
               background-position: center center;
+              .masker {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(180deg,rgba(0,0,0,0.03) 0%,rgba(0,0,0,0.33) 100%);
+              }
             }
             .farm-tab-content-item-container2 {
               position: relative;
@@ -239,7 +249,14 @@ export default {
               background-size: 100% 100%;
               background-repeat: no-repeat;
               background-position: center center;
-              background-color: linear-gradient(180deg,rgba(0,0,0,0.03) 0%,rgba(0,0,0,0.33) 100%);
+              .masker {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(180deg,rgba(0,0,0,0.03) 0%,rgba(0,0,0,0.33) 100%);
+              }
               .camera-item {
                 position: absolute;
                 width: 95px;
@@ -252,8 +269,8 @@ export default {
               }
               .camera2-item {
                 position: absolute;
-                width: 80px;
-                height: 82px;
+                width: 0.8rem;
+                height: 0.82rem;
                 top: 38%;
                 left: 40%;
                 cursor: pointer;
@@ -263,12 +280,12 @@ export default {
                 background-position: center center;
                 .title {
                   position: absolute;
-                  top: -14px;
-                  width: 90px;
-                  height: 30px;
-                  line-height: 30px;
+                  top: -0.14rem;
+                  width: 0.9rem;
+                  height: 0.3rem;
+                  line-height: 0.3rem;
                   color: #f0f0f0;
-                  font-size: 14px;
+                  font-size: 0.14rem;
                   text-align: center;
                 }
               }
@@ -291,12 +308,12 @@ export default {
                 transform: translate(-50%, -50%);
                 .close-btn {
                   position: absolute;
-                  top: -40px;
+                  top: -0.4rem;
                   right: 0;
                   cursor: pointer;
                   .svg-icon {
-                    width: 30px;
-                    height: 30px;
+                    width: 0.3rem;
+                    height: 0.3rem;
                   }
                 }
               }
@@ -318,14 +335,14 @@ export default {
             align-items: center;
             cursor: pointer;
             .tab-bar-icon {
-              margin-bottom: 10px;
+              margin-bottom: 0.1rem;
               .svg-icon {
-                width: 40px;
-                height: 30px;
+                width: 0.4rem;
+                height: 0.3rem;
               }
             }
             .tab-bar-title {
-              font-size: 14px;
+              font-size: 0.14rem;
               font-weight: 500;
               color: #F0F0F0;
             }

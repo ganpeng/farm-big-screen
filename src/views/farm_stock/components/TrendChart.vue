@@ -135,7 +135,7 @@ export default {
           type: "value",
           min: item.min || 0,
           position: "left",
-          offset: index * 40,
+          offset: index * 70,
           axisLine: {
             lineStyle: {
               color: item.color
@@ -148,7 +148,7 @@ export default {
             }
           },
           axisLabel: {
-            formatter: "{value}"
+            formatter: `{value} ${item.unit}`
           }
         };
       });
@@ -169,7 +169,7 @@ export default {
         };
       });
 
-      let gridLeft = `${(trendDataList.length * 2.4)}%`;
+      let gridLeft = `${(trendDataList.length * 5)}%`;
       return {
         color: colors,
         tooltip: {
@@ -177,7 +177,7 @@ export default {
         },
         grid: {
           top: '5%',
-          right: "2%",
+          right: "4%",
           left: gridLeft,
           bottom: '10%'
         },
@@ -239,10 +239,10 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
+    height: 0.5rem;
     .label-item {
-      margin: 5px;
-      font-size: 12px;
+      margin: 0.05rem;
+      font-size: 0.12rem;
       display: flex;
       align-items: center;
       color: #667799;
@@ -252,26 +252,26 @@ export default {
         color: #F0F0F0;
       }
       div {
-        width: 12px;
-        height: 12px;
-        margin-right: 5px;
+        width: 0.12rem;
+        height: 0.12rem;
+        margin-right: 0.05rem;
       }
     }
   }
   .day-list {
     position: absolute;
-    top: 12px;
-    right: 20px;
+    top: 0.12rem;
+    right: 0.2rem;
     display: flex;
     align-items: center;
     border-radius: 4px;
     overflow: hidden;
     .day-item {
-      width: 50px;
-      height: 26px;
-      line-height: 26px;
+      width: 0.5rem;
+      height: 0.26rem;
+      line-height: 0.26rem;
       color: #9FA8B8;
-      font-size: 12px;
+      font-size: 0.12rem;
       text-align: center;
       border: 1px solid #3E495E;
       cursor: pointer;
@@ -294,13 +294,13 @@ export default {
       left: 50%;
       transform: translate(-50%, -50%);
       .svg-icon {
-        width: 64px;
-        height: 64px;
+        width: 0.64rem;
+        height: 0.64rem;
       }
       .tips {
-        font-size: 14px;
+        font-size: 0.14rem;
         color: #9FA8B8;
-        margin-top: 20px;
+        margin-top: 0.20rem;
       }
     }
   }

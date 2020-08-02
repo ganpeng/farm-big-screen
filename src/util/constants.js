@@ -456,6 +456,7 @@ const trendChartLabelList = [{
     name: '空气温度',
     active: true,
     metric: 'dqwd',
+    unit: '℃',
     color: colors[0]
   },
   {
@@ -463,24 +464,28 @@ const trendChartLabelList = [{
     active: true,
     metric: 'dqsd',
     min: 0.2,
+    unit: '%',
     color: colors[1]
   },
   {
     name: '光照度',
     active: true,
     metric: 'gzd',
+    unit: 'wlux',
     color: colors[2]
   },
   {
     name: '光照总辐射',
     active: true,
     metric: 'gzzfs',
+    unit: '',
     color: colors[3]
   },
   {
     name: '降雨量',
     active: true,
     metric: 'jyl',
+    unit: 'mm',
     color: colors[4]
   },
   {
@@ -488,12 +493,14 @@ const trendChartLabelList = [{
     active: true,
     metric: 'qy',
     min: 800,
+    unit: 'hpa',
     color: colors[5]
   },
   {
     name: '风速',
     active: true,
     metric: 'fs',
+    unit: 'm/s',
     color: colors[6]
   },
   {
@@ -501,30 +508,35 @@ const trendChartLabelList = [{
     active: false,
     metric: 'trwd',
     min: 10,
+    unit: '℃',
     color: colors[7]
   },
   {
     name: '土壤湿度',
     active: false,
     metric: 'trxdsd',
+    unit: '%',
     color: colors[8]
   },
   {
     name: '捕虫量',
     active: false,
     metric: 'sccs',
+    unit: '个',
     color: colors[9]
   },
   {
     name: '温度',
     active: false,
     metric: 'szwd',
+    unit: '℃',
     color: colors[10]
   },
   {
     name: 'PH值',
     active: false,
     metric: 'sph',
+    unit: '',
     color: colors[11]
   }
 ];
