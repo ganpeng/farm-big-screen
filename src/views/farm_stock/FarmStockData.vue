@@ -736,6 +736,7 @@ export default {
         line-height: 0.4rem;
         text-align: center;
         color: #417fc8;
+        font-size: 0.16rem;
         background: url("../../assets/image/tab_bg_icon.png");
         background-repeat: no-repeat;
         background-size: 100% 100%;
@@ -781,6 +782,7 @@ export default {
               width: 100%;
               text-align: center;
               color: #70caee;
+              font-size: 0.14rem;
             }
           }
           .label-tag-wrapper {

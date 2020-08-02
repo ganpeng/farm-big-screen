@@ -73,14 +73,15 @@ export default {
   width: 40.1098%;
   height: 52.6089%;
   padding: 2.8% 2% 0.8% 2%;
+  z-index: 9;
   .video-player-close-btn {
     position: absolute;
     top: 0;
-    right: 22px;
+    right: 0.22rem;
     cursor: pointer;
     .svg-icon {
-      width: 30px;
-      height: 30px;
+      width: 0.3rem;
+      height: 0.3rem;
     }
   }
 }

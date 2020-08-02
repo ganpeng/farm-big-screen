@@ -225,6 +225,7 @@ export default {
               color: #70CAEE;
               text-align: center;
               cursor: pointer;
+              z-index: 6;
             }
             .farm-tab-content-item-container {
               position: relative;
@@ -266,6 +267,7 @@ export default {
                 background-size: 100% 100%;
                 background-repeat: no-repeat;
                 background-position: center center;
+                z-index: 4;
               }
               .camera2-item {
                 position: absolute;
@@ -278,6 +280,7 @@ export default {
                 background-size: 100% 100%;
                 background-repeat: no-repeat;
                 background-position: center center;
+                z-index: 6;
                 .title {
                   position: absolute;
                   top: -0.14rem;
@@ -300,12 +303,14 @@ export default {
                 background-size: 100% 100%;
                 background-repeat: no-repeat;
                 background-position: center center;
+                z-index: 7;
               }
               .trend-chart-dialog {
                 position: absolute;
                 top: 40%;
                 left: 50%;
                 transform: translate(-50%, -50%);
+                z-index: 9;
                 .close-btn {
                   position: absolute;
                   top: -0.4rem;

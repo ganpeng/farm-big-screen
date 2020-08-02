@@ -181,7 +181,7 @@
                 <div class="info-item">
                   <div class="title">累计金额</div>
                   <div class="value">
-                    {{operatingData.appropriationAmount}}<i>万元</i>
+                    {{operatingData.appropriationAmount | toFixed2}}<i>万元</i>
                   </div>
                 </div>
               </div>
@@ -195,7 +195,7 @@
                 <div class="info-item">
                   <div class="title">累计金额</div>
                   <div class="value">
-                    {{operatingData.subsidyAmount}}<i>万元</i>
+                    {{operatingData.subsidyAmount | toFixed2}}<i>万元</i>
                   </div>
                 </div>
               </div>
@@ -224,7 +224,7 @@
                 <div class="info-item">
                   <div class="title">累计服务营收</div>
                   <div class="value">
-                    {{operatingData.revenueAmount}}<i>万元</i>
+                    {{operatingData.revenueAmount | toFixed2}}<i>万元</i>
                   </div>
                 </div>
                 <div class="info-item">

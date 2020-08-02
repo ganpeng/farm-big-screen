@@ -120,6 +120,7 @@ export default {
   height: 100%;
   background: rgba(11, 20, 43, 0.95);
   border: 2px solid rgba(31, 64, 113, 1);
+  z-index: 7;
   .title {
     width: 100%;
     height: 0.4rem;
@@ -185,7 +186,7 @@ export default {
       font-size: 0.14rem;
       line-height: 0.16rem;
       color: #9fa8b8;
-      padding: 0.2rem;
+      padding: 0.3rem;
     }
     .map-container {
       width: 100%;
