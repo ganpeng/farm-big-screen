@@ -276,6 +276,13 @@ export const getWarningList = (params) => {
   }));
   return service.get(`/v1/warn/page?${paramsStr}`);
 };
+// 农场列表预警
+export const getFarmWarnList = (params) => {
+  let paramsStr = qs.stringify(_.pickBy(params, (item) => {
+    return item !== '' && item !== undefined;
+  }));
+  return service.get(`/v1/warn/farmWarnList?${paramsStr}`);
+};
 
 // 预警统计
 export const getWarnStatisticsByFarmId = (id) => {
@@ -331,6 +338,13 @@ export const getCameraListByFarmId = (params) => {
 // 获取农场传感器的列表
 export const getSensorListByFarmId = (id) => {
   return service.get(`/v1/sensor/farmPage?farmId=${id}`);
+};
+// 获取地块的传感器列表
+export const getSensorListByLandCode = (params) => {
+  let paramsStr = qs.stringify(_.pickBy(params, (item) => {
+    return item !== '' && item !== undefined;
+  }));
+  return service.get(`/v1/sensor/datamanage/page?${paramsStr}`);
 };
 
 // 获取传感器设备的数据

@@ -22,10 +22,12 @@
               <div @click="displayCameraVideoDialog(item, index)"
                 :style="item.style" v-for="(item, index) in cameraList"
                 :key="index"
-                class="camera-item">
+                :class="['camera-item', cameraTypeClass(item)]">
+                <div class="title">
+                  {{item.camera.deviceName}}
+                </div>
               </div>
-              <div v-if="form === '粮食农田'" class="camera2-item"></div>
-              <div @click="showTrendChartDialog" v-if="form === '粮食农田'" class="camera3-item"></div>
+              <div @click="showTrendChartDialog" v-if="sensorList.length > 0" class="camera3-item"></div>
               <div v-if="trendChartDialogVisible" class="trend-chart-dialog border-icon19">
                 <trend-chart></trend-chart>
                 <span @click="hideTrendChartDialog" class="close-btn">
@@ -85,7 +87,8 @@ export default {
       trendChartDialogVisible: false,
       sensorDataList: [],
       landList: [],
-      cameraList: []
+      cameraList: [],
+      sensorList: []
     };
   },
   computed: {
@@ -105,6 +108,22 @@ export default {
           return `background-image:url(${bgImage})`;
         }
       }
+    },
+    cameraTypeClass() {
+      return (item) => {
+        let type = _.get(item, 'camera.type');
+        switch (type) {
+          case 1:
+            return 'is-gun';
+          case 2:
+            return 'is-ball';
+          default:
+          return '';
+        }
+      };
+    },
+    hasSensor() {
+      return '';
     },
     form() {
       return _.get(this.landList, `${this.activeIndex - 1}.form`);
@@ -158,6 +177,17 @@ export default {
             let cameraList = this.getCameraList(res.data.list);
             this.cameraList = cameraList;
           }
+          this.getSensorListByLandCode(landCode);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getSensorListByLandCode(landCode) {
+      try {
+        let res = await this.$service.getSensorListByLandCode({landCode, pageSize: 10000});
+        if (res && res.code === 0) {
+          this.sensorList = res.data.list;
         }
       } catch (err) {
         console.log(err);
@@ -193,6 +223,14 @@ export default {
     },
     hideTrendChartDialog() {
       this.trendChartDialogVisible = false;
+    },
+    displayDeviceDialog(item) {
+      let type = _.get(item, 'camera.type');
+      if (type === 1) {
+        this.showTrendChartDialog();
+      } else {
+        this.displayCameraVideoDialog(item);
+      }
     }
   }
 }
@@ -263,11 +301,48 @@ export default {
                 width: 95px;
                 height: 70px;
                 cursor: pointer;
-                background-image: url('../../assets/image/camera1.png');
-                background-size: 100% 100%;
-                background-repeat: no-repeat;
-                background-position: center center;
                 z-index: 4;
+                .title {
+                  position: absolute;
+                  top: -0.14rem;
+                  left: 50%;
+                  transform: translateX(-50%);
+                  width: 0.9rem;
+                  height: 0.3rem;
+                  line-height: 0.3rem;
+                  color: #f0f0f0;
+                  font-size: 0.14rem;
+                  text-align: center;
+                  background-image: url('../../assets/image/border-icon20.png');
+                  background-size: 100% 100%;
+                  background-repeat: no-repeat;
+                  background-position: center center;
+                }
+                &.is-ball {
+                  background-image: url('../../assets/image/camera2.png');
+                  background-size: 100% 100%;
+                  background-repeat: no-repeat;
+                  background-position: center center;
+                }
+                &.is-gun {
+                  background-image: url('../../assets/image/camera1.png');
+                  background-size: 100% 100%;
+                  background-repeat: no-repeat;
+                  background-position: center center;
+                }
+                &.is-sensor {
+                  position: absolute;
+                  width: 2rem;
+                  height: 3rem;
+                  bottom: 10%;
+                  right: 10%;
+                  cursor: pointer;
+                  background-image: url('../../assets/image/sensor_icon.png');
+                  background-size: 100% 100%;
+                  background-repeat: no-repeat;
+                  background-position: center center;
+                  z-index: 7;
+                }
               }
               .camera2-item {
                 position: absolute;
@@ -276,21 +351,7 @@ export default {
                 top: 38%;
                 left: 40%;
                 cursor: pointer;
-                background-image: url('../../assets/image/camera2.png');
-                background-size: 100% 100%;
-                background-repeat: no-repeat;
-                background-position: center center;
                 z-index: 6;
-                .title {
-                  position: absolute;
-                  top: -0.14rem;
-                  width: 0.9rem;
-                  height: 0.3rem;
-                  line-height: 0.3rem;
-                  color: #f0f0f0;
-                  font-size: 0.14rem;
-                  text-align: center;
-                }
               }
               .camera3-item {
                 position: absolute;

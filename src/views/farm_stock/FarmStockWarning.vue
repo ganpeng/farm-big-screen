@@ -39,10 +39,10 @@ export default {
     try {
       let {id} = this.$route.params;
       await this.getFarmById(id);
-      let res = await this.$service.getWarningList({pageSize: 10000});
+      let res = await this.$service.getFarmWarnList({farmId: id, days: 3});
       let res2 = await this.$service.getWarnStatisticsByFarmId(id);
       if (res && res.code === 0) {
-        this.warningList = res.data.list;
+        this.warningList = res.data;
       }
       if (res2 && res2.code === 0) {
         let bordList = [];
