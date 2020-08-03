@@ -48,7 +48,7 @@
               <svg-icon v-else class="title-icon" icon-class="farm_up_arrow_icon"></svg-icon>
             </span>
             <span class="tab-bar-title">
-              首页
+              概况
             </span>
           </div>
           <div
